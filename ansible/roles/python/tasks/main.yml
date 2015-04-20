@@ -1,0 +1,4 @@
+- name: Install pip packages
+  pip: name={{ item }} extra_args="--user"
+  with_items: python_packages
+    

@@ -1,0 +1,27 @@
+_foo()
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="-h -v -n"
+    #opts="--help --verbose --version"
+
+    if [[ ${cur} == -* ]] ; then
+        echo -e "cur - $cur\n"
+        echo -e "prev -$prev\n"
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        return 0
+    else
+        echo -e "cur - $cur\n"
+        echo -e "prev -$prev\n"
+        _lister
+        COMPREPLY=($(compgen -W '${COMPREPLY[@]}' -- "$cur" ))
+    fi
+}
+_lister()
+{
+    COMPREPLY=(tony walker)
+}
+
+complete -F _foo foo

@@ -1,0 +1,5 @@
+set editing-mode vi
+set keymap vi-insert
+$if Bash
+  #Ignore case when doing completion
+  set completion-ignore-case on

@@ -1,0 +1,31 @@
+python_packages:
+  - virtualenvwrapper
+  - ipython
+  - flake8
+
+dotfiles:
+  - .bash_profile
+  - .gitconfig
+  - .inputrc
+  - .screenrc
+  - .vimrc
+  - .tmux.conf
+  - .tmux.d
+
+project: "{{ lookup('env', 'PWD') | dirname }}"
+home: "{{ lookup('env', 'HOME') }}"
+
+vim_bundles:
+  nerdcommenter: https://github.com/scrooloose/nerdcommenter.git
+  nerdtree: https://github.com/scrooloose/nerdtree.git
+  vim-go: https://github.com/fatih/vim-go.git
+  vim-jedi: https://github.com/davidhalter/jedi-vim.git
+  vim-flake8: https://github.com/nvie/vim-flake8.git
+  supertab: https://github.com/ervandew/supertab.git
+
+brew_packages:
+  - bash-completion
+  - homebrew/completions/vagrant-completion
+  - wget
+  - mercurial
+  - tmux

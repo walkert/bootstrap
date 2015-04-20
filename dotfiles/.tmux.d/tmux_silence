@@ -1,0 +1,7 @@
+if tmux show-window-options |grep -q 'silence 5' ; then
+    tmux setw monitor-silence 0 &>/dev/null
+    tmux display 'Silence is no longer being monitored.'
+else
+    tmux setw monitor-silence 5 &>/dev/null
+    tmux display 'Silence is being monitored.'
+fi

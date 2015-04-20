@@ -1,0 +1,8 @@
+- name: Update Homebrew
+  command: brew update
+  when: ansible_system == "Darwin"
+
+- name: "Brew install {{ item }}"
+  command: brew install {{ item }}
+  when: ansible_system == "Darwin"
+  with_items: brew_packages

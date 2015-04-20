@@ -1,0 +1,31 @@
+multiuser on
+hardcopy_append on # default: off
+startup_message off # default: on
+defscrollback 10000 # default: 100
+escape "``" # Redefine the prefix key to ` and define a literal ` as ``
+
+bindkey -k kl windowlist -b # f1 is window list
+bindkey -k kl split # f2 is split window
+bindkey -k k3 focus # f3 is toggle split windows
+bindkey -k k4 remove # f4 is delete the current window
+bindkey -k k5 copy # f5 is scrollback
+bindkey -k k6 resize +1 # f6 is increase split window size
+bindkey -k k7 resize -1 # f? is decrease split window size
+bindkey -k k8 title # f5 change the title of current window
+bindkey -k k; number # f10 is number window
+bindkey -k F1 prev # f11 is prey window
+bindkey -k F2 next # f12 is previous window
+
+term linux
+screen 1
+screen 2
+screen 3
+# Simple - window number and name
+hardstatus alwayslastline "%{-b gk}%-w%{+b kg}%49>%n %t%{-b gk}%+w%<"
+# Window list at the bottom. hostname, centered tabs and redmarked active windows:
+#hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
+#hardstatus alwayslastline "%{-b gk}%-w%{+b kg}%49>%n %t%{-b gk}%+w%<"
+#hardstatus alwayslastline '%{= kG}%{C}Screen: %{c}%{= kG}[%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{C} %d-%m %{W}%c %{g}]'
+#hardstatus alwayslastline "%-w %{+r} %n %t %{-} %+w %4`"
+#hardstatus alwayslastline '%{= M} %H%{= B} %l %= %{= w}%-w%{+b r}%n*%t%{-b r}%{w}%+w %= %{c}%d %D %{B}%c '
+#hardstatus alwayslastline "%?%{rk}%-Lw%?%{Ck}%n*%f %t%?(%u)%?%?%{rk}%+Lw%?%{Yk} | %{mk}%1` %{yk}%=%2`"

@@ -1,0 +1,13 @@
+- name: Create symlinks
+  file: src="{{ project }}/dotfiles/{{ item }}" dest="{{ home }}/{{ item }}" state=link
+  with_items: dotfiles
+
+- name: Create .venvs
+  file: path="{{ home }}/.venvs" state=directory
+
+- name: Set local site-packages directory
+  command: python -m site --user-base
+  register: local_bin
+
+- name: Create ~/.localrc
+  template: src=.localrc.j2 dest="{{ home }}/.localrc"

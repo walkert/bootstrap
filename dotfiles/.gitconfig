@@ -1,0 +1,50 @@
+[core]
+        editor = vim
+[merge]
+        tool = vimdiff
+[user]
+        name = Tony Walker
+        email = tonywalker.uk@gmail.com
+[alias]
+    addnew = !git status --porcelain | grep ^? | awk '{print $NF}' | xargs git add
+    addmod = !git status --porcelain | grep '^ M' | awk '{print $NF}' | xargs git add
+    br = branch
+    ca = commit -a
+    ci = commit
+    co = checkout
+    d = diff
+    dt = difftool -y
+    dc = diff --cached
+    dump = cat-file -p
+    stp = !git status --porcelain
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    info = remote show origin
+    last = log -1
+    lns=log --name-status
+    lp = "!f(){ if [ $# -eq 2 ] ; then p=$2;else p="";fi;git log $p $1^..$1; };f"
+    lsearch = "!f(){ if [ $# -eq 2 ] ; then p=$2;else p="";fi;git log --grep=$1 $p; };f"
+    pr = pull --rebase
+    rmdel = !git status --porcelain | grep '^ D' | awk '{print $NF}' | xargs git rm
+    res = reset HEAD --
+    rev = checkout --
+    st = status
+    type = cat-file -t
+[color]
+    ui = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[http]
+	sslVerify = false
+[push]
+    default = current

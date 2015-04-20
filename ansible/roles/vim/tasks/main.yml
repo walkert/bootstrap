@@ -1,0 +1,5 @@
+- name: Clone vim bundles
+  git: repo={{ item.value }}
+       dest={{ project }}/vim/bundle/{{ item.key }}
+       recursive=yes
+  with_dict: vim_bundles
