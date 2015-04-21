@@ -1,0 +1,5 @@
+- name: Unpack Go tarball
+  command: tar -C "{{ home }}/Binaries" -xzf {{ go_tar }}
+
+- name: Remove Go tarball
+  file: path={{ go_tar }} state=absent

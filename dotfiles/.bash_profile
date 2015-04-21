@@ -16,9 +16,11 @@ set -o vi
 MYENV=${MYENV:-~/.bootstrap}
 DOTFILES=${MYENV}/dotfiles
 LOCAL_BIN=${LOCAL_BIN:-~/.local/bin}
+export GOROOT=~/Binaries/go
+export GOPATH=~/Go
 
-# Update PATH to include bin locations
-export PATH=${LOCAL_BIN}:$PATH
+# Update PATH
+export PATH=${LOCAL_BIN}:${GOROOT}/bin:$PATH
 # Override READLINE default
 export INPUTRC=${DOTFILES}/.inputrc
 # Explicitly set TERM to linux
