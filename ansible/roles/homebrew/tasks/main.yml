@@ -1,8 +1,13 @@
-- name: Update Homebrew
-  command: brew update
-  when: ansible_system == "Darwin"
+- name: Check for completions tap
+  command: brew tap
+  register: btap
+  changed_when: False
 
-- name: "Brew install {{ item }}"
-  command: brew install {{ item }}
+- name: Add completions tap
+  command: brew tap homebrew/completions
+  when: btap.stdout.find('completions') == -1
+
+- name: "Install brew packages"
+  homebrew: name={{ item }} update_homebrew=yes
   when: ansible_system == "Darwin"
   with_items: brew_packages

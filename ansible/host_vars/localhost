@@ -25,7 +25,7 @@ vim_bundles:
 
 brew_packages:
   - bash-completion
-  - homebrew/completions/vagrant-completion
+  - vagrant-completion
   - wget
   - mercurial
   - tmux
