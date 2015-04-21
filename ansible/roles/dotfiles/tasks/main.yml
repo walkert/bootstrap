@@ -8,6 +8,7 @@
 - name: Set local site-packages directory
   command: python -m site --user-base
   register: local_bin
+  changed_when: False
 
 - name: Create ~/.localrc
   template: src=.localrc.j2 dest="{{ home }}/.localrc"
