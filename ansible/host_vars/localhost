@@ -1,7 +1,18 @@
 python_packages:
-  - virtualenvwrapper
-  - ipython
-  - flake8
+  virtualenvwrapper:
+    install: virtualenvwrapper
+    pylinks:
+      - virtualenvwrapper.sh
+
+  ipython:
+    install: ipython
+    pylinks:
+      - ipython
+
+  flake8:
+    install: flake8
+    pylinks:
+      - flake8
 
 dotfiles:
   - .bash_profile
@@ -14,6 +25,8 @@ dotfiles:
 
 project: "{{ lookup('env', 'PWD') | dirname }}"
 home: "{{ lookup('env', 'HOME') }}"
+virtualenv_dir: "{{ home }}/.venvs"
+binaries: "{{ home }}/Binaries"
 
 vim_bundles:
   nerdcommenter: https://github.com/scrooloose/nerdcommenter.git
@@ -34,4 +47,4 @@ go_version: 1.4.2
 go_arch_map:
   x86_64: amd64
   i686: 386
-go_os: "{{ ansible_os_family | lower }}"
+go_os: "{{ ansible_system | lower }}"

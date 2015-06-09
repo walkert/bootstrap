@@ -1,4 +1,33 @@
-- name: Install pip packages
-  pip: name={{ item }} extra_args="--user"
-  with_items: python_packages
-    
+- name: Check virtualenv stats
+  stat: path={{ virtualenv_dir }}/{{ item.key }}
+  register: pyvirtualenv_stats
+  with_dict: python_packages
+  changed_when: False
+  tags:
+    - python
+
+- name: Ensure virtualenvs are created
+  command: virtualenv {{ virtualenv_dir }}/{{ item['item']['key'] }}
+  when: item.stat.exists == False
+  with_items: pyvirtualenv_stats['results']
+  tags:
+    - python
+
+- name: Ensure packages are installed
+  pip:
+    name={{ item.key }}
+    virtualenv={{ virtualenv_dir }}/{{ item.key }}
+  with_dict: python_packages
+  tags:
+    - python
+
+- name: Ensure symlinks are created
+  file:
+    src="{{ virtualenv_dir }}/{{ item.0.install }}/bin/{{ item.1 }}"
+    dest="{{ binaries }}/bin/{{ item.1 }}"
+    state=link
+  with_subelements:
+    - python_packages
+    - pylinks
+  tags:
+    - python

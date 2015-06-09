@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Get pip
-BIN_DIR="$(python -m site --user-base)/bin"
-if [ ! -e ${BIN_DIR}/pip ] ; then
+PY_DIR="$(python -m site --user-base)/bin"
+BIN_DIR=~/Binaries/bin
+if [ ! -e ${PY_DIR}/pip ] ; then
     echo "Installing pip..."
     if ! curl -s -O https://bootstrap.pypa.io/get-pip.py ; then
         echo "Error downloading get-pip.py!"
@@ -10,13 +11,19 @@ if [ ! -e ${BIN_DIR}/pip ] ; then
     fi
     python get-pip.py --user
     rm -f get-pip.py
-    if [ ! -x ${BIN_DIR}/pip ] ; then
+    if [ ! -x ${PY_DIR}/pip ] ; then
         echo "Can't find pip after installation!"
         exit 1
     fi
-    export PATH=$PATH:$BIN_DIR
+    export PATH=$PY_DIR:$BIN_DIR:$PATH
+    echo "Installing virtualenv..."
+    if ! pip install --user virtualenv &>/dev/null ; then
+        echo "Error installing virtualenv!"
+        exit 1
+    fi
+    mkdir ~/.venvs && virtualenv ~/.venvs/ansible
     echo "Installing ansible..."
-    if ! pip install --user ansible &>/dev/null ; then
+    if ! ~/.venvs/ansible/bin/pip install ansible &>/dev/null ; then
         echo "Error installing ansible!"
         exit 1
     fi
@@ -39,5 +46,5 @@ fi
 
 # Perform the ansible run
 pushd ansible &>/dev/null
-ansible-playbook -i hosts config.yml
+~/.venvs/ansible/bin/ansible-playbook -i hosts config.yml
 popd &>/dev/null
