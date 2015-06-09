@@ -1,20 +1,25 @@
 - name: Set go url (Darwin)
   set_fact: go_tar="go{{ go_version }}.{{ go_os }}-{{ go_arch_map[ansible_machine] }}-osx10.8.tar.gz"
   when: ansible_os_family == "Darwin"
+  tags:
+    - go
 
 - name: Set go url (Linux)
   set_fact: go_tar="go{{ go_version }}.{{ go_os }}-{{ go_arch_map[ansible_machine] }}.tar.gz"
-  when: ansible_os_family == "Linux"
+  when: ansible_system == "Linux"
+  tags:
+    - go
 
 - name: Check for Go installation
-  stat: path="{{ home }}/Binaries/go"
+  stat: path="{{ binaries }}/go"
   register: gobin
-
-- name: Create Go binaries dir
-  file: path="{{ home }}/Binaries" state=directory
+  tags:
+    - go
 
 - name: Create GOPATH
   file: path="{{ home }}/Go" state=directory
+  tags:
+    - go
 
 - name: Download Go
   get_url: url="https://storage.googleapis.com/golang/{{ go_tar }}" dest=.
@@ -22,4 +27,6 @@
   notify:
     - Unpack Go tarball
     - Remove Go tarball
+  tags:
+    - go
 
