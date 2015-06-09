@@ -16,21 +16,33 @@ set -o vi
 MYENV=${MYENV:-~/.bootstrap}
 DOTFILES=${MYENV}/dotfiles
 LOCAL_BIN=${LOCAL_BIN:-~/.local/bin}
-export GOROOT=~/Binaries/go
-export GOPATH=~/Go
 
-# Update PATH
-export PATH=${LOCAL_BIN}:${GOROOT}/bin:$PATH
 # Override READLINE default
 export INPUTRC=${DOTFILES}/.inputrc
 # Explicitly set TERM to linux
 export TERM=linux
+
+# GO
+export GOROOT=~/Binaries/go
+export GOPATH=~/Go
+
+# Update PATH to include bin locations
+export PATH=${LOCAL_BIN}:${GOROOT}/bin:$PATH
 
 # Configure aliases
 alias ipython='ipython --autocall=1'
 alias j='jobs'
 alias noh='ssh -o StrictHostKeyChecking=no -l root -A -o UserKnownHostsFile=/dev/null'
 alias ncp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias vi='vim'
+
+# History
+export HISTFILE=~/.bash_history
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export HISTCONTROL=ignoreboth
+export HISTIGNORE='ls:bg:fg:history:jobs:j'
+
 
 # Source virtualenvwrapper
 VWRAPPER="${LOCAL_BIN}/virtualenvwrapper.sh"
@@ -43,7 +55,7 @@ fi
 FUNCTIONS="${MYENV}/bash/functions.d"
 if [ -d $FUNCTIONS ] ; then
     for f in $(ls $FUNCTIONS) ; do
-        . ${FUNCTIONS}/f
+        . ${FUNCTIONS}/$f
     done
 fi
 

@@ -2,4 +2,7 @@
 export MYENV={{ project }}
 
 # Set LOCAL_BIN - the location where 'user' python binaries are installed
-export LOCAL_BIN={{ local_bin.stdout }}/bin
+export LOCAL_BIN={{ binaries }}/bin
+
+# Set VIRTUALENVWRAPPER_PYTHON
+export VIRTUALENVWRAPPER_PYTHON={{ virtualenv_dir }}/virtualenvwrapper/bin/python
