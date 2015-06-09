@@ -1,0 +1,40 @@
+- name: Ensure binaries directory is created
+  file:
+    path="{{ binaries }}/bin"
+    state=directory
+  tags:
+    - misc
+
+- name: Set local python site directory
+  command: python -m site --user-base
+  register: python_site
+  changed_when: False
+  ignore_errors: yes
+  tags:
+    - misc
+
+- name: Ensure local python binaires are created
+  file:
+    src="{{ python_site.stdout }}/bin/{{ item }}"
+    dest="{{ binaries }}/bin/{{ item }}"
+    state=link
+  with_items:
+    - pip
+    - virtualenv
+  tags:
+    - misc
+
+- name: Ensure ansible symlinks are created
+  file:
+    src="{{ virtualenv_dir }}/ansible/bin/{{ item }}"
+    dest="{{ binaries }}/bin/{{ item }}"
+    state=link
+  with_items:
+    - ansible
+    - ansible-doc
+    - ansible-galaxy
+    - ansible-playbook
+    - ansible-pull
+    - ansible-vault
+  tags:
+    - misc
