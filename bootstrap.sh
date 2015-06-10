@@ -15,12 +15,16 @@ if [ ! -e ${PY_DIR}/pip ] ; then
         echo "Can't find pip after installation!"
         exit 1
     fi
+fi
+if ! ${PY_DIR}/pip freeze|grep -q virtualenv ; then
     export PATH=$PY_DIR:$BIN_DIR:$PATH
     echo "Installing virtualenv..."
     if ! pip install --user virtualenv &>/dev/null ; then
         echo "Error installing virtualenv!"
         exit 1
     fi
+fi
+if [ ! -d ~/.venvs/ansible ] ; then
     mkdir ~/.venvs && virtualenv ~/.venvs/ansible
     echo "Installing ansible..."
     if ! ~/.venvs/ansible/bin/pip install ansible &>/dev/null ; then
