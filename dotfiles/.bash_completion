@@ -1,0 +1,7 @@
+# Source completions regardless of whether they're installed locally
+ALWAYS="${MYENV}/bash/always_complete"
+if [ -d $ALWAYS ] ; then
+    for f in $(ls $ALWAYS) ; do
+        . ${ALWAYS}/$f
+    done
+fi

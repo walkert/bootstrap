@@ -15,6 +15,7 @@ python_packages:
       - flake8
 
 dotfiles:
+  - .bash_completion
   - .bash_profile
   - .gitconfig
   - .inputrc
