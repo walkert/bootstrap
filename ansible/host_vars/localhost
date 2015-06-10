@@ -38,6 +38,7 @@ vim_bundles:
 
 brew_packages:
   - bash-completion
+  - boot2docker
   - vagrant-completion
   - wget
   - mercurial
