@@ -72,3 +72,14 @@ else
     export BASH_COMPLETION_COMPAT_DIR=$BASH_COMPLETION_DIR
     . $MYENV_COMPLETION
 fi
+
+# Set PS1
+#
+# Define the colour yellow (use tput to generate the control sequence
+YELLOW=$(tput setaf 3)
+# Define no colour/reset
+NOC=$(tput sgr0)
+# user@host:PWD (git branch)$
+# Note - non-printable chars must be enclosed with \[\] so that they
+# aren't included in the length calculation.
+export PS1="\u@\h:\w\[${YELLOW}\]\$(__git_ps1)\[${NOC}\]\$ "
