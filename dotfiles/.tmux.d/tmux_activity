@@ -1,0 +1,12 @@
+#!/bin/bash
+if tmux show-window-options |grep -q 'monitor-activity on' ; then
+    tmux setw bell-on-alert off &>/dev/null
+    tmux setw bell-action none &>/dev/null
+    action="disabled"
+else
+    tmux setw bell-on-alert on &>/dev/null
+    tmux setw bell-action all &>/dev/null
+    action="enabled"
+fi
+tmux setw monitor-activity &>/dev/null
+tmux display "Activity monitoring has been ${action}."

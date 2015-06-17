@@ -1,7 +1,12 @@
+#!/bin/bash
 if tmux show-window-options |grep -q 'silence 5' ; then
+    tmux setw bell-on-alert off &>/dev/null
+    tmux setw bell-action none &>/dev/null
     tmux setw monitor-silence 0 &>/dev/null
     tmux display 'Silence is no longer being monitored.'
 else
+    tmux setw bell-on-alert on &>/dev/null
+    tmux setw bell-action all &>/dev/null
     tmux setw monitor-silence 5 &>/dev/null
     tmux display 'Silence is being monitored.'
 fi
