@@ -23,6 +23,24 @@ set formatoptions+=ro                   " Auto-comment subsequent comment lines
 set modelines=0                         " Disable modelines
 set hlsearch                            " Enable search highlighting
 
+" Set statusline background to green
+hi statusline ctermfg=LightGreen ctermbg=0
+
+" Add some useful information to the bottom of the page (requires
+" laststatus=2)
+set laststatus=2
+set statusline=:%f                      " File name
+set statusline+=%h                      " Help file flag
+set statusline+=%m                      " Modified flag
+set statusline+=%r                      " Read-only flag
+set statusline+=\ \ \ \ %l\ \|\ %c      " Line | Column
+set statusline+=\ %=                    " Align everyhing before this to the left
+set statusline+=\ %{fugitive#statusline()}
+set statusline+=\ [TYPE=%Y]             " Filetype
+set statusline+=\ [LINE=%l/%L][%p%%]    " Line X of Y [% of file]
+set statusline+=\ [COL=%c]              " Current column
+set statusline+=\ [BUF=%n]              " File buffer
+
 " Create a highlight group for use with matching unwanted characters
 highlight BadWhitespace ctermbg=red guibg=red
 " Match trailing whitespace at the end of a line - except while typing
@@ -122,3 +140,9 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:go_def_mapping_enabled = 0
 " Map it to <leader>gd instead
 au FileType go nmap <Leader>gd <Plug>(go-doc)
+
+" vim-jedi
+" Remap 'usages' from <leader>n to <leader>u
+let g:jedi#usages_command = "<leader>u"
+" Don't auto-run jedi dot completion
+let g:jedi#popup_on_dot = 0
