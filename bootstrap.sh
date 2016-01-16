@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Get pip
+BASE=$(cd $(dirname $0); pwd)
 PY_DIR="$(python -m site --user-base)/bin"
 BIN_DIR=~/Binaries/bin
 if [ ! -e ${PY_DIR}/pip ] ; then
@@ -49,6 +50,6 @@ if [ $(uname -s) = "Darwin" ] ; then
 fi
 
 # Perform the ansible run
-pushd ansible &>/dev/null
+pushd ${BASE}/ansible &>/dev/null
 ~/.venvs/ansible/bin/ansible-playbook -i hosts config.yml
 popd &>/dev/null
