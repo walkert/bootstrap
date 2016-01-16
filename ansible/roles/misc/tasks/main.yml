@@ -13,14 +13,21 @@
   tags:
     - misc
 
-- name: Ensure local python binaires are created
-  file:
-    src="{{ python_site.stdout }}/bin/{{ item }}"
-    dest="{{ binaries }}/bin/{{ item }}"
-    state=link
+- name: Check for local python binaries
+  command: which {{ item }}
   with_items:
     - pip
     - virtualenv
+  register: bin_check
+
+- name: Ensure local python binaires are created
+  file:
+    src="{{ python_site.stdout }}/bin/{{ item.item }}"
+    dest="{{ binaries }}/bin/{{ item }}"
+    state=link
+  with_items:
+    bin_check.results
+  when: not item.stdout
   tags:
     - misc
 
