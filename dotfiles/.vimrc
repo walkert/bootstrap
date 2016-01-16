@@ -146,3 +146,7 @@ au FileType go nmap <Leader>gd <Plug>(go-doc)
 let g:jedi#usages_command = "<leader>u"
 " Don't auto-run jedi dot completion
 let g:jedi#popup_on_dot = 0
+
+" vim-fugitive
+noremap <silent> <Leader>fgd :Gdiff<CR>
+noremap <silent> <Leader>fgb :Gblame<CR>

@@ -36,6 +36,7 @@ vim_bundles:
   vim-jedi: https://github.com/davidhalter/jedi-vim.git
   vim-flake8: https://github.com/nvie/vim-flake8.git
   supertab: https://github.com/ervandew/supertab.git
+  vim-fugitive: https://github.com/tpope/vim-fugitive.git
 
 brew_packages:
   - bash-completion
