@@ -22,9 +22,13 @@ set pastetoggle=<C-o>                   " Ctrl-o to enable paste mode - prevents
 set formatoptions+=ro                   " Auto-comment subsequent comment lines
 set modelines=0                         " Disable modelines
 set hlsearch                            " Enable search highlighting
+set t_Co=256                            " Enforce 256 colour mode
 
 " Set statusline background to green
 hi statusline ctermfg=LightGreen ctermbg=0
+" Set omnicomplete colours
+hi Pmenu cterm=bold ctermfg=189 ctermbg=24
+hi PmenuSel cterm=bold ctermfg=24 ctermbg=189
 
 " Add some useful information to the bottom of the page (requires
 " laststatus=2)
@@ -61,8 +65,9 @@ map ,T <Esc>:tabclose<CR>
 " scroll through tabs using - and =
 nmap - gT
 nmap = gt
-hi TabLineSel ctermfg=White ctermbg=LightBlue
-hi TabLine ctermfg=White ctermbg=Black
+hi TabLineSel ctermfg=Black ctermbg=189
+hi TabLine ctermfg=189 ctermbg=Black
+hi TabLineFill ctermfg=Black
 
 " Windows - shorten combo for switching windows
 nnoremap <C-w> <C-w>w
@@ -124,7 +129,7 @@ noremap <silent> <F9> :call Flake8()<CR>
 
 " NERDTree
 " Toggle NERDTree with Ctrl-t
-map <C-t> :NERDTreeToggle<CR>
+noremap <silent> <C-t> :NERDTreeToggle<CR>
 " Disable utf-8 characters (arrows) in the tree output
 let g:NERDTreeDirArrows=0
 " Show hidden files by default
@@ -150,3 +155,10 @@ let g:jedi#popup_on_dot = 0
 " vim-fugitive
 noremap <silent> <Leader>fgd :Gdiff<CR>
 noremap <silent> <Leader>fgb :Gblame<CR>
+
+" vim-airline
+let g:airline_powerline_fonts = 1                           " Use the powerline glyphs
+let g:airline_theme = "powerlineish"                        " Use the powerline theme
+let g:airline#extensions#tabline#enabled = 1                " Enable the airline tabs
+let g:airline#extensions#tabline#tab_nr_type = 1            " Show the tab number
+let g:airline#extensions#tabline#show_close_button = 0      " Disable the close button
