@@ -112,12 +112,10 @@ nmap <silent> <leader>" viw<Esc>a"<Esc>gvO<Esc>i"<Esc>
 " Use ctrl-n/ctrl-p to jump between buffers
 nmap <c-n> :bnext<CR>
 nmap <c-p> :bprev<CR>
+nmap <silent> <leader>d :bd<CR>
 
 " Red on lines with greater than 79chars
-syntax match Search /\%<80v.\%>77v/
-syntax match ErrorMsg /\%>79v.\+/
-au BufRead,BufNewFile * syntax match Search /\%<80v.\%>77v/
-au BufRead,BufNewFile * syntax match ErrorMsg /\%>79v.\+/
+au BufWinEnter *.py let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
