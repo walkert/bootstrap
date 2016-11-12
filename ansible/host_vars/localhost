@@ -22,7 +22,6 @@ dotfiles:
   - .screenrc
   - .vimrc
   - .tmux.conf
-  - .tmux.d
 
 project: "{{ lookup('env', 'PWD') | dirname }}"
 home: "{{ lookup('env', 'HOME') }}"

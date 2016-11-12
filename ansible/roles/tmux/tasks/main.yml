@@ -1,0 +1,7 @@
+- name: Create the .tmux symlink
+  file:
+    src="{{ project }}/tmux"
+    dest="{{ home }}/.tmux"
+    state=link
+  tags:
+    - tmux
