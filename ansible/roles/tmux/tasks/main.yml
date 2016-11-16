@@ -5,3 +5,11 @@
     state=link
   tags:
     - tmux
+
+- name: Clone tmux plugins
+  git: repo={{ item.value }}
+       dest={{ project }}/tmux/plugins/{{ item.key }}
+       recursive=yes
+  with_dict: tmux_plugins
+  tags:
+    - tmux

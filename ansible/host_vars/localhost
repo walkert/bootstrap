@@ -38,6 +38,10 @@ vim_bundles:
   vim-fugitive: https://github.com/tpope/vim-fugitive.git
   vim-airline: https://github.com/vim-airline/vim-airline.git
 
+tmux_plugins:
+  tpm: https://github.com/tmux-plugins/tpm
+  tmux-fingers: https://github.com/Morantron/tmux-fingers
+
 brew_packages:
   - bash-completion
   - boot2docker
