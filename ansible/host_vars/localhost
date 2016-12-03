@@ -37,6 +37,7 @@ vim_bundles:
   supertab: https://github.com/ervandew/supertab.git
   vim-fugitive: https://github.com/tpope/vim-fugitive.git
   vim-airline: https://github.com/vim-airline/vim-airline.git
+  vim-colors-solarized: https://github.com/altercation/vim-colors-solarized.git
 
 tmux_plugins:
   tpm: https://github.com/tmux-plugins/tpm

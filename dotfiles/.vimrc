@@ -8,6 +8,7 @@ syntax on                               " Enable syntax highlighting
 filetype plugin indent on               " Auto load the indent file for detected file types
 
 set autoindent
+set cursorline
 set expandtab                           " Convert tabs into spaces
 set tabstop=4                           " Tab counts for 4 spaces
 set shiftwidth=4                        " (Auto)indent counts for 4 spaces
