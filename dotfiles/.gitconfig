@@ -21,7 +21,7 @@
     info = remote show origin
     last = log -1
     lns=log --name-status
-    lp = "!f(){ if [ $# -eq 2 ] ; then p=$2;else p="";fi;git log $p $1^..$1; };f"
+    lp = "!f(){ git log -p $1^..$1; };f"
     lsearch = "!f(){ if [ $# -eq 2 ] ; then p=$2;else p="";fi;git log --grep=$1 $p; };f"
     pr = pull --rebase
     rmdel = !git status --porcelain | grep '^ D' | awk '{print $NF}' | xargs git rm
@@ -36,10 +36,10 @@
     local = yellow
     remote = green
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+    meta = yellow
+    frag = magenta
+    old = red
+    new = green
 [color "status"]
     added = yellow
     changed = green
