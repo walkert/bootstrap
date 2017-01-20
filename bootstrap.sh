@@ -27,6 +27,8 @@ if ! ${PY_DIR}/pip freeze|grep -q virtualenv ; then
 fi
 if [ ! -d ~/.venvs/ansible ] ; then
     mkdir ~/.venvs && virtualenv ~/.venvs/ansible
+fi
+if ! ~/.venvs/ansible/bin/pip freeze | grep -q ansible ; then
     echo "Installing ansible..."
     if ! ~/.venvs/ansible/bin/pip install ansible &>/dev/null ; then
         echo "Error installing ansible!"
