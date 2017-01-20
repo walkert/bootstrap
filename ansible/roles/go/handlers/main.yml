@@ -1,9 +1,9 @@
 - name: Unpack Go tarball
-  command: tar -C "{{ binaries }}" -xzf {{ go_tar }}
+  command: tar -C "{{ binaries }}" -xzf /tmp/{{ go_tar }}
   tags:
     - go
 
 - name: Remove Go tarball
-  file: path={{ go_tar }} state=absent
+  file: path=/tmp/{{ go_tar }} state=absent
   tags:
     - go

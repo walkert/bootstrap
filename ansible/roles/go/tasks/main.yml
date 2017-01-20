@@ -22,7 +22,7 @@
     - go
 
 - name: Download Go
-  get_url: url="https://storage.googleapis.com/golang/{{ go_tar }}" dest=.
+  get_url: url="https://storage.googleapis.com/golang/{{ go_tar }}" dest="/tmp/{{ go_tar }}"
   when: gobin.stat.exists == False
   notify:
     - Unpack Go tarball

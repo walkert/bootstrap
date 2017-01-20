@@ -38,6 +38,7 @@ vim_bundles:
   supertab: https://github.com/ervandew/supertab.git
   vim-fugitive: https://github.com/tpope/vim-fugitive.git
   vim-airline: https://github.com/vim-airline/vim-airline.git
+  vim-airline-themes: https://github.com/vim-airline/vim-airline-themes
   vim-colors-solarized: https://github.com/altercation/vim-colors-solarized.git
 
 tmux_plugins:
@@ -52,7 +53,7 @@ brew_packages:
   - mercurial
   - tmux
 
-go_version: 1.4.2
+go_version: 1.7.4
 go_arch_map:
   x86_64: amd64
   i686: 386
