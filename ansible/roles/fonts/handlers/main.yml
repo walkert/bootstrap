@@ -1,0 +1,4 @@
+- name: Reload font cache
+  command: fc-cache "{{ home }}/.fonts"
+  tags:
+    - fonts

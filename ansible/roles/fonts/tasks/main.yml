@@ -1,0 +1,23 @@
+- name: Ensure the ~/.fonts directory exists
+  file: path="{{ home }}/.fonts" state=directory
+  tags:
+    - fonts
+
+- name: Check for existing fonts
+  stat: path="{{ home }}/.fonts/{{ item.value.expect }}"
+  with_dict: "{{ fonts }}"
+  register: fontstats
+  tags:
+    - fonts
+
+- name: Ensure fonts exist
+  unarchive:
+    src: "{{ item.item.value.download }}"
+    dest: "{{ home }}/.fonts"
+    remote_src: True
+  with_items:
+    "{{ fontstats.results }}"
+  when: item.stat.exists == False
+  notify: Reload font cache
+  tags:
+    - fonts
