@@ -1,3 +1,15 @@
+- name: Get the current tmux version
+  stat: path="{{ binaries }}/bin/tmux"
+  register: tmuxs
+  tags:
+    - tmux
+
+- name: Install tmux
+  include: install_tmux.yml
+  when: tmuxs.stat.exists == False
+  tags:
+    - tmux
+
 - name: Create the .tmux symlink
   file:
     src="{{ project }}/tmux"
@@ -10,6 +22,6 @@
   git: repo={{ item.value }}
        dest={{ project }}/tmux/plugins/{{ item.key }}
        recursive=yes
-  with_dict: "{{ tmux_plugins }}"
+  with_dict: "{{ tmux_install.plugins }}"
   tags:
     - tmux

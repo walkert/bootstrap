@@ -1,0 +1,23 @@
+- name: Download the tmux tar file
+  unarchive:
+    src: "{{ tmux_install.repo_base }}/{{ tmux_version }}/{{ tmux_install.tar_name }}"
+    dest: /tmp
+    remote_src: True
+- set_fact:
+    tmpdir: "/tmp/{{ tmux_install.tar_name.rsplit('.', 2)[0] }}"
+
+- name: Configure and install tmux
+  shell: ./configure --prefix={{ binaries }}/tmux && make && make install
+  args:
+    chdir: "{{ tmpdir }}"
+
+- name: Ensure the unpacked directory is removed
+  file:
+    dest: "{{ tmpdir }}"
+    state: absent
+
+- name: Ensure the tmux symlink exists
+  file:
+    src: "{{ binaries }}/tmux/bin/tmux"
+    dest: "{{ binaries }}/bin/tmux"
+    state: link

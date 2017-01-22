@@ -41,9 +41,13 @@ vim_bundles:
   vim-airline-themes: https://github.com/vim-airline/vim-airline-themes
   vim-colors-solarized: https://github.com/altercation/vim-colors-solarized.git
 
-tmux_plugins:
-  tpm: https://github.com/tmux-plugins/tpm
-  tmux-fingers: https://github.com/Morantron/tmux-fingers
+tmux_version: 2.3
+tmux_install:
+  repo_base: https://github.com/tmux/tmux/releases/download/
+  tar_name: tmux-{{ tmux_version }}.tar.gz
+  plugins:
+    tpm: https://github.com/tmux-plugins/tpm
+    tmux-fingers: https://github.com/Morantron/tmux-fingers
 
 brew_packages:
   - bash-completion
