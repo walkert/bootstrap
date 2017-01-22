@@ -20,6 +20,8 @@
     - virtualenv
   register: bin_check
   ignore_errors: yes
+  tags:
+    - misc
 
 - name: Ensure local python binaires are created
   file:
@@ -28,7 +30,7 @@
     state=link
   with_items:
     - "{{ bin_check.results }}"
-  when: not item.rc > 0
+  when: item.rc != 1
   tags:
     - misc
 
