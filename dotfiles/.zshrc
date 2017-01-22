@@ -20,6 +20,9 @@ export GOPATH=~/Go
 # Update PATH to include bin locations
 export PATH=${LOCAL_BIN}:${GOROOT}/bin:$PATH
 
+# Set CDATH
+export CDPATH=$HOME:.
+
 # Configure aliases
 alias ipython='ipython --autocall=1'
 alias j='jobs'
