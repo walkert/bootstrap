@@ -30,7 +30,7 @@
     state=link
   with_items:
     - "{{ bin_check.results }}"
-  when: item.rc != 1
+  when: item.rc != 0
   tags:
     - misc
 

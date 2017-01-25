@@ -3,7 +3,9 @@
     src: "{{ tmux_install.repo_base }}/{{ tmux_version }}/{{ tmux_install.tar_name }}"
     dest: /tmp
     remote_src: True
-- set_fact:
+
+- name: Set the tmux download path
+  set_fact:
     tmpdir: "/tmp/{{ tmux_install.tar_name.rsplit('.', 2)[0] }}"
 
 - name: Configure and install tmux
