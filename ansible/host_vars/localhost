@@ -30,6 +30,7 @@ virtualenv_dir: "{{ home }}/.venvs"
 binaries: "{{ home }}/Binaries"
 
 vim_bundles:
+  Vundle.vim: https://github.com/VundleVim/Vundle.vim.git
   nerdcommenter: https://github.com/scrooloose/nerdcommenter.git
   nerdtree: https://github.com/scrooloose/nerdtree.git
   vim-go: https://github.com/fatih/vim-go.git

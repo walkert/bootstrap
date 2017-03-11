@@ -1,8 +1,26 @@
 set nocompatible                        " Use Vim defaults
+filetype off                            " Required by Vundle
 
-" Use vim-pathogen
-set rtp+=$MYENV/vim
-execute pathogen#infect()
+" Include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins
+Plugin 'scrooloose/nerdcommenter.git'
+Plugin 'scrooloose/nerdtree.git'
+Plugin 'fatih/vim-go.git'
+Plugin 'davidhalter/jedi-vim.git'
+Plugin 'nvie/vim-flake8.git'
+Plugin 'ervandew/supertab.git'
+Plugin 'tpope/vim-fugitive.git'
+Plugin 'vim-airline/vim-airline.git'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'altercation/vim-colors-solarized.git'
+
+call vundle#end()
 
 syntax on                               " Enable syntax highlighting
 filetype plugin indent on               " Auto load the indent file for detected file types
