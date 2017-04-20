@@ -19,6 +19,7 @@ Plugin 'tpope/vim-fugitive.git'
 Plugin 'vim-airline/vim-airline.git'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized.git'
+Plugin 'airblade/vim-gitgutter.git'
 
 call vundle#end()
 

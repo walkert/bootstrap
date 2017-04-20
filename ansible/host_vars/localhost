@@ -41,6 +41,7 @@ vim_bundles:
   vim-airline: https://github.com/vim-airline/vim-airline.git
   vim-airline-themes: https://github.com/vim-airline/vim-airline-themes
   vim-colors-solarized: https://github.com/altercation/vim-colors-solarized.git
+  vim-gitgutter: https://github.com/airblade/vim-gitgutter
 
 tmux_version: 2.3
 tmux_install:
