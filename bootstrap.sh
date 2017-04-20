@@ -55,7 +55,8 @@ if ! $LOCAL_PIP freeze|grep -q virtualenv ; then
     fi
 fi
 if [ ! -d ~/.venvs/ansible ] ; then
-    mkdir ~/.venvs && virtualenv ~/.venvs/ansible
+    mkdir ~/.venvs &>/dev/null
+    virtualenv ~/.venvs/ansible
 fi
 if ! ~/.venvs/ansible/bin/pip freeze | grep -q ansible ; then
     echo "Installing ansible..."
