@@ -1,26 +1,30 @@
 #!/bin/bash
 
-# Get pip
 BASE=$(cd $(dirname $0); pwd)
 PY_DIR="$(python -m site --user-base)/bin"
-BIN_DIR=~/Binaries/bin
-if [ ! -e ${PY_DIR}/pip ] ; then
-    echo "Installing pip..."
-    if ! curl -s -O https://bootstrap.pypa.io/get-pip.py ; then
-        echo "Error downloading get-pip.py!"
-        exit 1
-    fi
-    python get-pip.py --user
-    rm -f get-pip.py
-    if [ ! -x ${PY_DIR}/pip ] ; then
-        echo "Can't find pip after installation!"
-        exit 1
+LOCAL_PIP=$(which pip 2>/dev/null)
+export PATH=${PY_DIR}:$PATH
+
+# Get pip if required
+if [ -z "$LOCAL_PIP" ] ; then
+    LOCAL_PIP="${PY_DIR}/pip"
+    if [ ! -e $LOCAL_PIP ] ; then
+        echo "Installing pip..."
+        if ! curl -s -O https://bootstrap.pypa.io/get-pip.py ; then
+            echo "Error downloading get-pip.py!"
+            exit 1
+        fi
+        python get-pip.py --user
+        rm -f get-pip.py
+        if [ ! -x $LOCAL_PIP ] ; then
+            echo "Can't find pip after installation!"
+            exit 1
+        fi
     fi
 fi
-if ! ${PY_DIR}/pip freeze|grep -q virtualenv ; then
-    export PATH=$PY_DIR:$BIN_DIR:$PATH
+if ! $LOCAL_PIP freeze|grep -q virtualenv ; then
     echo "Installing virtualenv..."
-    if ! pip install --user virtualenv &>/dev/null ; then
+    if ! $LOCAL_PIP install --user virtualenv &>/dev/null ; then
         echo "Error installing virtualenv!"
         exit 1
     fi
