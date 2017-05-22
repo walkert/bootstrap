@@ -44,6 +44,8 @@ set formatoptions+=ro                   " Auto-comment subsequent comment lines
 set modelines=0                         " Disable modelines
 set hlsearch                            " Enable search highlighting
 set t_Co=256                            " Enforce 256 colour mode
+set splitright                          " vsp opens to the right
+set splitbelow                          " sp opens below
 
 " Set statusline background to green
 hi statusline ctermfg=LightGreen ctermbg=0
@@ -96,17 +98,18 @@ nnoremap <C-w> <C-w>w
 " Escape - hit jj instead of escape to exit insert mode
 inoremap jj <ESC>
 
-" Hit qq to write/suspend from insert mode
+" Hit qq to write/suspend
 inoremap qq <ESC>:w! \| stop<CR>
-
-" Hit qq to write/suspend from normal mode
 nmap qq <ESC>:w! \| stop<CR>
 
-" Hit qw to write from insert mode
-inoremap qw <ESC>:w!<CR>
+" Hit qww to write/quit
+inoremap qww <ESC>:wq!<CR>
+nmap qww <ESC>:wq!<CR>
 
-" Hit qw to write from normal mode
-nmap qw <ESC>:w!<CR>
+" Hit qd to delete the current buffer
+inoremap qd <ESC>:bd<CR>
+nmap qd <ESC>:bd<CR>
+
 
 " Leader combos
 let mapleader = ","                     "Set the <leader> to comma
