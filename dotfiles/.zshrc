@@ -116,13 +116,24 @@ zstyle -e ':completion:*:*:*' hosts 'reply=($(awk "/^[1-9]/{print $NF}" /etc/hos
 # Prompt
 # Allow shell expansion
 setopt prompt_subst
+# Git fun
+# Enable the vcs_info function
 autoload -Uz vcs_info
-zstyle ':vcs_info:git*' formats '%{%F{220}%}%b%{%f%}'
-zstyle ':vcs_info:git*' actionformats '%{%F{011}%}%b%{%f%}}|%{%F{red}%}%a%{%f%}'
+# Set the strings for [un]staged files
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '%F{yellow}●%f'
+zstyle ':vcs_info:*' unstagedstr '%F{green}●%f'
 precmd(){
+    # Set the prompt to check for untracked files as well
+    if [[ -z $(git ls-files --other --exclude-standard 2>/dev/null) ]] ; then
+        zstyle ':vcs_info:git*' formats "%F{yellow}%b%f%c%u"
+        zstyle ':vcs_info:git*' actionformats "%F{yellow}%b%f%c%u|%F{red}%a%f"
+    else
+        zstyle ':vcs_info:git*' formats "%F{yellow}%b%f%c%u%F{cyan}●%f"
+        zstyle ':vcs_info:git*' actionformats "%F{yellow}%b%f%c%u%F{cyan}●%f|%F{red}%a%f"
+    fi
     vcs_info
-    # Embolden the vcs output - must be done here so we don't overload '%b'
-    [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_="[%{%B%}${vcs_info_msg_0_}%{%b%}]"
+    [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_="[${vcs_info_msg_0_}]"
 }
 PROMPT='%n@%m:%~${vcs_info_msg_0_}$ '
 
