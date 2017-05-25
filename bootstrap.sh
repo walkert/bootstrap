@@ -15,19 +15,21 @@ else
     REQS="${SHARED_REQS} python-dev libssl-dev libncurses5-dev libevent-dev"
 fi
 
-if ! $PKG cc &>/dev/null && ! $PKG gcc &>/dev/null ; then
-    echo "You must install a compiler"
-    exit 1
-fi
-quit=0
-for req in $REQS ; do
-    if ! $PKG $req &>/dev/null ; then
-        quit=1
-        echo "You must install $req"
+if [ $(uname -s) = "Linux" ] ; then
+    if ! $PKG cc &>/dev/null && ! $PKG gcc &>/dev/null ; then
+        echo "You must install a compiler"
+        exit 1
     fi
-done
-if [ $quit -eq 1 ] ; then
-    exit 1
+    quit=0
+    for req in $REQS ; do
+        if ! $PKG $req &>/dev/null ; then
+            quit=1
+            echo "You must install $req"
+        fi
+    done
+    if [ $quit -eq 1 ] ; then
+        exit 1
+    fi
 fi
 
 # Get pip if required

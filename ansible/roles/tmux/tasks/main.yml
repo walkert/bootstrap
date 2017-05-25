@@ -1,12 +1,25 @@
-- name: Get the current tmux version
-  stat: path="{{ binaries }}/bin/tmux"
-  register: tmuxs
+- name: Check for tmux
+  command: which tmux 
+  register: tmux_bin
+  ignore_errors: yes
   tags:
     - tmux
 
+- name: Get the current tmux version
+  command: '{{ tmux_bin.stdout.strip() }} -V'
+  register: tmuxv
+  when: tmux_bin.rc == 0
+  tags:
+    - tmux
+
+- name: Set the tmuxv if the binary didn't exist
+  set_fact:
+    tmuxv: "0.0"
+  when: tmux_bin.rc != 0
+
 - name: Install tmux
   include: install_tmux.yml
-  when: tmuxs.stat.exists == False
+  when: tmuxv.stdout.strip() != "tmux {{ tmux_version }}"
   tags:
     - tmux
 
