@@ -102,6 +102,10 @@ inoremap jj <ESC>
 inoremap qq <ESC>:w! \| stop<CR>
 nmap qq <ESC>:w! \| stop<CR>
 
+" Hit qw to write
+inoremap qw <ESC>:w!<CR>
+nmap qw <ESC>:w!<CR>
+
 " Hit qww to write/quit
 inoremap qww <ESC>:wq!<CR>
 nmap qww <ESC>:wq!<CR>
