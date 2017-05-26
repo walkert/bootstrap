@@ -157,6 +157,13 @@ PROMPT='%n@%m:%~${vcs_info_msg_0_}$ '
 autoload -U select-word-style
 select-word-style bash
 
+# Overrides
+# Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
+# in ~/.localrc such as changes to PATH/zstyle etc
+if [ -f ~/.overrides.shell ] ; then
+    . ~/.overrides.shell
+fi
+
 # Start in tmux by default
 if [ -z $TMUX ] ; then
     tmux a -t home >/dev/null 2>&1 || tmux new -s home
