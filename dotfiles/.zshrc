@@ -46,6 +46,18 @@ setopt appendhistory
 setopt extended_history
 # Don't write duplicates to the history
 setopt hist_ignore_dups
+# Disable Flowcontrol
+setopt NOFlowControl
+# Record time taken for commands
+setopt incappendhistorytime
+# Use HISTORY_IGNORE to drop patters from the history
+HISTORY_IGNORE="(ls|bg|fg|history|jobs|j|ta|tap)"
+# Modify the zshaddhistory hook to prevent ignored entries hitting the current history
+zshaddhistory() {
+    setopt extendedglob
+    emulate -L zsh
+    [[ ${1%%$'\n'} != ${~HISTORY_IGNORE} ]]
+}
 
 # Misc options
 # Switch to paths without 'cd'
