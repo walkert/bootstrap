@@ -103,7 +103,11 @@ bindkey -M viins "jj" vi-cmd-mode
 # Replicate escape-k in bash vi-mode - cursor at the beginning
 bindkey -M vicmd k vi-up-line-or-history
 # Exit incremental search and allow editing of the returned line
-bindkey "^E" accept-search
+bindkey "^A" accept-search
+# Put the current command line in an editor
+bindkey "^E" edit-command-line
+autoload -U edit-command-line
+zle -N edit-command-line
 
 # Completion stuff
 # Cache stuff
