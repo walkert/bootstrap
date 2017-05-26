@@ -78,8 +78,8 @@ autocmd InsertLeave * redraw!
 " Wrap text after a certain 79 characters
 au BufRead,BufNewFile *.py,*.pyw set textwidth=79
 
-" 2s for Puppet
-au BufRead,BufNewFile *.pp set ts=2 sw=2 sts=2
+" 2s for Javascript, Puppet and Ruby
+au BufRead,BufNewFile *.js,*.pp,*.rb set ts=2 sw=2 sts=2
 
 " Tabs
 set showtabline=1                       " 1=ondemand, 2=always
@@ -169,8 +169,9 @@ let g:SuperTabDefaultCompletionType = "context"
 " vim-go
 " Disable re-mapping gd
 let g:go_def_mapping_enabled = 0
-" Map it to <leader>gd instead
-au FileType go nmap <Leader>gd <Plug>(go-doc)
+" Map it to <leader>g instead
+au FileType go nmap <Leader>g <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
 " vim-jedi
 " Remap 'usages' from <leader>n to <leader>u
@@ -179,10 +180,15 @@ let g:jedi#usages_command = "<leader>u"
 let g:jedi#popup_on_dot = 0
 " Don't display call signatures
 let g:jedi#show_call_signatures = 0
+" Open defs etc in tabs instead of buffers
+let g:jedi#use_tabs_not_buffers = 1
 
 " vim-fugitive
-noremap <silent> <Leader>fgd :Gdiff<CR>
-noremap <silent> <Leader>fgb :Gblame<CR>
+noremap <silent> <Leader>gd :Gdiff<CR>
+noremap <silent> <Leader>gb :Gblame<CR>
+
+" vim-gitgutter
+noremap <silent> <Leader>gg :GitGitterToggle<CR>
 
 " vim-airline
 let g:airline_powerline_fonts = 1                           " Use the powerline glyphs
