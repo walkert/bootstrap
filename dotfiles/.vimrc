@@ -198,8 +198,6 @@ let g:airline#extensions#tabline#tab_nr_type = 1            " Show the tab numbe
 let g:airline#extensions#tabline#show_close_button = 0      " Disable the close button
 
 " Enable the solarized colorscheme
-let g:solarized_termtrans=1                                 " Required on OSX with transparent background
-let g:solarized_termcolors=256                              " Required when using 256 color terminal
 set bg=dark
 colorscheme solarized
 highlight Visual ctermfg=NONE
