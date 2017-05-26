@@ -203,3 +203,9 @@ let g:solarized_termcolors=256                              " Required when usin
 set bg=dark
 colorscheme solarized
 highlight Visual ctermfg=NONE
+
+" Source overrides if present
+let overrides = expand("~/.overrides.vim")
+if filereadable(overrides)
+    silent! execute 'source '.overrides
+endif
