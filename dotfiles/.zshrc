@@ -116,15 +116,14 @@ zstyle ':completion:*' cache-path $CACHEDIR/cache
 # Print menu for multiple options
 zstyle ':completion:*' menu select
 # Descriptions
-zstyle ':completion:*:descriptions' format '%U%B%F{148}%d%b%u%f'
+zstyle ':completion:*:descriptions' format '%U%F{blue}%d%u%f'
 # Format warnings
-zstyle ':completion:*:warnings' format '%U%B%F{green}Sorry, no matches for: %d%b%u%f'
+zstyle ':completion:*:warnings' format '%U%B%F{red}Sorry, no matches for: %d%b%u%f'
 # Colour for files
 zstyle ':completion:*' list-colors ''
 # Case-insensitive matching
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'l:|=* r:|=*'
 # Hosts completion (this file should contain hostnames you care about)
-known_hosts=($(awk '/^[1-9]/{print $NF}' /etc/hosts))
 zstyle -e ':completion:*:*:*' hosts 'reply=($(awk "/^[1-9]/{print $NF}" /etc/hosts))'
 # To add hosts completion to custom commands
 # compdef _hosts <custom command>
