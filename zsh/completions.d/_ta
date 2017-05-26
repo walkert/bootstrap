@@ -1,0 +1,11 @@
+#compdef ta
+
+_ta() {
+    local commands
+    commands=($(tmux ls | cut -d: -f1))
+    if (( CURRENT == 2 )) ; then
+        _describe -t commands 'commands' commands
+    fi
+    return 0
+}
+_ta
