@@ -48,11 +48,6 @@ set t_Co=256                            " Enforce 256 colour mode
 set splitright                          " vsp opens to the right
 set splitbelow                          " sp opens below
 
-" Set statusline background to green
-hi statusline ctermfg=LightGreen ctermbg=0
-" Set omnicomplete colours
-hi Pmenu cterm=bold ctermfg=189 ctermbg=24
-hi PmenuSel cterm=bold ctermfg=24 ctermbg=189
 
 " Add some useful information to the bottom of the page (requires
 " laststatus=2)
@@ -206,6 +201,10 @@ let g:neocomplete#enable_at_startup = 1
 set bg=dark
 colorscheme solarized
 highlight Visual ctermfg=NONE
+
+" Set omnicomplete colours to match powerline theme
+hi Pmenu cterm=bold ctermfg=117 ctermbg=24
+hi PmenuSel cterm=bold ctermfg=24 ctermbg=117
 
 " Source overrides if present
 let overrides = expand("~/.overrides.vim")
