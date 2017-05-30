@@ -21,6 +21,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized.git'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'vim-scripts/openssl.vim'
+Plugin 'Shougo/neocomplete.vim'
 
 call vundle#end()
 
@@ -196,6 +197,10 @@ let g:airline_theme = "powerlineish"                        " Use the powerline 
 let g:airline#extensions#tabline#enabled = 1                " Enable the airline tabs
 let g:airline#extensions#tabline#tab_nr_type = 1            " Show the tab number
 let g:airline#extensions#tabline#show_close_button = 0      " Disable the close button
+
+" neocomplete
+" Enable it at startup
+let g:neocomplete#enable_at_startup = 1
 
 " Enable the solarized colorscheme
 set bg=dark

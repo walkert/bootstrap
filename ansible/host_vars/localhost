@@ -43,6 +43,7 @@ vim_bundles:
   vim-colors-solarized: https://github.com/altercation/vim-colors-solarized.git
   vim-gitgutter: https://github.com/airblade/vim-gitgutter
   openssl: https://github.com/vim-scripts/openssl.vim
+  neocomplete.vim: https://github.com/Shougo/necomplete.vim.git
 
 tmux_version: 2.3
 tmux_install:
