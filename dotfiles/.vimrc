@@ -64,10 +64,6 @@ set statusline+=\ [LINE=%l/%L][%p%%]    " Line X of Y [% of file]
 set statusline+=\ [COL=%c]              " Current column
 set statusline+=\ [BUF=%n]              " File buffer
 
-" Create a highlight group for use with matching unwanted characters
-highlight BadWhitespace ctermbg=red guibg=red
-" Match trailing whitespace at the end of a line - except while typing
-match BadWhitespace /\s\+\%#\@<!$/
 " Ensure the color displays immediately after leaving insert mode
 autocmd InsertLeave * redraw!
 
@@ -201,6 +197,10 @@ let g:neocomplete#enable_at_startup = 1
 set bg=dark
 colorscheme solarized
 highlight Visual ctermfg=NONE
+" Create a highlight group for use with matching unwanted characters
+highlight BadWhitespace ctermbg=red guibg=red
+" Match trailing whitespace at the end of a line - except while typing
+match BadWhitespace /\s\+\%#\@<!$/
 
 " Set omnicomplete colours to match powerline theme
 hi Pmenu cterm=bold ctermfg=117 ctermbg=24
