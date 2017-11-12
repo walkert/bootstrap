@@ -6,31 +6,14 @@ LOCAL_PIP=$(which pip 2>/dev/null)
 export PATH=${PY_DIR}:$PATH
 
 # Check pre-reqs are installed
-SHARED_REQS="make fontconfig unzip"
-if [ -e /etc/redhat-release ] ; then
-    PKG="rpm -q"
-    REQS="${SHARED_REQS} python-devel openssl-devel ncurses-devel libevent-devel"
-else
-    PKG="dpkg -L"
-    REQS="${SHARED_REQS} python-dev libssl-dev libncurses5-dev libevent-dev"
-fi
-
-if [ $(uname -s) = "Linux" ] ; then
-    if ! $PKG cc &>/dev/null && ! $PKG gcc &>/dev/null ; then
-        echo "You must install a compiler"
-        exit 1
-    fi
-    quit=0
-    for req in $REQS ; do
-        if ! $PKG $req &>/dev/null ; then
-            quit=1
-            echo "You must install $req"
-        fi
-    done
-    if [ $quit -eq 1 ] ; then
-        exit 1
-    fi
-fi
+#SHARED_REQS="make fontconfig unzip"
+#if [ -e /etc/redhat-release ] ; then
+#    PKG="rpm -q"
+#    REQS="${SHARED_REQS} python-devel openssl-devel ncurses-devel libevent-devel"
+#else
+#    PKG="dpkg -L"
+#    REQS="${SHARED_REQS} python-dev libssl-dev libncurses5-dev libevent-dev"
+#fi
 
 # Get pip if required
 if [ -z "$LOCAL_PIP" ] ; then
@@ -56,17 +39,6 @@ if ! $LOCAL_PIP freeze|grep -q virtualenv ; then
         exit 1
     fi
 fi
-if [ ! -d ~/.venvs/ansible ] ; then
-    mkdir ~/.venvs &>/dev/null
-    virtualenv ~/.venvs/ansible
-fi
-if ! ~/.venvs/ansible/bin/pip freeze | grep -q ansible ; then
-    echo "Installing ansible..."
-    if ! ~/.venvs/ansible/bin/pip install ansible &>/dev/null ; then
-        echo "Error installing ansible!"
-        exit 1
-    fi
-fi
 
 # Make sure xcode CLI tools are setup and install Homebrew
 if [ $(uname -s) = "Darwin" ] ; then
@@ -83,7 +55,8 @@ if [ $(uname -s) = "Darwin" ] ; then
     fi
 fi
 
-# Perform the ansible run
-pushd ${BASE}/ansible &>/dev/null
-~/.venvs/ansible/bin/ansible-playbook -i hosts config.yml
-popd &>/dev/null
+# Run each of the installation scripts
+for script in $(ls ${BASE}/install/scripts) ; do
+    echo "Running $script.."
+    ${BASE}/install/scripts/$script ${BASE}/install
+done

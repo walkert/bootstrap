@@ -39,11 +39,11 @@ vim_bundles:
   supertab: https://github.com/ervandew/supertab.git
   vim-fugitive: https://github.com/tpope/vim-fugitive.git
   vim-airline: https://github.com/vim-airline/vim-airline.git
-  vim-airline-themes: https://github.com/vim-airline/vim-airline-themes
+  vim-airline-themes: https://github.com/vim-airline/vim-airline-themes.git
   vim-colors-solarized: https://github.com/altercation/vim-colors-solarized.git
-  vim-gitgutter: https://github.com/airblade/vim-gitgutter
+  vim-gitgutter: https://github.com/airblade/vim-gitgutter.git
   openssl: https://github.com/vim-scripts/openssl.vim
-  neocomplete.vim: https://github.com/Shougo/necomplete.vim.git
+  neocomplete.vim: https://github.com/Shougo/neocomplete.vim.git
 
 tmux_version: 2.3
 tmux_install:

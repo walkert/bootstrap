@@ -194,8 +194,10 @@ let g:airline#extensions#tabline#show_close_button = 0      " Disable the close 
 let g:neocomplete#enable_at_startup = 1
 
 " Enable the solarized colorscheme
+let g:solarized_termtrans=1                                 " Required on OSX with transparent background
+let g:solarized_termcolors=256                              " Required when using 256 color terminal on OSX
 set bg=dark
-colorscheme solarized
+:silent! colorscheme solarized
 highlight Visual ctermfg=NONE
 " Create a highlight group for use with matching unwanted characters
 highlight BadWhitespace ctermbg=red guibg=red
@@ -211,3 +213,4 @@ let overrides = expand("~/.overrides.vim")
 if filereadable(overrides)
     silent! execute 'source '.overrides
 endif
+
