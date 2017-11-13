@@ -19,10 +19,13 @@ install_plugins(){
     for plugin in "${tmux_plugins[@]}" ; do
         plug_name=$(basename $plugin)
         plug_dest=${plug_dir}/$plug_name
-        git clone $plugin $plug_dest &>/dev/null
+        if [ -d $plug_dest ] ; then
+            continue
+        fi
+        run "git clone $plugin $plug_dest"
         if [ $plug_name = "tmux-fingers" ] ; then
             cd ${plug_dest}
-            git submodule update --init --recursive &>/dev/null
+            run "git submodule update --init --recursive"
         fi
     done
 }
@@ -33,19 +36,17 @@ install_tmux(){
     else
         install_pkg "${tmux_reqs_deb[@]}"
     fi
-    set -e
     local tfile="tmux.tgz"
     local dltemp=$(mktemp -d)
-    wget -O $tfile "${tmux_repo_base}/${tmux_version}/${tmux_tar_name}" &>/dev/null
-    tar -C $dltemp --strip 1 -xzf $tfile &>/dev/null
+    run "wget -O $tfile ${tmux_repo_base}/${tmux_version}/${tmux_tar_name}"
+    run "tar -C $dltemp --strip 1 -xzf $tfile"
     cd $dltemp
-    ./configure --prefix=$tmux_dir &>/dev/null
-    make &>/dev/null
-    make install &>/dev/null
+    run "./configure --prefix=$tmux_dir"
+    run "make"
+    run "make install"
     cd - &>/dev/null
-    rm -rf $tfile $dltemp
+    run "rm -rf $tfile $dltemp"
     ln -s ${tmux} ${bin_dir}/tmux
-    set +e
 }
 
 
@@ -54,7 +55,7 @@ if [ ! -L $tmux_scripts_dest ] ; then
 fi
 if [ -e $tmux ] ; then
     if ! $tmux -V | grep -q $tmux_version ; then
-        rm -rf $tmux_dir
+        run "rm -rf $tmux_dir"
     else
         install_plugins
         exit

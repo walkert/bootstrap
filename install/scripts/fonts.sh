@@ -20,10 +20,8 @@ for i in $(seq 0 ${#fonts_expect[@]}) ; do
         continue
     fi
     tfile=/tmp/$font_file
-    wget -O $tfile $font_loc &>/dev/null
-    cd $fonts
-    unzip $tfile &>/dev/null
-    cd - &>/dev/null
-    rm -rf $tfile
-    fc-cache $fonts &>/dev/null
+    run "wget -O $tfile $font_loc"
+    run "unzip $tfile -d $fonts"
+    run "rm -rf $tfile"
+    run "fc-cache $fonts"
 done

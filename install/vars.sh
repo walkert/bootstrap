@@ -1,4 +1,4 @@
-base_packages=(python curl wget git unzip gcc)
+base_packages=(python curl wget git unzip gcc fontconfig)
 devel_packages=(make)
 python_reqs_deb=(python-dev)
 python_reqs_red=(python-devel)

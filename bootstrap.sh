@@ -5,9 +5,9 @@ BASE=$(cd $(dirname $0); pwd)
 . ${BASE}/install/common.sh
 if ! is_redhat ; then
     if is_root ; then
-        apt-get update &>/dev/null
+        run "apt-get update"
     else
-        sudo apt-get update &>/dev/null
+        run "sudo apt-get update"
     fi
 fi
 echo "Checking base packages.."
@@ -59,5 +59,7 @@ fi
 # Run each of the installation scripts
 for script in $(ls ${BASE}/install/scripts) ; do
     echo "Running $script.."
-    ${BASE}/install/scripts/$script ${BASE}/install
+    if ! ${BASE}/install/scripts/$script ${BASE}/install ; then
+        break
+    fi
 done

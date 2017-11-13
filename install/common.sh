@@ -24,7 +24,7 @@ is_installed(){
     else
         chk="dpkg -l"
     fi
-    if $chk | grep -q $1 ; then
+    if run "$chk" | grep -q $1 ; then
         return 0
     fi
     return 1
@@ -41,11 +41,34 @@ install_pkg(){
     fi
     for pkg in $@ ; do
         if ! is_installed $pkg ; then
-            $inst $pkg &>/dev/null
+            run "$inst $pkg"
         fi
     done
 }
 
 install_devel(){
     install_pkg "${devel_packages[@]}"
+}
+
+run(){
+    local command=$1
+    _run "$command" >/dev/null
+}
+
+
+check(){
+    local command=$1
+    _run "$command"
+}
+
+_run(){
+    local command=$1
+    local output
+    output=$($command 2>&1)
+    if [ $? -ne 0 ] ; then
+        echo "Error running command '${command}'" > /dev/stderr
+        echo -e "Error text:\n${output}" > /dev/stderr
+	    exit 1
+    fi
+    echo "$output"
 }

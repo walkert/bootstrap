@@ -18,8 +18,8 @@ for i in $(seq 0 ${#python_packages[@]}) ; do
     link_source=${vdir}/bin/${bin}
     link_dest=${bin_dir}/${bin}
     if [ ! -d ${vdir} ] ; then
-        virtualenv ${vdir} &>/dev/null
-        ${vdir}/bin/pip install $pkg &>/dev/null
+        run "virtualenv ${vdir}"
+        run "${vdir}/bin/pip install $pkg"
     fi
 
     if [ ! -L $link_dest ] ; then

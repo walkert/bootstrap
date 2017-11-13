@@ -9,7 +9,7 @@ for dot in $(find ${1}/../dotfiles -type f) ; do
     fname=$(basename $dot)
     dest="${HOME}/$fname"
     if [ -e $dest ] && [ ! -L $dest ] ; then
-        mv $dest{,.orig}
+        run "mv $dest{,.orig}"
     fi
     if [ -L $dest ] ; then
         continue
