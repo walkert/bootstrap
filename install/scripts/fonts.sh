@@ -10,9 +10,7 @@ if [ ! $(os_type) = "linux" ] ; then
     exit
 fi
 fonts=${HOME}/.fonts
-if [ ! -d $fonts ] ; then
-    mkdir $fonts
-fi
+ensure_dir $fonts
 for i in $(seq 0 ${#fonts_expect[@]}) ; do
     font_file=${fonts_expect[$(($i-1))]}
     font_loc=${fonts_dl[$(($i-1))]}

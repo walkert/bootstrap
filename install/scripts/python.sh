@@ -17,12 +17,10 @@ for i in $(seq 0 ${#python_packages[@]}) ; do
     vdir=${virtualenv_dir}/${pkg}
     link_source=${vdir}/bin/${bin}
     link_dest=${bin_dir}/${bin}
-    if [ ! -d ${vdir} ] ; then
+    if ensure_dir ${vdir} ; then
         run "virtualenv ${vdir}"
         run "${vdir}/bin/pip install $pkg"
     fi
 
-    if [ ! -L $link_dest ] ; then
-        ln -s $link_source $link_dest
-    fi
+    ensure_link $link_source $link_dest
 done

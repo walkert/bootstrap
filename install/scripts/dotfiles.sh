@@ -4,6 +4,7 @@
 # Desc: Symlink dotfiles and generate .localrc
 
 . ${1}/vars.sh
+. ${1}/common.sh
 
 for dot in $(find ${1}/../dotfiles -type f) ; do
     fname=$(basename $dot)
@@ -14,7 +15,7 @@ for dot in $(find ${1}/../dotfiles -type f) ; do
     if [ -L $dest ] ; then
         continue
     fi
-    ln -s $dot $dest
+    ensure_link $dot $dest
 done
 
 

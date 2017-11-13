@@ -36,9 +36,7 @@ install_vim(){
 
 vim="${binaries_dir}/vim/bin/vim"
 bundle_dir=$(dirname $vundle_dir)
-if [ ! -d $bundle_dir ] ; then
-    mkdir -p $bundle_dir
-fi
+ensure_dir $bundle_dir
 if [ ! -e $vundle_dir ] ; then
     run "git clone $vundle $vundle_dir"
 fi
@@ -53,5 +51,5 @@ install_devel
 echo "Installing vim with lua/python support..."
 install_lua
 install_vim
-ln -s ${vim} ${bin_dir}/vim
+ensure_link ${vim} ${bin_dir}/vim
 run "$vim +PluginInstall +qall"

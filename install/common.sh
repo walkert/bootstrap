@@ -72,3 +72,19 @@ _run(){
     fi
     echo "$output"
 }
+
+ensure_dir(){
+    if [ ! -d $1 ] ; then
+        run "mkdir -p $1"
+        return 0
+    fi
+    return 1
+}
+
+ensure_link(){
+    local source=$1
+    local dest=$2
+    if [ ! -L $dest ] ; then
+        ln -s $source $dest
+    fi
+}
