@@ -1,19 +1,20 @@
 #!/bin/bash
 
 BASE=$(cd $(dirname $0); pwd)
+. ${BASE}/install/vars.sh
+. ${BASE}/install/common.sh
+if ! is_redhat ; then
+    if is_root ; then
+        apt-get update &>/dev/null
+    else
+        sudo apt-get update &>/dev/null
+    fi
+fi
+echo "Checking base packages.."
+install_pkg "${base_packages[@]}"
 PY_DIR="$(python -m site --user-base)/bin"
 LOCAL_PIP=$(which pip 2>/dev/null)
 export PATH=${PY_DIR}:$PATH
-
-# Check pre-reqs are installed
-#SHARED_REQS="make fontconfig unzip"
-#if [ -e /etc/redhat-release ] ; then
-#    PKG="rpm -q"
-#    REQS="${SHARED_REQS} python-devel openssl-devel ncurses-devel libevent-devel"
-#else
-#    PKG="dpkg -L"
-#    REQS="${SHARED_REQS} python-dev libssl-dev libncurses5-dev libevent-dev"
-#fi
 
 # Get pip if required
 if [ -z "$LOCAL_PIP" ] ; then
@@ -24,7 +25,7 @@ if [ -z "$LOCAL_PIP" ] ; then
             echo "Error downloading get-pip.py!"
             exit 1
         fi
-        python get-pip.py --user
+        python get-pip.py --user &>/dev/null
         rm -f get-pip.py
         if [ ! -x $LOCAL_PIP ] ; then
             echo "Can't find pip after installation!"
@@ -51,7 +52,7 @@ if [ $(uname -s) = "Darwin" ] ; then
     fi
     if [ ! -x /usr/local/bin/brew ] ; then
         echo "Installing Homebrew..."
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" &>/dev/null
     fi
 fi
 

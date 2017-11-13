@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Name: dotfile.sh
+# Desc: Symlink dotfiles and generate .localrc
 
 . ${1}/vars.sh
 
@@ -18,9 +21,10 @@ done
 if [ -e ${localrc} ] ; then
     exit
 fi
+myenv=$(dirname $1)
 cat > ${localrc} <<EOF
 # Set MYENV (the location of the gitrepo)
-export MYENV=$1
+export MYENV=$myenv
 
 # Set LOCAL_BIN - the location where 'user' python binaries are installed
 export LOCAL_BIN=$bin_dir

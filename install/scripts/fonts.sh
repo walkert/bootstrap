@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Name: fonts.sh
+# Desc: Install fonts
 
 . ${1}/vars.sh
 . ${1}/common.sh

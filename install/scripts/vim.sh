@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Name: vim.sh
+# Desc: Install a lua/python-enabled vim (if required) and get Vundle plugins
 
 . ${1}/vars.sh
 . ${1}/common.sh
@@ -6,9 +9,9 @@
 install_lua(){
     set -e
     if is_redhat ; then
-        install_pkg $lua_reqs_red
+        install_pkg "${lua_reqs_red[@]}"
     else
-        install_pkg $lua_reqs_deb
+        install_pkg "${lua_reqs_deb[@]}"
     fi
     local lua_tmp=$(mktemp -d)
     local lua_file="lua.tgz"
@@ -17,7 +20,7 @@ install_lua(){
     cd $lua_tmp
     make linux test &>/dev/null
     make install INSTALL_TOP=${binaries_dir}/lua &>/dev/null
-    cd -
+    cd - &>/dev/null
     rm -rf $lua_file $lua_tmp
     set +e
 }
@@ -30,6 +33,7 @@ install_vim(){
     ./configure --enable-pythoninterp --enable-luainterp --with-lua-prefix=${binaries_dir}/lua --prefix=${binaries_dir}/vim &>/dev/null
     make &>/dev/null
     make install &>/dev/null
+    cd - &>/dev/null
     rm -rf $vim_tmp
     set +e
 }
@@ -49,7 +53,7 @@ if which vim &>/dev/null ; then
         exit
     fi
 fi
-check_dev_pkgs
+install_devel
 echo "Installing vim with lua/python support..."
 install_lua
 install_vim

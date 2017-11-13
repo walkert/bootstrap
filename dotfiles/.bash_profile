@@ -20,7 +20,7 @@ LOCAL_BIN=${LOCAL_BIN:-~/.local/bin}
 # Override READLINE default
 export INPUTRC=${DOTFILES}/.inputrc
 # Explicitly set TERM to linux
-export TERM=linux
+export TERM=screen-256color
 
 # GO
 export GOROOT=~/Binaries/go

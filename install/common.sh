@@ -11,23 +11,41 @@ is_redhat(){
     return 1
 }
 
-install_pkg(){
-    set -e
+is_root(){
+    if [ "$(id -un)" = "root" ] ; then
+        return 0
+    fi
+    return 1
+}
+
+is_installed(){
     if is_redhat ; then
         chk="rpm -q"
+    else
+        chk="dpkg -l"
+    fi
+    if $chk | grep -q $1 ; then
+        return 0
+    fi
+    return 1
+}
+
+install_pkg(){
+    if is_redhat ; then
         inst="yum -y install"
     else
-        chk="dpkg -L"
         inst="apt-get install -y"
     fi
-    for pkg in ${1[*]} ; do
-        if ! $chk $1 &>/dev/null ; then
-            sudo $inst $1 &>/dev/null
+    if ! is_root ; then
+        inst="sudo $inst"
+    fi
+    for pkg in $@ ; do
+        if ! is_installed $pkg ; then
+            $inst $pkg &>/dev/null
         fi
     done
-    set -e
 }
 
 install_devel(){
-    install_pkg $devel_packages
+    install_pkg "${devel_packages[@]}"
 }
