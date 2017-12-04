@@ -13,24 +13,21 @@ fi
 echo "Checking base packages.."
 install_pkg "${base_packages[@]}"
 PY_DIR="$(python -m site --user-base)/bin"
-LOCAL_PIP=$(which pip 2>/dev/null)
-export PATH=${PY_DIR}:$PATH
+export PATH=$PY_DIR:$PATH
+LOCAL_PIP="${PY_DIR}/pip"
 
 # Get pip if required
-if [ -z "$LOCAL_PIP" ] ; then
-    LOCAL_PIP="${PY_DIR}/pip"
-    if [ ! -e $LOCAL_PIP ] ; then
-        echo "Installing pip..."
-        if ! curl -s -O https://bootstrap.pypa.io/get-pip.py ; then
-            echo "Error downloading get-pip.py!"
-            exit 1
-        fi
-        python get-pip.py --user &>/dev/null
-        rm -f get-pip.py
-        if [ ! -x $LOCAL_PIP ] ; then
-            echo "Can't find pip after installation!"
-            exit 1
-        fi
+if [ ! -e "$LOCAL_PIP" ] ; then
+    echo "Installing pip..."
+    if ! curl -s -O https://bootstrap.pypa.io/get-pip.py ; then
+        echo "Error downloading get-pip.py!"
+        exit 1
+    fi
+    python get-pip.py --user &>/dev/null
+    rm -f get-pip.py
+    if [ ! -x $LOCAL_PIP ] ; then
+        echo "Can't find pip after installation!"
+        exit 1
     fi
 fi
 if ! $LOCAL_PIP freeze|grep -q virtualenv ; then
