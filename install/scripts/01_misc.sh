@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # Name: 01_misc.sh
 # Desc: Misc setup items (runs before all other scripts)
