@@ -19,13 +19,15 @@ is_root(){
 }
 
 is_installed(){
+    local pkg=$1
     if is_redhat ; then
-        chk="rpm -q"
+        if run "rpm -q $pkg" fail_ok ; then
+            return 0
+        fi
     else
-        chk="dpkg -l"
-    fi
-    if run "$chk" | grep -q $1 ; then
-        return 0
+        if check "apt-cache policy $pkg" fail_ok | grep Installed | grep -q -v none ; then
+            return 0
+        fi
     fi
     return 1
 }
@@ -52,20 +54,26 @@ install_devel(){
 
 run(){
     local command=$1
-    _run "$command" >/dev/null
+    local fail=$2
+    _run "$command" $fail >/dev/null
 }
 
 
 check(){
     local command=$1
-    _run "$command"
+    local fail=$2
+    _run "$command" $fail
 }
 
 _run(){
     local command=$1
+    local fail=$2
     local output
     output=$($command 2>&1)
     if [ $? -ne 0 ] ; then
+        if [ "$fail" = "fail_ok" ] ; then
+            return 1
+        fi
         echo "Error running command '${command}'" > /dev/stderr
         echo -e "Error text:\n${output}" > /dev/stderr
 	    exit 1
