@@ -3,13 +3,6 @@
 BASE=$(cd $(dirname $0); pwd)
 . ${BASE}/install/vars.sh
 . ${BASE}/install/common.sh
-if ! is_redhat ; then
-    if is_root ; then
-        run "apt-get update"
-    else
-        run "sudo apt-get update"
-    fi
-fi
 echo "Checking base packages.."
 install_pkg "${base_packages[@]}"
 PY_DIR="$(python -m site --user-base)/bin"

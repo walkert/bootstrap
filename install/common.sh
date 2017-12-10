@@ -18,6 +18,27 @@ is_root(){
     return 1
 }
 
+update_apt(){
+    if is_redhat ; then
+        return 0
+    fi
+    # Max update is 1 week
+    local max=$((24 * 7 * 60 * 60))
+    local now=$(date +%s)
+    local updated=$(stat -c %Y /var/cache/apt)
+    local last=$((now - updated))
+    local cmd="apt-get update"
+    if [ $last -gt $max ] ; then
+        echo "Updating apt cache"
+        if ! is_root ; then
+            cmd="sudo $cmd"
+        fi
+        run "$cmd"
+    else
+        return
+    fi
+}
+
 is_installed(){
     local pkg=$1
     if is_redhat ; then
@@ -43,6 +64,8 @@ install_pkg(){
     fi
     for pkg in $@ ; do
         if ! is_installed $pkg ; then
+            update_apt
+            echo "Installing $pkg"
             run "$inst $pkg"
         fi
     done
