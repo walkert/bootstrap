@@ -156,6 +156,10 @@ PROMPT='%n@%m:%~${vcs_info_msg_0_}$ '
 #Use 'bash' style word style to delete-backwards observation of / delimiters
 autoload -U select-word-style
 select-word-style bash
+# Set colors to solarized-dark
+if [ -f ~/.dircolors ] ; then
+    eval $(dircolors ~/.dircolors)
+fi
 
 # Overrides
 # Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
