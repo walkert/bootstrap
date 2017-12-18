@@ -4,7 +4,7 @@
         tool = vimdiff
 [user]
         name = Tony Walker
-        email = tonywalker.uk@gmail.com
+        email = walkert.uk@gmail.com
 [alias]
     addnew = !git status --porcelain | grep ^? | awk '{print $NF}' | xargs git add
     addmod = !git status --porcelain | grep '^ M' | awk '{print $NF}' | xargs git add

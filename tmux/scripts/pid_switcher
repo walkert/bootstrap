@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pid=$1
+if [ ! -d /proc/$pid ] ; then
+    tmux display-message "PID ${pid} does not exist on this machine"
+else
+    tmux switch-client -t $(xargs -0 -n 1 < "/proc/${pid}/environ" | awk -F= '/TMUX_PANE/{print $2}')
+fi

@@ -46,6 +46,18 @@ setopt appendhistory
 setopt extended_history
 # Don't write duplicates to the history
 setopt hist_ignore_dups
+# Disable Flowcontrol
+setopt NOFlowControl
+# Record time taken for commands
+setopt incappendhistorytime
+# Use HISTORY_IGNORE to drop patters from the history
+HISTORY_IGNORE="(ls|bg|fg|history|jobs|j|ta|tap)"
+# Modify the zshaddhistory hook to prevent ignored entries hitting the current history
+zshaddhistory() {
+    setopt extendedglob
+    emulate -L zsh
+    [[ ${1%%$'\n'} != ${~HISTORY_IGNORE} ]]
+}
 
 # Misc options
 # Switch to paths without 'cd'
@@ -91,7 +103,11 @@ bindkey -M viins "jj" vi-cmd-mode
 # Replicate escape-k in bash vi-mode - cursor at the beginning
 bindkey -M vicmd k vi-up-line-or-history
 # Exit incremental search and allow editing of the returned line
-bindkey "^E" accept-search
+bindkey "^A" accept-search
+# Put the current command line in an editor
+bindkey "^E" edit-command-line
+autoload -U edit-command-line
+zle -N edit-command-line
 
 # Completion stuff
 # Cache stuff
@@ -100,15 +116,14 @@ zstyle ':completion:*' cache-path $CACHEDIR/cache
 # Print menu for multiple options
 zstyle ':completion:*' menu select
 # Descriptions
-zstyle ':completion:*:descriptions' format '%U%B%F{148}%d%b%u%f'
+zstyle ':completion:*:descriptions' format '%U%F{blue}%d%u%f'
 # Format warnings
-zstyle ':completion:*:warnings' format '%U%B%F{green}Sorry, no matches for: %d%b%u%f'
+zstyle ':completion:*:warnings' format '%U%B%F{red}Sorry, no matches for: %d%b%u%f'
 # Colour for files
 zstyle ':completion:*' list-colors ''
 # Case-insensitive matching
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'l:|=* r:|=*'
 # Hosts completion (this file should contain hostnames you care about)
-known_hosts=($(awk '/^[1-9]/{print $NF}' /etc/hosts))
 zstyle -e ':completion:*:*:*' hosts 'reply=($(awk "/^[1-9]/{print $NF}" /etc/hosts))'
 # To add hosts completion to custom commands
 # compdef _hosts <custom command>
@@ -126,11 +141,11 @@ zstyle ':vcs_info:*' unstagedstr '%F{green}●%f'
 precmd(){
     # Set the prompt to check for untracked files as well
     if [[ -z $(git ls-files --other --exclude-standard 2>/dev/null) ]] ; then
-        zstyle ':vcs_info:git*' formats "%F{yellow}%b%f%c%u"
-        zstyle ':vcs_info:git*' actionformats "%F{yellow}%b%f%c%u|%F{red}%a%f"
+        zstyle ':vcs_info:*' formats "%F{yellow}%b%f%c%u"
+        zstyle ':vcs_info:*' actionformats "%F{yellow}%b%f%c%u|%F{red}%a%f"
     else
-        zstyle ':vcs_info:git*' formats "%F{yellow}%b%f%c%u%F{cyan}●%f"
-        zstyle ':vcs_info:git*' actionformats "%F{yellow}%b%f%c%u%F{cyan}●%f|%F{red}%a%f"
+        zstyle ':vcs_info:*' formats "%F{yellow}%b%f%c%u%F{cyan}●%f"
+        zstyle ':vcs_info:*' actionformats "%F{yellow}%b%f%c%u%F{cyan}●%f|%F{red}%a%f"
     fi
     vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_="[${vcs_info_msg_0_}]"
@@ -141,6 +156,17 @@ PROMPT='%n@%m:%~${vcs_info_msg_0_}$ '
 #Use 'bash' style word style to delete-backwards observation of / delimiters
 autoload -U select-word-style
 select-word-style bash
+# Set colors to solarized-dark
+if [ -f ~/.dircolors ] ; then
+    eval $(dircolors ~/.dircolors)
+fi
+
+# Overrides
+# Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
+# in ~/.localrc such as changes to PATH/zstyle etc
+if [ -f ~/.overrides.shell ] ; then
+    . ~/.overrides.shell
+fi
 
 # Start in tmux by default
 if [ -z $TMUX ] ; then

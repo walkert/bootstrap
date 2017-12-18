@@ -21,6 +21,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized.git'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'vim-scripts/openssl.vim'
+Plugin 'Shougo/neocomplete.vim'
 
 call vundle#end()
 
@@ -47,11 +48,6 @@ set t_Co=256                            " Enforce 256 colour mode
 set splitright                          " vsp opens to the right
 set splitbelow                          " sp opens below
 
-" Set statusline background to green
-hi statusline ctermfg=LightGreen ctermbg=0
-" Set omnicomplete colours
-hi Pmenu cterm=bold ctermfg=189 ctermbg=24
-hi PmenuSel cterm=bold ctermfg=24 ctermbg=189
 
 " Add some useful information to the bottom of the page (requires
 " laststatus=2)
@@ -68,18 +64,14 @@ set statusline+=\ [LINE=%l/%L][%p%%]    " Line X of Y [% of file]
 set statusline+=\ [COL=%c]              " Current column
 set statusline+=\ [BUF=%n]              " File buffer
 
-" Create a highlight group for use with matching unwanted characters
-highlight BadWhitespace ctermbg=red guibg=red
-" Match trailing whitespace at the end of a line - except while typing
-match BadWhitespace /\s\+\%#\@<!$/
 " Ensure the color displays immediately after leaving insert mode
 autocmd InsertLeave * redraw!
 
 " Wrap text after a certain 79 characters
 au BufRead,BufNewFile *.py,*.pyw set textwidth=79
 
-" 2s for Puppet
-au BufRead,BufNewFile *.pp set ts=2 sw=2 sts=2
+" 2s for Javascript, Puppet and Ruby
+au BufRead,BufNewFile *.js,*.pp,*.rb set ts=2 sw=2 sts=2
 
 " Tabs
 set showtabline=1                       " 1=ondemand, 2=always
@@ -169,8 +161,9 @@ let g:SuperTabDefaultCompletionType = "context"
 " vim-go
 " Disable re-mapping gd
 let g:go_def_mapping_enabled = 0
-" Map it to <leader>gd instead
-au FileType go nmap <Leader>gd <Plug>(go-doc)
+" Map it to <leader>g instead
+au FileType go nmap <Leader>g <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
 " vim-jedi
 " Remap 'usages' from <leader>n to <leader>u
@@ -179,10 +172,15 @@ let g:jedi#usages_command = "<leader>u"
 let g:jedi#popup_on_dot = 0
 " Don't display call signatures
 let g:jedi#show_call_signatures = 0
+" Open defs etc in tabs instead of buffers
+let g:jedi#use_tabs_not_buffers = 1
 
 " vim-fugitive
-noremap <silent> <Leader>fgd :Gdiff<CR>
-noremap <silent> <Leader>fgb :Gblame<CR>
+noremap <silent> <Leader>gd :Gdiff<CR>
+noremap <silent> <Leader>gb :Gblame<CR>
+
+" vim-gitgutter
+noremap <silent> <Leader>gg :GitGitterToggle<CR>
 
 " vim-airline
 let g:airline_powerline_fonts = 1                           " Use the powerline glyphs
@@ -191,9 +189,28 @@ let g:airline#extensions#tabline#enabled = 1                " Enable the airline
 let g:airline#extensions#tabline#tab_nr_type = 1            " Show the tab number
 let g:airline#extensions#tabline#show_close_button = 0      " Disable the close button
 
+" neocomplete
+" Enable it at startup
+let g:neocomplete#enable_at_startup = 1
+
 " Enable the solarized colorscheme
 let g:solarized_termtrans=1                                 " Required on OSX with transparent background
-let g:solarized_termcolors=256                              " Required when using 256 color terminal
+let g:solarized_termcolors=256                              " Required when using 256 color terminal on OSX
 set bg=dark
-colorscheme solarized
+:silent! colorscheme solarized
 highlight Visual ctermfg=NONE
+" Create a highlight group for use with matching unwanted characters
+highlight BadWhitespace ctermbg=red guibg=red
+" Match trailing whitespace at the end of a line - except while typing
+match BadWhitespace /\s\+\%#\@<!$/
+
+" Set omnicomplete colours to match powerline theme
+hi Pmenu cterm=bold ctermfg=117 ctermbg=24
+hi PmenuSel cterm=bold ctermfg=24 ctermbg=117
+
+" Source overrides if present
+let overrides = expand("~/.overrides.vim")
+if filereadable(overrides)
+    silent! execute 'source '.overrides
+endif
+
