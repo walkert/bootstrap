@@ -1,8 +1,0 @@
-- name: Ensure vim bundle dir is created
-  file: path={{ home }}/.vim/bundle state=directory
-
-- name: Clone vim bundles
-  git: repo={{ item.value }}
-       dest={{ home }}/.vim/bundle/{{ item.key }}
-       recursive=yes
-  with_dict: "{{ vim_bundles }}"

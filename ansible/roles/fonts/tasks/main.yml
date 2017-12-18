@@ -1,5 +1,0 @@
----
-
-- name: Configure fonts
-  include: fonts.yml
-  when: ansible_system == "Linux"
