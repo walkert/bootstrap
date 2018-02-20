@@ -22,6 +22,7 @@ Plugin 'altercation/vim-colors-solarized.git'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'vim-scripts/openssl.vim'
 Plugin 'Shougo/neocomplete.vim'
+Plugin 'ternjs/tern_for_vim.git'
 
 call vundle#end()
 
@@ -192,6 +193,11 @@ let g:airline#extensions#tabline#show_close_button = 0      " Disable the close 
 " neocomplete
 " Enable it at startup
 let g:neocomplete#enable_at_startup = 1
+" Required config to get omni-completion working with tern-js
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
 
 " Enable the solarized colorscheme
 let g:solarized_termtrans=1                                 " Required on OSX with transparent background
@@ -213,4 +219,3 @@ let overrides = expand("~/.overrides.vim")
 if filereadable(overrides)
     silent! execute 'source '.overrides
 endif
-
