@@ -26,3 +26,4 @@ lua_reqs_deb=(libreadline-dev)
 lua_reqs_red=(readline-devel)
 vundle="https://github.com/VundleVim/Vundle.vim.git"
 vundle_dir="${HOME}/.vim/bundle/Vundle.vim"
+zsh_extras=(https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting.git)

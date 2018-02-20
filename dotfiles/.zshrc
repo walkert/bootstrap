@@ -162,6 +162,17 @@ if [ -f ~/.dircolors ] ; then
     eval $(dircolors ~/.dircolors)
 fi
 
+# zsh extras
+if [ -d ~/.zsh ] ; then
+    for extra in $(ls -d ~/.zsh/zsh* 2>/dev/null) ; do
+        . ${extra}/$(basename ${extra}).zsh
+    done
+    # Ctrl-o executes the current suggestion
+    bindkey '^O' autosuggest-execute
+    # Change the default highlight colour
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'
+fi
+
 # Overrides
 # Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
 # in ~/.localrc such as changes to PATH/zstyle etc
