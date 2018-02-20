@@ -74,9 +74,8 @@ fi
 
 # Completions
 export FPATH="${MYENV}/zsh/completions.d:$FPATH"
-export CACHEDIR="$HOME/.zsh/cache"
 autoload -U compinit
-compinit -d $CACHEDIR/zcompdump 2>/dev/null
+compinit
 # Use bash completions
 autoload bashcompinit
 bashcompinit
@@ -94,10 +93,12 @@ setopt interactivecomments
 bindkey -v
 bindkey "^?" backward-delete-char
 bindkey "^W" backward-kill-word
-# Start typing a word, hit 'jk' and the line will fill from the backwards search
-bindkey "jk" history-beginning-search-backward
-# "ji" for reverse incremental search.
-bindkey "ji" history-incremental-search-backward
+# Start typing a word, hit 'Ctrl-p' and the line will fill from a backwards search
+bindkey "" history-beginning-search-backward
+# Once searching backwards, Ctrl-n goes forward
+bindkey "" history-beginning-search-forward
+# "Ctrl-r" for reverse incremental search.
+bindkey "" history-incremental-search-backward
 # "jj" to command mode
 bindkey -M viins "jj" vi-cmd-mode
 # Replicate escape-k in bash vi-mode - cursor at the beginning
@@ -110,9 +111,8 @@ autoload -U edit-command-line
 zle -N edit-command-line
 
 # Completion stuff
-# Cache stuff
+# Activate caching layer for completions that use it (use default cache-path)
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path $CACHEDIR/cache
 # Print menu for multiple options
 zstyle ':completion:*' menu select
 # Descriptions
@@ -121,8 +121,9 @@ zstyle ':completion:*:descriptions' format '%U%F{blue}%d%u%f'
 zstyle ':completion:*:warnings' format '%U%B%F{red}Sorry, no matches for: %d%b%u%f'
 # Colour for files
 zstyle ':completion:*' list-colors ''
-# Case-insensitive matching
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'l:|=* r:|=*'
+# Set matching options, args are: case-insensitive matching, partial (mid-word)
+# and expand short names to long so very.c -> veryverylongfile.c
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'l:|=* r:|=*' 'r:|[._-]=* r:|=*'
 # Hosts completion (this file should contain hostnames you care about)
 zstyle -e ':completion:*:*:*' hosts 'reply=($(awk "/^[1-9]/{print $NF}" /etc/hosts))'
 # To add hosts completion to custom commands
