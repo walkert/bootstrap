@@ -30,6 +30,7 @@ alias noh='ssh -o StrictHostKeyChecking=no -l root -A -o UserKnownHostsFile=/dev
 alias ncp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias vi='vim'
 if [ $(uname -s) = "Darwin" ] ; then
+    is_mac=1
     alias ls='ls -G'
 else
     alias ls='ls --color=auto'
@@ -159,7 +160,9 @@ autoload -U select-word-style
 select-word-style bash
 # Set colors to solarized-dark
 if [ -f ~/.dircolors ] ; then
-    eval $(dircolors ~/.dircolors)
+    if [ -z "$is_mac" ] ; then
+        eval $(dircolors ~/.dircolors)
+    fi
 fi
 
 # zsh extras

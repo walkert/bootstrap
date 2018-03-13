@@ -7,6 +7,9 @@
 . ${1}/common.sh
 
 install_lua(){
+    if is_mac ; then
+        return
+    fi
     if is_redhat ; then
         install_pkg "${lua_reqs_red[@]}"
     else
@@ -24,6 +27,10 @@ install_lua(){
 }
 
 install_vim(){
+    if is_mac ; then
+        brew_install vim
+        return
+    fi
     local vim_tmp=$(mktemp -d)
     run "git clone $vim_repo $vim_tmp"
     cd $vim_tmp
@@ -32,24 +39,31 @@ install_vim(){
     run "make install"
     cd - &>/dev/null
     run "rm -rf $vim_tmp"
+    ensure_link ${binaries_dir}/vim/bin/vim ${bin_dir}/vim
 }
 
-vim="${binaries_dir}/vim/bin/vim"
+vim=("${binaries_dir}/vim/bin/vim")
 bundle_dir=$(dirname $vundle_dir)
 ensure_dir $bundle_dir
 if [ ! -e $vundle_dir ] ; then
     run "git clone $vundle $vundle_dir"
 fi
-if which vim &>/dev/null ; then
-    version=$(check "vim --version")
+installed=$(which vim 2>/dev/null)
+if [ -n "$installed" ] ; then
+    vim+=($installed)
+fi
+for binary in ${vim[*]} ; do
+    if [ ! -e $binary ] ; then
+        continue
+    fi
+    version=$(check "$binary --version")
     if grep -q '+python' <<< "$version" && grep -q '+lua' <<< "$version" ; then
-        run "$vim +PluginInstall +qall"
+        run "$binary +PluginInstall +qall"
         exit
     fi
-fi
+done
 install_devel
 echo "Installing vim with lua/python support..."
 install_lua
 install_vim
-ensure_link ${vim} ${bin_dir}/vim
 run "$vim +PluginInstall +qall"

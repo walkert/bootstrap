@@ -11,9 +11,10 @@ if is_redhat ; then
 else
     install_pkg "${python_reqs_deb[@]}"
 fi
-for i in $(seq 0 ${#python_packages[@]}) ; do
-    pkg=${python_packages[$(($i-1))]}
-    bin=${python_package_links[$(($i-1))]}
+pkg_count=$((${#python_packages[@]} -1 ))
+for i in $(seq 0 ${pkg_count}) ; do
+    pkg=${python_packages[$(($i))]}
+    bin=${python_package_links[$(($i))]}
     vdir=${virtualenv_dir}/${pkg}
     link_source=${vdir}/bin/${bin}
     link_dest=${bin_dir}/${bin}

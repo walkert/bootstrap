@@ -7,7 +7,7 @@
 . ${1}/common.sh
 
 tmux_dir="${binaries_dir}/tmux"
-tmux="${tmux_dir}/bin/tmux"
+tmux=("${tmux_dir}/bin/tmux")
 tmux_scripts_dest="${HOME}/.tmux"
 tmux_scripts_source="$(dirname $1)/tmux"
 
@@ -29,6 +29,10 @@ install_plugins(){
 }
 
 install_tmux(){
+    if is_mac ; then
+        brew_install tmux
+        return
+    fi
     if is_redhat ; then
         install_pkg "${tmux_reqs_red[@]}"
     else
@@ -51,14 +55,19 @@ install_tmux(){
 if [ ! -L $tmux_scripts_dest ] ; then
     ensure_link $tmux_scripts_source $tmux_scripts_dest
 fi
-if [ -e $tmux ] ; then
-    if ! $tmux -V | grep -q $tmux_version ; then
-        run "rm -rf $tmux_dir"
-    else
+installed=$(which tmux 2>/dev/null)
+if [ -n "$installed" ] ; then
+    tmux+=($installed)
+fi
+for binary in ${tmux[*]} ; do
+    if [ ! -e $binary ] ; then
+        continue
+    fi
+    if $binary -V | grep -q $tmux_version ; then
         install_plugins
         exit
     fi
-fi
+done
 install_devel
 echo "Installing tmux.."
 install_tmux

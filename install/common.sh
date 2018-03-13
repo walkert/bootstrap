@@ -4,6 +4,13 @@ os_type(){
     echo $(uname -s|tr [:upper:] [:lower:])
 }
 
+is_mac(){
+    if [ $(uname -s) = "Darwin" ] ; then
+        return 0
+    fi
+    return 1
+}
+
 is_redhat(){
     if [ -e /etc/redhat-release ] ; then
         return 0
@@ -19,7 +26,7 @@ is_root(){
 }
 
 update_apt(){
-    if is_redhat ; then
+    if is_redhat || is_mac ; then
         return 0
     fi
     # Max update is 1 week
@@ -40,6 +47,9 @@ update_apt(){
 }
 
 is_installed(){
+    if is_mac ; then
+        return 0
+    fi
     local pkg=$1
     if is_redhat ; then
         if run "rpm -q $pkg" fail_ok ; then
@@ -54,6 +64,9 @@ is_installed(){
 }
 
 install_pkg(){
+    if is_mac ; then
+        return 0
+    fi
     if is_redhat ; then
         inst="yum -y install"
     else
@@ -117,5 +130,13 @@ ensure_link(){
     local dest=$2
     if [ ! -L $dest ] ; then
         ln -s $source $dest
+    fi
+}
+
+brew_install(){
+    if check "brew list"|grep -q $1 ; then
+        run "brew install $1"
+    else
+        run "brew upgrade $1"
     fi
 }
