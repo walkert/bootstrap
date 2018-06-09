@@ -10,6 +10,8 @@ done
 # Global variables
 export MYENV=${MYENV:-~/.bootstrap}
 export LOCAL_BIN=${LOCAL_BIN:-~/.local/bin}
+export COMPLETIONS="${MYENV}/zsh/completions.d"
+export FUNCTIONS="${MYENV}/zsh/functions.d"
 
 export TERM=screen-256color
 
@@ -19,6 +21,9 @@ export GOPATH=~/Go
 
 # Update PATH to include bin locations
 export PATH=${LOCAL_BIN}:${GOROOT}/bin:${GOPATH}/bin:$PATH
+
+# Update fpath to include custom completions and functions
+fpath+=($FUNCTIONS $COMPLETIONS)
 
 # Set CDATH
 export CDPATH=$HOME:.
@@ -42,7 +47,7 @@ export HISTFILESIZE=1000000
 export SAVEHIST=1000000
 
 # All sessions will append to the history as they exit
-setopt appendhistory 
+setopt appendhistory
 # Save command timestamp history
 setopt extended_history
 # Don't write duplicates to the history
@@ -62,9 +67,11 @@ zshaddhistory() {
 
 # Misc options
 # Switch to paths without 'cd'
-setopt autocd 
+setopt autocd
 # Don't warn if shell patterns have no matches
 setopt nonomatch
+# Allow comments in commands i.e $ date # this is a comment
+setopt interactivecomments
 
 # Source virtualenvwrapper
 VWRAPPER="${LOCAL_BIN}/virtualenvwrapper.sh"
@@ -74,7 +81,6 @@ if [ -f $VWRAPPER ] ; then
 fi
 
 # Completions
-export FPATH="${MYENV}/zsh/completions.d:$FPATH"
 autoload -U compinit
 compinit
 # Use bash completions
@@ -82,28 +88,35 @@ autoload bashcompinit
 bashcompinit
 
 # Source functions
-FUNCTIONS="${MYENV}/zsh/functions.d"
 if [ -d $FUNCTIONS ] ; then
-    for f in $(ls $FUNCTIONS) ; do
-        . ${FUNCTIONS}/$f
+    for f in $(ls ${FUNCTIONS}/*.sh) ; do
+        . $f
     done
 fi
 
+# Load custom history search
+autoload -U history-search-cmd
+zle -N history-beginning-search-forward-cmd history-search-cmd
+zle -N history-beginning-search-backward-cmd history-search-cmd
+
 # Vim key bindings
-setopt interactivecomments
 bindkey -v
 bindkey "^?" backward-delete-char
 bindkey "^W" backward-kill-word
-# Start typing a word, hit 'Ctrl-p' and the line will fill from a backwards search
-bindkey "" history-beginning-search-backward
-# Once searching backwards, Ctrl-n goes forward
-bindkey "" history-beginning-search-forward
+# Start typing a word, hit 'Ctrl-k' and the line will fill from a backwards search
+# The 'search-start' widget goes into vi-cmd-mode so we update the vicmd map to
+# use Ctrl-k as well - including regular 'k'.
+bindkey "" history-beginning-search-backward-cmd
+bindkey -M vicmd "" history-beginning-search-backward-cmd
+bindkey -M vicmd "k" history-beginning-search-backward-cmd
+# Once searching backwards, Ctrl-j goes forward - same rules as above
+bindkey "^j" history-beginning-search-forward-cmd
+bindkey -M vicmd "^j" history-beginning-search-forward-cmd
+bindkey -M vicmd "j" history-beginning-search-forward-cmd
 # "Ctrl-r" for reverse incremental search.
 bindkey "" history-incremental-search-backward
 # "jj" to command mode
 bindkey -M viins "jj" vi-cmd-mode
-# Replicate escape-k in bash vi-mode - cursor at the beginning
-bindkey -M vicmd k vi-up-line-or-history
 # Exit incremental search and allow editing of the returned line
 bindkey "^A" accept-search
 # Put the current command line in an editor

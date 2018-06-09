@@ -1,0 +1,33 @@
+#function history-search-cmd {
+#
+# This function implements functions like history-beginning-search-{back,for}ward,
+# but switches to vi-cmd-mode upon a match.
+#
+# Lifted completely from history-search-end
+#
+# history, like history-search-{back,for}ward.  To use them:
+#   zle -N history-beginning-search-backward-cmd history-search-cmd
+#   zle -N history-beginning-search-forward-cmd history-search-cmd
+#   bindkey '...' history-beginning-search-backward-cmd
+#   bindkey '...' history-beginning-search-forward-cmd
+
+integer cursor=$CURSOR mark=$MARK
+
+if [[ $LASTWIDGET = history-beginning-search-*-cmd ]]; then
+  # Last widget called set $MARK.
+  CURSOR=$MARK
+else
+  MARK=$CURSOR
+fi
+
+if zle .${WIDGET%-cmd}; then
+  # success, switch to vi-cmd-mode
+  #zle .beginning-of-line
+  zle .vi-cmd-mode
+else
+  # failure, restore position
+  CURSOR=$cursor
+  MARK=$mark
+  return 1
+fi
+#}
