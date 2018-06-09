@@ -1,4 +1,5 @@
 base_packages=(python curl wget git unzip gcc fontconfig)
+minimal_scripts=(01_misc.sh dotfiles.sh zsh.sh)
 devel_packages=(make)
 python_reqs_deb=(python-dev)
 python_reqs_red=(python-devel)
