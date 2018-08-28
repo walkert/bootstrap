@@ -162,6 +162,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " vim-go
 " Disable re-mapping gd
 let g:go_def_mapping_enabled = 0
+let g:go_fmt_command = "goimports"
 " Map it to <leader>g instead
 au FileType go nmap <Leader>g <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
