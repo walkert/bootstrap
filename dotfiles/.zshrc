@@ -106,17 +106,19 @@ bindkey "^W" backward-kill-word
 # Start typing a word, hit 'Ctrl-k' and the line will fill from a backwards search
 # The 'search-start' widget goes into vi-cmd-mode so we update the vicmd map to
 # use Ctrl-k as well - including regular 'k'.
-bindkey "" history-beginning-search-backward-cmd
-bindkey -M vicmd "" history-beginning-search-backward-cmd
-bindkey -M vicmd "k" history-beginning-search-backward-cmd
+bindkey "" history-beginning-search-backward-cmd
+bindkey -M vicmd "" history-beginning-search-backward-cmd
+bindkey -M vicmd "p" history-beginning-search-backward-cmd
 # Once searching backwards, Ctrl-j goes forward - same rules as above
-bindkey "^j" history-beginning-search-forward-cmd
-bindkey -M vicmd "^j" history-beginning-search-forward-cmd
-bindkey -M vicmd "j" history-beginning-search-forward-cmd
+bindkey "" history-beginning-search-forward-cmd
+bindkey -M vicmd "" history-beginning-search-forward-cmd
+bindkey -M vicmd "n" history-beginning-search-forward-cmd
 # "Ctrl-r" for reverse incremental search.
 bindkey "" history-incremental-search-backward
 # "jj" to command mode
 bindkey -M viins "jj" vi-cmd-mode
+# Replicate escape-k in bash vi-mode - cursor at the beginning
+bindkey -M vicmd k vi-up-line-or-history
 # Exit incremental search and allow editing of the returned line
 bindkey "^A" accept-search
 # Put the current command line in an editor
