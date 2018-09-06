@@ -20,7 +20,7 @@ export GOROOT=~/Binaries/go
 export GOPATH=~/Go
 
 # Update PATH to include bin locations
-export PATH=${LOCAL_BIN}:${GOROOT}/bin:${GOPATH}/bin:$PATH
+export PATH=${LOCAL_BIN}:${GOROOT}/bin:${GOPATH}/bin:${PY_DIR}:$PATH
 
 # Update fpath to include custom completions and functions
 fpath+=($FUNCTIONS $COMPLETIONS)

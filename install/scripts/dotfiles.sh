@@ -32,4 +32,7 @@ export LOCAL_BIN=$bin_dir
 
 # Set VIRTUALENVWRAPPER_PYTHON
 export VIRTUALENVWRAPPER_PYTHON=${virtualenv_dir}/virtualenvwrapper/bin/python
+
+# Set local Python dir
+export PY_DIR="$(python -m site --user-base)/bin"
 EOF
