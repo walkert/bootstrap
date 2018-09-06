@@ -82,7 +82,22 @@ fi
 
 # Completions
 autoload -U compinit
-compinit
+# Only rebuild zcompdump if it's older than a day
+# now is days since epoch
+now=$(( $(date +%s) / 60 / 60 / 24))
+# Get modification date of zcompdump - portable across Linux/Mac
+if [ $(uname -s) = "Darwin" ] ; then
+    mod=$(stat -f '%Sm' -t '%s' ~/.zcompdump)
+else
+    mod=$(stat -c '%Y' ~/.zcompdump)
+fi
+mod=$(( mod / 60 / 60 / 24))
+if [ $now = $mod ] ; then
+    compinit -C
+else
+    compinit
+fi
+
 # Use bash completions
 autoload bashcompinit
 bashcompinit
