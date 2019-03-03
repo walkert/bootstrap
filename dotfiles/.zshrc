@@ -182,7 +182,7 @@ precmd(){
     vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_="[${vcs_info_msg_0_}]"
 }
-PROMPT='%n@%m:%~${vcs_info_msg_0_}$ '
+PROMPT='%F{46}%n@%m%f:%F{blue}$(shrinker)%f${vcs_info_msg_0_}$ '
 
 # Random
 #Use 'bash' style word style to delete-backwards observation of / delimiters
