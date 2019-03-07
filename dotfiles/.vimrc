@@ -23,6 +23,7 @@ Plugin 'airblade/vim-gitgutter.git'
 Plugin 'vim-scripts/openssl.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'ternjs/tern_for_vim.git'
+Plugin 'hashivim/vim-terraform'
 
 call vundle#end()
 
