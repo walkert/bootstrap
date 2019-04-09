@@ -135,8 +135,7 @@ ensure_link(){
 
 brew_install(){
     if check "brew list"|grep -q $1 ; then
-        run "brew install $1"
-    else
-        run "brew upgrade $1"
+        return
     fi
+    run "brew install $1"
 }

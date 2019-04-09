@@ -57,7 +57,9 @@ if [ $(uname -s) = "Darwin" ] ; then
     fi
     if [ ! -x /usr/local/bin/brew ] ; then
         echo "Installing Homebrew..."
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" &>/dev/null
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        echo "Installing wget..."
+        brew_install wget
     fi
 fi
 
