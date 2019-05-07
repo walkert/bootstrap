@@ -160,10 +160,30 @@ let g:SuperTabDefaultCompletionType = "context"
 " vim-go
 " Disable re-mapping gd
 let g:go_def_mapping_enabled = 0
+" Use goimports to do formatting on write
 let g:go_fmt_command = "goimports"
-" Map it to <leader>g instead
-au FileType go nmap <Leader>g <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+" Show type info under the cursor
+let g:go_auto_type_info = 1
+" Halve the default update time for a quicker refresh
+let g:go_updatetime = 400
+
+augroup go
+  autocmd!
+  " :GoTest
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+  " :GoTestFunc
+  autocmd FileType go nmap <leader>tf  <Plug>(go-test-func)
+  " :GoRun
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+  " :GoDef
+  autocmd FileType go nmap <Leader>d <Plug>(go-def-vertical)
+  " :GoCoverageToggle
+  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+  " :GoMetaLinter
+  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+  " :GoDoc in a vertical split
+  autocmd FileType go nmap <Leader>do <Plug>(go-doc-vertical)
+augroup END
 
 " vim-jedi
 " Remap 'usages' from <leader>n to <leader>u
