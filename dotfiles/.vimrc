@@ -139,9 +139,6 @@ nmap <silent> <leader>d :bd<CR>
 " Red on lines with greater than 79chars
 au BufWinEnter *.py let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
 " Plugins
 
 " vim-flake8 - call with F9
@@ -195,6 +192,8 @@ let g:airline#extensions#tabline#show_close_button = 0      " Disable the close 
 " neocomplete
 " Enable it at startup
 let g:neocomplete#enable_at_startup = 1
+" Close the preview window after completion exits
+let g:neocomplete#enable_auto_close_preview = 1
 " Required config to get omni-completion working with tern-js
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
