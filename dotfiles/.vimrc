@@ -49,6 +49,7 @@ set hlsearch                            " Enable search highlighting
 set t_Co=256                            " Enforce 256 colour mode
 set splitright                          " vsp opens to the right
 set splitbelow                          " sp opens below
+set number                              " Show line numbers
 
 
 " Add some useful information to the bottom of the page (requires
