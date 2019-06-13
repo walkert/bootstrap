@@ -43,6 +43,7 @@ fi
 
 # History
 export HISTFILE=~/.zhistfile
+export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export SAVEHIST=1000000
 
@@ -173,7 +174,7 @@ zstyle ':vcs_info:*' unstagedstr '%F{green}●%f'
 precmd(){
     # Set the prompt to check for untracked files as well
     if [[ -z $(git ls-files --other --exclude-standard 2>/dev/null) ]] ; then
-        zstyle ':vcs_info:*' formats "%F{yellow}%b%f%c%u"
+        zstyle ':vcs_info:*' formats "%F{yellow} %b%f%c%u"
         zstyle ':vcs_info:*' actionformats "%F{yellow}%b%f%c%u|%F{red}%a%f"
     else
         zstyle ':vcs_info:*' formats "%F{yellow}%b%f%c%u%F{cyan}●%f"
@@ -217,3 +218,6 @@ fi
 if [ -z $TMUX ] ; then
     tmux a -t home >/dev/null 2>&1 || tmux new -s home
 fi
+
+# RPROMPT
+RPROMPT='%F{000}%f%K{000}%F{002} %(?.%F{148}✔%f.%F{red}✘%f) %f%F{244}%f%K{244}%F{000} %! %f%F{247}%f%K{247}%F{000} %D{%H:%M:%S}%E%f%k'
