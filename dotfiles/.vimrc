@@ -24,6 +24,7 @@ Plugin 'vim-scripts/openssl.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'ternjs/tern_for_vim.git'
 Plugin 'hashivim/vim-terraform'
+Plugin 'Shougo/neosnippet.vim'
 
 call vundle#end()
 
@@ -220,6 +221,14 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
 let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+
+" neosnippet
+let g:neosnippet#enable_snipmate_compatibility = 1
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" End Plugins
 
 " Enable the solarized colorscheme
 let g:solarized_termtrans=1                                 " Required on OSX with transparent background
