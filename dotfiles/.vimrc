@@ -51,6 +51,8 @@ set t_Co=256                            " Enforce 256 colour mode
 set splitright                          " vsp opens to the right
 set splitbelow                          " sp opens below
 set number                              " Show line numbers
+set relativenumber                      " Use relative line numbers instead
+set autoread                            " Watch for external file changes
 
 
 " Add some useful information to the bottom of the page (requires
@@ -110,6 +112,8 @@ nmap qww <ESC>:wq!<CR>
 inoremap qd <ESC>:bd<CR>
 nmap qd <ESC>:bd<CR>
 
+" Avoid ex mode
+nnoremap Q <nop>
 
 " Leader combos
 let mapleader = ","                     "Set the <leader> to comma
