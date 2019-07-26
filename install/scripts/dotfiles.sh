@@ -36,3 +36,19 @@ export VIRTUALENVWRAPPER_PYTHON=${virtualenv_dir}/virtualenvwrapper/bin/python
 # Set local Python dir
 export PY_DIR="$(python -m site --user-base)/bin"
 EOF
+
+if ! is_linux ; then
+    exit
+fi
+
+# Determine where brew is installed
+if [ -d ~/.linuxbrew ] ; then
+    brew=~/.linuxbrew/bin/brew
+else
+    brew=/home/linuxbrew/.linuxbrew/bin/brew
+fi
+cat >> ${localrc} <<EOF
+
+# Setup Brew
+$($brew shellenv)
+EOF

@@ -1,6 +1,5 @@
-base_packages=(python curl wget git unzip gcc fontconfig)
+base_packages=(python curl wget git unzip gcc fontconfig make)
 minimal_scripts=(01_misc.sh dotfiles.sh zsh.sh)
-devel_packages=(make)
 python_reqs_deb=(python-dev)
 python_reqs_red=(python-devel)
 python_packages=(virtualenvwrapper ipython flake8)
@@ -16,7 +15,7 @@ tmux_tar_name="tmux-${tmux_version}.tar.gz"
 tmux_plugins=(https://github.com/tmux-plugins/tpm https://github.com/Morantron/tmux-fingers)
 tmux_reqs_deb=(libncurses5-dev libevent-dev gawk)
 tmux_reqs_red=(ncurses-devel libevent-devel gawk)
-brew_packages=(bash-completion boot2docker vagrant-completion wget mercurial tmux)
+brew_packages=(ripgrep)
 go_version="1.11"
 go_url="https://storage.googleapis.com/golang"
 fonts_expect=(Hack-Regular.ttf)

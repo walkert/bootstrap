@@ -25,6 +25,8 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'ternjs/tern_for_vim.git'
 Plugin 'hashivim/vim-terraform'
 Plugin 'Shougo/neosnippet.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()
 
@@ -231,6 +233,21 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" fzf
+"
+" Declare the Rg command using ripgrep with the word under the cursor as the argument
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \ 'rg --hidden --column --line-number --no-heading --color=always '.shellescape(expand('<cword>')), 1,
+  \ fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+
+" Map leader-leader to :Files
+nnoremap <silent> <Leader><Leader> :Files<CR>
+" Map leader-/ to :Files ~
+nnoremap <silent> <Leader>h :Files ~<CR>
+" Map leader-G to :Rg
+nnoremap <silent> <Leader>gr :Rg <CR>
 
 " End Plugins
 

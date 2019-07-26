@@ -4,6 +4,13 @@ os_type(){
     echo $(uname -s|tr [:upper:] [:lower:])
 }
 
+is_linux(){
+    if [ $(uname -s) = "Linux" ] ; then
+        return 0
+    fi
+    return 1
+}
+
 is_mac(){
     if [ $(uname -s) = "Darwin" ] ; then
         return 0
@@ -110,8 +117,8 @@ _run(){
         if [ "$fail" = "fail_ok" ] ; then
             return 1
         fi
-        echo "Error running command '${command}'" > /dev/stderr
-        echo -e "Error text:\n${output}" > /dev/stderr
+        echo "Error running command '${command}'"
+        echo -e "Error text:\n${output}"
 	    exit 1
     fi
     echo "$output"
@@ -134,6 +141,14 @@ ensure_link(){
 }
 
 brew_install(){
+    if is_linux ; then
+        if [ -d ~/.linuxbrew ] ; then
+            eval $(~/.linuxbrew/bin/brew shellenv)
+        fi
+        if [ -d /home/linuxbrew/.linuxbrew ] ; then
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        fi
+    fi
     if check "brew list"|grep -q $1 ; then
         return
     fi
