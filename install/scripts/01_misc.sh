@@ -12,7 +12,11 @@ done
 # Setup linuxbrew if we're on linux
 if is_linux ; then
     if [ ! -d ~/.linuxbrew ] && [ ! -d /home/linuxbrew/.linuxbrew ] ; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+        export CI=true
+        if ! sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" >/dev/null 2>&1 ; then
+            echo "Unable to install linuxbrew"
+            exit 1
+        fi
     fi
 fi
 

@@ -50,5 +50,5 @@ fi
 cat >> ${localrc} <<EOF
 
 # Setup Brew
-$($brew shellenv)
+$($brew shellenv 2>/dev/null)
 EOF

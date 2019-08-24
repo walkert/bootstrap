@@ -91,26 +91,26 @@ install_pkg(){
     done
 }
 
-install_devel(){
-    install_pkg "${devel_packages[@]}"
-}
-
 run(){
     local command=$1
     local fail=$2
-    _run "$command" $fail >/dev/null
+    fail=${fail:="no_fail"}
+    local print=$3
+    _run "$command" $fail "noout"
 }
 
 
 check(){
     local command=$1
     local fail=$2
-    _run "$command" $fail
+    fail=${fail:="no_fail"}
+    _run "$command" $fail "print"
 }
 
 _run(){
     local command=$1
     local fail=$2
+    local print=$3
     local output
     output=$($command 2>&1)
     if [ $? -ne 0 ] ; then
@@ -121,7 +121,9 @@ _run(){
         echo -e "Error text:\n${output}"
 	    exit 1
     fi
-    echo "$output"
+    if [ "$print" = "print" ] ; then
+        echo "$output"
+    fi
 }
 
 ensure_dir(){
@@ -143,10 +145,10 @@ ensure_link(){
 brew_install(){
     if is_linux ; then
         if [ -d ~/.linuxbrew ] ; then
-            eval $(~/.linuxbrew/bin/brew shellenv)
+            eval $(~/.linuxbrew/bin/brew shellenv 2>/dev/null)
         fi
         if [ -d /home/linuxbrew/.linuxbrew ] ; then
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)
         fi
     fi
     if check "brew list"|grep -q $1 ; then
