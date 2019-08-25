@@ -20,7 +20,9 @@ if [ "$1" = "minimal" ] ; then
 fi
 echo "Checking base packages.."
 install_pkg "${base_packages_all[@]}"
-if ! is_redhat ; then
+if is_redhat ; then
+    install_pkg "${base_packages_redhat[@]}"
+else
     install_pkg "${base_packages_ubuntu[@]}"
 fi
 PY_DIR="$(python3 -m site --user-base)/bin"

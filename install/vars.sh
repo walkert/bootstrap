@@ -1,5 +1,6 @@
 base_packages_all=(python3 curl wget git unzip gcc fontconfig make)
 base_packages_ubuntu=(python3-distutils)
+base_packages_redhat=(libxcrypt-compat findutils)
 minimal_scripts=(vim.sh vim-coc.sh)
 python_packages=(virtualenvwrapper ipython)
 python_package_links=(virtualenvwrapper.sh ipython)
