@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import os
+import subprocess
+import sys
+
+clip_utils = {
+    'Linux': None,
+    'Darwin': 'pbcopy',
+}
+
+# Exit early if there's nothing to do
+osname = os.uname()[0]
+if osname not in clip_utils:
+    sys.exit()
+program = clip_utils[osname]
+if not program:
+    sys.exit()
+
+# Otherwise, pipe stdin to the desired program
+p = subprocess.Popen(program, stdin=sys.stdin)
+p.wait()
