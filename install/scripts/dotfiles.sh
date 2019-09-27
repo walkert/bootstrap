@@ -34,7 +34,7 @@ export LOCAL_BIN=$bin_dir
 export VIRTUALENVWRAPPER_PYTHON=${virtualenv_dir}/virtualenvwrapper/bin/python
 
 # Set local Python dir
-export PY_DIR="$(python -m site --user-base)/bin"
+export PY_DIR="$(python3 -m site --user-base)/bin"
 EOF
 
 if ! is_linux ; then

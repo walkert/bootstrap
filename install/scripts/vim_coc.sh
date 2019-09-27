@@ -31,8 +31,20 @@ if [ ! -e ${config_dest} ] ; then
 fi
 if [ -d ${bundle_dir} ] ; then
     cd ${bundle_dir}
-    if git rev-parse --abbrev-ref HEAD | grep -q ${branch} ; then
-        exit 0
+    if ! git rev-parse --abbrev-ref HEAD | grep -q ${branch} ; then
+        run "git checkout -t origin/${branch}"
     fi
-    run "git checkout -t origin/${branch}"
 fi
+# Install extensions
+mkdir -p ~/.config/coc/extensions
+cd ~/.config/coc/extensions
+if [ ! -f package.json ]
+then
+  echo '{"dependencies":{}}'> package.json
+fi
+export PATH=${PATH}:${bin_dir}
+for plugin in "${vim_coc_plugins[@]}" ; do
+    run "npm install ${plugin} --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod"
+done
+# Install flake8 and jedi for python
+run "pip install --user ${vim_coc_pip[@]}"

@@ -19,8 +19,11 @@ if [ "$1" = "minimal" ] ; then
     exit 0
 fi
 echo "Checking base packages.."
-install_pkg "${base_packages[@]}"
-PY_DIR="$(python -m site --user-base)/bin"
+install_pkg "${base_packages_all[@]}"
+if ! is_redhat ; then
+    install_pkg "${base_packages_ubuntu[@]}"
+fi
+PY_DIR="$(python3 -m site --user-base)/bin"
 export PATH=$PY_DIR:$PATH
 LOCAL_PIP="${PY_DIR}/pip"
 
@@ -31,7 +34,7 @@ if [ ! -e "$LOCAL_PIP" ] ; then
         echo "Error downloading get-pip.py!"
         exit 1
     fi
-    python get-pip.py --user &>/dev/null
+    python3 get-pip.py --user &>/dev/null
     rm -f get-pip.py
     if [ ! -x $LOCAL_PIP ] ; then
         echo "Can't find pip after installation!"

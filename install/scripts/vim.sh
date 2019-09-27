@@ -19,7 +19,7 @@ install_vim(){
     local vim_tmp=$(mktemp -d)
     run "git clone $vim_repo $vim_tmp"
     cd $vim_tmp
-    run "./configure --prefix=${binaries_dir}/vim"
+    run "./configure --enable-python3interp --prefix=${binaries_dir}/vim"
     run "make"
     run "make install"
     cd - &>/dev/null

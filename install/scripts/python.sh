@@ -6,11 +6,6 @@
 . ${1}/vars.sh
 . ${1}/common.sh
 
-if is_redhat ; then
-    install_pkg "${python_reqs_red[@]}"
-else
-    install_pkg "${python_reqs_deb[@]}"
-fi
 pkg_count=$((${#python_packages[@]} -1 ))
 for i in $(seq 0 ${pkg_count}) ; do
     pkg=${python_packages[$(($i))]}
