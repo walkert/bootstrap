@@ -40,6 +40,7 @@ if [ $(uname -s) = "Darwin" ] ; then
 else
     alias ls='ls --color=auto'
 fi
+alias gd='git d'
 
 # History
 export HISTFILE=~/.zhistfile
