@@ -176,13 +176,13 @@ precmd(){
     # Set the prompt to check for untracked files as well
     if [[ -z $(git ls-files --other --exclude-standard 2>/dev/null) ]] ; then
         zstyle ':vcs_info:*' formats "%F{yellow} %b%f%c%u"
-        zstyle ':vcs_info:*' actionformats "%F{yellow}%b%f%c%u|%F{red}%a%f"
+        zstyle ':vcs_info:*' actionformats "%F{yellow} %b%f%c%u|%F{red}%a%f"
     else
-        zstyle ':vcs_info:*' formats "%F{yellow}%b%f%c%u%F{cyan}●%f"
-        zstyle ':vcs_info:*' actionformats "%F{yellow}%b%f%c%u%F{cyan}●%f|%F{red}%a%f"
+        zstyle ':vcs_info:*' formats "%F{yellow} %b%f%c%u%F{cyan}●%f"
+        zstyle ':vcs_info:*' actionformats "%F{yellow} %b%f%c%u%F{cyan}●%f|%F{red}%a%f"
     fi
     vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_="[${vcs_info_msg_0_}]"
+    [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_=" ${vcs_info_msg_0_}"
 }
 PROMPT='%F{46}%n@%m%f:%F{blue}$(shrinker)%f${vcs_info_msg_0_}$ '
 
