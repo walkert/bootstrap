@@ -1,4 +1,7 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": ["rust"],
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.bracketEnterImprove": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -11,6 +14,5 @@
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.venvPath": "~/.venvs",
-  "coc.preferences.formatOnType": true,
-  "coc.preferences.bracketEnterImprove": true
+  "rust.clippy_preference": "on"
 }
