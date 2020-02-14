@@ -172,7 +172,27 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '%F{yellow}●%f'
 zstyle ':vcs_info:*' unstagedstr '%F{green}●%f'
-precmd(){
+
+# pre/post functions
+_preexec_timer(){
+    # Start the timer before a command is executed
+    timer=${timer:-$SECONDS}
+}
+
+_precmd_timer(){
+    # Work out how long the previous command took and set timer_show if appropriate
+    if [ $timer ] ; then
+        delta=$((${SECONDS} - ${timer}))
+        if [ ${delta} -gt ${CMDTIME_MIN:-3} ] ; then
+            timer_show=${delta}
+        else
+            timer_show=''
+        fi
+        unset timer
+    fi
+}
+
+_precmd_vcs(){
     # Set the prompt to check for untracked files as well
     if [[ -z $(git ls-files --other --exclude-standard 2>/dev/null) ]] ; then
         zstyle ':vcs_info:*' formats "%F{yellow} %b%f%c%u"
@@ -184,7 +204,30 @@ precmd(){
     vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_=" ${vcs_info_msg_0_}"
 }
-PROMPT='%F{46}%n@%m%f:%F{blue}$(shrinker)%f${vcs_info_msg_0_}$ '
+
+_precmd_right(){
+    # Set the content that shows to the right of vcs_info_msg_0_
+    right=""
+    # Show the gear if there are any running jobs
+    if [ -n "${jobstates}" ] ; then
+        right=" ⚙"
+    fi
+    # Add timer_show info if it's set
+    if [ -n "${timer_show}" ] ; then
+        if [ -n "${right}" ] ; then
+            right="${right} ${timer_show}s"
+        else
+            right=" ${timer_show}s"
+        fi
+    fi
+}
+
+# Add the functions above to the relevant arrays
+precmd_functions+=(_precmd_timer _precmd_vcs _precmd_right)
+preexec_functions+=(_preexec_timer)
+
+# Set a two-line prompt with the path/vcs/jobs/timing info on the top line followed by a simple prompt
+PROMPT=$'%F{blue}%~%f${vcs_info_msg_0_}${right}\n%(?.%F{46}❯%f.%F{red}❯%f) '
 
 # Random
 #Use 'bash' style word style to delete-backwards observation of / delimiters
@@ -220,5 +263,3 @@ if [ -z $TMUX ] ; then
     tmux a -t home >/dev/null 2>&1 || tmux new -s home
 fi
 
-# RPROMPT
-RPROMPT='%F{000}%f%K{000}%F{002} %(?.%F{148}✔%f.%F{red}✘%f) %f%F{244}%f%K{244}%F{000} %! %f%F{247}%f%K{247}%F{000} %D{%H:%M:%S}%E%f%k'
