@@ -6,7 +6,7 @@
 . ${1}/vars.sh
 . ${1}/common.sh
 
-if is_linux ; then
+if ! is_linux ; then
     exit
 fi
 fonts=${HOME}/.fonts
