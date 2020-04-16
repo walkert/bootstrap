@@ -12,7 +12,6 @@ create_dirs=("$virtualenv_dir" "$bin_dir")
 tmux_plugins=(https://github.com/tmux-plugins/tpm https://github.com/Morantron/tmux-fingers)
 tmux_brew_packages=(gawk tmux)
 brew_packages=(ripgrep)
-go_version="1.12"
 go_url="https://storage.googleapis.com/golang"
 fonts_expect=(Hack-Regular.ttf)
 fonts_dl=(https://github.com/chrissimpkins/Hack/releases/download/v2.020/Hack-v2_020-ttf.zip)

@@ -15,7 +15,8 @@ install_go(){
 
 godir="${binaries_dir}/go"
 go="${godir}/bin/go"
-go_tar="go${go_version}.$(os_type)-amd64.tar.gz"
+go_version=$(check 'curl -s https://golang.org/VERSION?m=text')
+go_tar="${go_version}.$(os_type)-amd64.tar.gz"
 go_dl="${go_url}/${go_tar}"
 
 if [ -e $go ] ; then
@@ -25,5 +26,5 @@ if [ -e $go ] ; then
         exit 0
     fi
 fi
-echo "Installing Go.."
+echo "Installing Go (${go_version}).."
 install_go
