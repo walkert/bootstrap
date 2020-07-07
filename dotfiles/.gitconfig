@@ -24,6 +24,7 @@
     lns=log --name-status
     lp = "!f(){ git log -p $1^..$1; };f"
     lsearch = "!f(){ if [ $# -eq 2 ] ; then p=$2;else p="";fi;git log --grep=$1 $p; };f"
+    pcb = "!f(){ git push -u origin \"$(git branch --show-current)\"; };f"
     pr = pull --rebase
     rmdel = !git status --porcelain | grep '^ D' | awk '{print $NF}' | xargs git rm
     res = reset HEAD --
