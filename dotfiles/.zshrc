@@ -168,7 +168,16 @@ _precmd_timer(){
     if [ $timer ] ; then
         delta=$((${SECONDS} - ${timer}))
         if [ ${delta} -gt ${CMDTIME_MIN:-3} ] ; then
-            timer_show=${delta}
+            timer_show="$((delta % 60))s"
+            if (( delta >= 60 )); then
+                timer_show="$((delta / 60 % 60))m $timer_show"
+                if (( delta >= 3600 )); then
+                    timer_show="$((delta / 3600 % 24))h $timer_show"
+                    if (( d >= 86400 )); then
+                        timer_show="$((delta / 86400))d $timer_show"
+                    fi
+                fi
+            fi
         else
             timer_show=''
         fi
@@ -199,9 +208,9 @@ _precmd_right(){
     # Add timer_show info if it's set
     if [ -n "${timer_show}" ] ; then
         if [ -n "${right}" ] ; then
-            right="${right} ${timer_show}s"
+            right="${right} ${timer_show}"
         else
-            right=" ${timer_show}s"
+            right=" ${timer_show}"
         fi
     fi
 }
