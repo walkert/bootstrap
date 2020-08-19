@@ -106,16 +106,14 @@ zle -N history-beginning-search-backward-cmd history-search-cmd
 bindkey -v
 bindkey "^?" backward-delete-char
 bindkey "^W" backward-kill-word
-# Start typing a word, hit 'Ctrl-k' and the line will fill from a backwards search
+# Start typing a word, hit 'Ctrl-p' and the line will fill from a backwards search
 # The 'search-start' widget goes into vi-cmd-mode so we update the vicmd map to
-# use Ctrl-k as well - including regular 'k'.
+# use Ctrl-p as well.
 bindkey "" history-beginning-search-backward-cmd
 bindkey -M vicmd "" history-beginning-search-backward-cmd
-bindkey -M vicmd "p" history-beginning-search-backward-cmd
-# Once searching backwards, Ctrl-j goes forward - same rules as above
+# Once searching backwards, Ctrl-n goes forward - same rules as above
 bindkey "" history-beginning-search-forward-cmd
 bindkey -M vicmd "" history-beginning-search-forward-cmd
-bindkey -M vicmd "n" history-beginning-search-forward-cmd
 # "Ctrl-r" for reverse incremental search.
 bindkey "" history-incremental-search-backward
 # "jj" to command mode
