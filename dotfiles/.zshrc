@@ -14,13 +14,14 @@ export COMPLETIONS="${MYENV}/zsh/completions.d"
 export FUNCTIONS="${MYENV}/zsh/functions.d"
 
 export TERM=screen-256color
+export PIPX_BIN_DIR=${LOCAL_BIN}
 
 # GO
 export GOROOT=~/Binaries/go
 export GOPATH=~/Go
 
 # Update PATH to include bin locations
-export PATH=${LOCAL_BIN}:${GOROOT}/bin:${GOPATH}/bin:${PY_DIR}:$PATH
+export PATH=${HOME}/.pyenv/bin:${HOME}/.cargo/bin:${LOCAL_BIN}:${GOROOT}/bin:${GOPATH}/bin:${PY_DIR}:$PATH
 
 # Update fpath to include custom completions and functions
 fpath+=($FUNCTIONS $COMPLETIONS)
@@ -41,6 +42,14 @@ else
     alias ls='ls --color=auto'
 fi
 alias gd='git d'
+
+# virtualenv stuff
+function mkvirtualenv() {
+    pyenv virtualenv $1 && pyenv activate $1
+}
+alias deactivate='source deactivate'
+alias lsvirtualenv='pyenv virtualenvs'
+alias workon='pyenv activate'
 
 # History
 export HISTFILE=~/.zhistfile
@@ -76,11 +85,6 @@ setopt nonomatch
 setopt interactivecomments
 
 # Source virtualenvwrapper
-VWRAPPER="${LOCAL_BIN}/virtualenvwrapper.sh"
-if [ -f $VWRAPPER ] ; then
-    export WORKON_HOME=~/.venvs
-    . $VWRAPPER
-fi
 
 # Completions
 autoload -U compinit
@@ -255,4 +259,7 @@ fi
 if [ -z $TMUX ] ; then
     tmux a -t home >/dev/null 2>&1 || tmux new -s home
 fi
+# pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 

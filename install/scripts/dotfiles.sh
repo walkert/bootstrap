@@ -29,12 +29,6 @@ export MYENV=$myenv
 
 # Set LOCAL_BIN - the location where 'user' python binaries are installed
 export LOCAL_BIN=$bin_dir
-
-# Set VIRTUALENVWRAPPER_PYTHON
-export VIRTUALENVWRAPPER_PYTHON=${virtualenv_dir}/virtualenvwrapper/bin/python
-
-# Set local Python dir
-export PY_DIR="$(python3 -m site --user-base)/bin"
 EOF
 
 if ! is_linux ; then

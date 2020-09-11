@@ -53,23 +53,6 @@ update_apt(){
     fi
 }
 
-is_installed(){
-    if is_mac ; then
-        return 0
-    fi
-    local pkg=$1
-    if is_redhat ; then
-        if run "rpm -q $pkg" fail_ok ; then
-            return 0
-        fi
-    else
-        if check "apt-cache policy $pkg" fail_ok | grep Installed | grep -q -v none ; then
-            return 0
-        fi
-    fi
-    return 1
-}
-
 install_pkg(){
     if is_mac ; then
         return 0
@@ -77,18 +60,15 @@ install_pkg(){
     if is_redhat ; then
         inst="yum -y install"
     else
+        export DEBIAN_FRONTEND=noninteractive
         inst="apt-get install -y"
     fi
     if ! is_root ; then
-        inst="sudo $inst"
+        inst="sudo -E $inst"
     fi
-    for pkg in $@ ; do
-        if ! is_installed $pkg ; then
-            update_apt
-            echo "Installing $pkg"
-            run "$inst $pkg"
-        fi
-    done
+    echo "Installing $@"
+    update_apt
+    run "$inst $*"
 }
 
 run(){
@@ -154,5 +134,6 @@ brew_install(){
     if check "brew list"|grep -q $1 ; then
         return
     fi
-    run "brew install $1"
+    echo "  Installing $1.."
+    run "brew install $1 $2"
 }

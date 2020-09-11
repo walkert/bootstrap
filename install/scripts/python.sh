@@ -6,17 +6,37 @@
 . ${1}/vars.sh
 . ${1}/common.sh
 
-pkg_count=$((${#python_packages[@]} -1 ))
-for i in $(seq 0 ${pkg_count}) ; do
-    pkg=${python_packages[$(($i))]}
-    bin=${python_package_links[$(($i))]}
-    vdir=${virtualenv_dir}/${pkg}
-    link_source=${vdir}/bin/${bin}
-    link_dest=${bin_dir}/${bin}
-    if ensure_dir ${vdir} ; then
-        run "virtualenv ${vdir}"
-        run "${vdir}/bin/pip install $pkg"
+if [ ! -d ~/.pyenv ] ; then
+    if is_linux ; then
+        if ! sh -c "$(curl -s -S -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer)" >/dev/null 2>&1 ; then
+            echo "Unable to install pyenv"
+            exit 1
+        fi
     fi
+    if is_mac ; then
+        brew_install pyenv pyenv-virtualenv
+    fi
+fi
 
-    ensure_link $link_source $link_dest
+export PATH="~/.pyenv/bin:/usr/local/bin:$PATH"
+eval "$(pyenv init -)"
+
+if ! pyenv versions | grep -q ${python_version} ; then
+    echo "  Installing Python ${python_version} via pyenv"
+    if ! run "pyenv install ${python_version}" ; then
+        echo "Unable to install Python {python_version}"
+        exit 1
+    fi
+    pyenv global ${python_version}
+fi
+
+if ! run "which pipx" "fail_ok" ; then
+    echo "  Installing pipx"
+    run "pip install pipx"
+fi
+
+export PIPX_BIN_DIR=${bin_dir}
+for pkg in "${python_packages[@]}" ; do
+    echo "  Installing ${pkg} via pipx"
+    run "pipx install ${pkg}"
 done

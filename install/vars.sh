@@ -1,9 +1,9 @@
-base_packages_all=(python3 curl wget git unzip gcc fontconfig make)
-base_packages_ubuntu=(python3-distutils)
-base_packages_redhat=(libxcrypt-compat findutils)
-minimal_scripts=(vim.sh vim-coc.sh)
-python_packages=(virtualenvwrapper ipython)
-python_package_links=(virtualenvwrapper.sh ipython)
+base_packages_all=(curl wget git unzip gcc fontconfig make)
+base_packages_ubuntu=(build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl)
+base_packages_redhat=(ruby zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils libxcrypt-compat)
+minimal_scripts=(vim.sh vim_coc.sh)
+python_version=3.8.5
+python_packages=(ipython)
 virtualenv_dir="${HOME}/.venvs"
 binaries_dir="${HOME}/Binaries"
 bin_dir="${HOME}/Binaries/bin"

@@ -22,33 +22,13 @@ echo "Checking base packages.."
 install_pkg "${base_packages_all[@]}"
 if is_redhat ; then
     install_pkg "${base_packages_redhat[@]}"
+    if is_root ; then
+        yum -y groupinstall 'Development Tools' 2>&1 >/dev/null
+    else
+        sudo yum -y groupinstall 'Development Tools' 2>&1 >/dev/null
+    fi
 else
     install_pkg "${base_packages_ubuntu[@]}"
-fi
-PY_DIR="$(python3 -m site --user-base)/bin"
-export PATH=$PY_DIR:$PATH
-LOCAL_PIP="${PY_DIR}/pip"
-
-# Get pip if required
-if [ ! -e "$LOCAL_PIP" ] ; then
-    echo "Installing pip..."
-    if ! curl -s -O https://bootstrap.pypa.io/get-pip.py ; then
-        echo "Error downloading get-pip.py!"
-        exit 1
-    fi
-    python3 get-pip.py --user &>/dev/null
-    rm -f get-pip.py
-    if [ ! -x $LOCAL_PIP ] ; then
-        echo "Can't find pip after installation!"
-        exit 1
-    fi
-fi
-if ! $LOCAL_PIP freeze|grep -q virtualenv ; then
-    echo "Installing virtualenv..."
-    if ! $LOCAL_PIP install --user virtualenv &>/dev/null ; then
-        echo "Error installing virtualenv!"
-        exit 1
-    fi
 fi
 
 # Make sure xcode CLI tools are setup and install Homebrew
