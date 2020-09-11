@@ -7,7 +7,7 @@
 . ${1}/common.sh
 
 plugin="coc.nvim"
-bundle_dir="$(dirname $vundle_dir)/${plugin}"
+bundle_dir="${HOME}/.vim/bundle/coc.nvim"
 node="${binaries_dir}/node"
 branch="release"
 config_dest="${HOME}/.vim/coc-settings.json"
@@ -47,4 +47,13 @@ for plugin in "${vim_coc_plugins[@]}" ; do
     run "npm install ${plugin} --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod"
 done
 # Install flake8 and jedi for python
-run "pip install --user ${vim_coc_pip[@]}"
+export PATH="${HOME}/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+run "pip install --user ${vim_coc_pip[*]}"
+
+# Install Go binaries for vim-go
+vim="/home/linuxbrew/.linuxbrew/bin/vim"
+export GOPATH=${HOME}/Go
+export PATH="${HOME}/Binaries/bin:${HOME}/Binaries/go/bin:$PATH"
+echo "  Installing vim-go binaries.."
+$vim +'silent :GoInstallBinaries' +qall
