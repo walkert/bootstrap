@@ -115,6 +115,9 @@ nmap qd <ESC>:bd<CR>
 " Avoid ex mode
 nnoremap Q <nop>
 
+" Goto file in a new tab
+nnoremap gf <C-W>gf
+
 " Leader combos
 let mapleader = ","                     "Set the <leader> to comma
 " Switch off highlighted searches
