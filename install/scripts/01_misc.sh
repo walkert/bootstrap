@@ -9,18 +9,14 @@ for dir in ${create_dirs[@]} ; do
     ensure_dir $dir
 done
 
-# Setup linuxbrew if we're on linux
-if is_linux ; then
-    if [ ! -d ~/.linuxbrew ] && [ ! -d /home/linuxbrew/.linuxbrew ] ; then
-        export CI=true
-        if ! sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" >/dev/null 2>&1 ; then
-            echo "Unable to install linuxbrew"
-            exit 1
-        fi
-    fi
-fi
-
 # Install brew-based packages
+#
+if is_linux ; then
+    # Install perl from source to fix an issue with it being
+    # installed as a vim dependency 
+    echo "  Installing Perl from source..."
+    brew_install perl -s
+fi
 for pkg in "${brew_packages[@]}" ; do
     brew_install $pkg
 done

@@ -31,8 +31,9 @@ else
     install_pkg "${base_packages_ubuntu[@]}"
 fi
 
+install_homebrew="false"
 # Make sure xcode CLI tools are setup and install Homebrew
-if [ $(uname -s) = "Darwin" ] ; then
+if is_mac ; then
     xcode=$(xcode-select --install 2>&1)
     if [ $? -ne 0 ] ; then
         if ! grep -q "already installed" <<< "$xcode" ; then
@@ -41,11 +42,19 @@ if [ $(uname -s) = "Darwin" ] ; then
         fi
     fi
     if [ ! -x /usr/local/bin/brew ] ; then
-        echo "Installing Homebrew..."
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        echo "Installing wget..."
-        brew_install wget
+        install_homebrew="true"
+    fi
+else
+    if [ ! -d ~/.linuxbrew ] && [ ! -d /home/linuxbrew/.linuxbrew ] ; then
+        install_homebrew="true"
     fi
 fi
-
+if [ "${install_homebrew}" = "true" ] ; then
+    export CI=true
+    echo "Installing Homebrew"
+    if ! bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" >/dev/null 2>&1 ; then
+        echo "Unable to install Homebrew"
+        exit 1
+    fi
+fi
 run_scripts $(ls ${BASE}/install/scripts)
