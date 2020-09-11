@@ -26,5 +26,5 @@ if [ -e $go ] ; then
         exit 0
     fi
 fi
-echo "Installing Go (${go_version}).."
+echo "  Installing Go (${go_version}).."
 install_go
