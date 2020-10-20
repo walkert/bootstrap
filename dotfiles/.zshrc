@@ -42,6 +42,8 @@ else
     alias ls='ls --color=auto'
 fi
 alias gd='git d'
+alias gpf='git push --force'
+alias gs='git status'
 
 # virtualenv stuff
 function mkvirtualenv() {
@@ -49,7 +51,9 @@ function mkvirtualenv() {
 }
 alias deactivate='source deactivate'
 alias lsvirtualenv='pyenv virtualenvs'
+alias rmvirtualenv='pyenv virtualenv-delete -f'
 alias workon='pyenv activate'
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # History
 export HISTFILE=~/.zhistfile
@@ -85,6 +89,7 @@ setopt nonomatch
 setopt interactivecomments
 
 # Source virtualenvwrapper
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Completions
 autoload -U compinit
@@ -223,8 +228,17 @@ _precmd_right(){
 precmd_functions+=(_precmd_timer _precmd_vcs _precmd_right)
 preexec_functions+=(_preexec_timer)
 
+# Simple function for setting the virtualenv prompt
+_venv_prompt() {
+    if [ -n "${VIRTUAL_ENV}" ] ; then
+        echo "${VIRTUAL_ENV##*/} "
+    fi
+    echo ''
+}
+
+
 # Set a two-line prompt with the path/vcs/jobs/timing info on the top line followed by a simple prompt
-PROMPT=$'%F{blue}%~%f${vcs_info_msg_0_}${right}\n%(?.%F{46}❯%f.%F{red}❯%f) '
+PROMPT=$'%F{blue}%~%f${vcs_info_msg_0_}${right}\n$(_venv_prompt)%(?.%F{46}❯%f.%F{red}❯%f) '
 
 # Random
 #Use 'bash' style word style to delete-backwards observation of / delimiters
