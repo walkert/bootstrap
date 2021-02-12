@@ -332,6 +332,8 @@ let g:solarized_termcolors=256                              " Required when usin
 set bg=dark
 :silent! colorscheme solarized
 highlight Visual ctermfg=NONE
+" Restore old SignColumn colours (broken by vim-gitgutter)
+highlight! link SignColumn LineNr
 " Create a highlight group for use with matching unwanted characters
 highlight BadWhitespace ctermbg=red guibg=red
 " Match trailing whitespace at the end of a line - except while typing
