@@ -19,8 +19,7 @@ export MYENV=${MYENV:-~/.bootstrap}
 export LOCAL_BIN=${LOCAL_BIN:-~/.local/bin}
 export COMPLETIONS="${MYENV}/zsh/completions.d"
 export FUNCTIONS="${MYENV}/zsh/functions.d"
-
-export TERM=screen-256color
+export TERM=tmux-256color
 export PIPX_BIN_DIR=${LOCAL_BIN}
 
 # GO
