@@ -19,4 +19,4 @@ vim_coc_plugins=(coc-python)
 vim_coc_pip=(jedi flake8)
 vundle="https://github.com/VundleVim/Vundle.vim.git"
 vundle_dir="${HOME}/.vim/bundle/Vundle.vim"
-zsh_extras=(https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting.git)
+zsh_extras=(https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting https://github.com/romkatv/powerlevel10k)

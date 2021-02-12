@@ -1,4 +1,11 @@
-# .zshrc
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [ -n "${TMUX}" ] ; then
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
+fi
 
 # Source definitions in /etc followed by ~/.localrc
 for file in /etc/zshrc ~/.localrc ; do
@@ -88,9 +95,6 @@ setopt nonomatch
 # Allow comments in commands i.e $ date # this is a comment
 setopt interactivecomments
 
-# Source virtualenvwrapper
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-
 # Completions
 autoload -U compinit
 compinit
@@ -155,91 +159,6 @@ zstyle -e ':completion:*:*:*' hosts 'reply=($(awk "/^[1-9]/{print $NF}" /etc/hos
 # To add hosts completion to custom commands
 # compdef _hosts <custom command>
 
-# Prompt
-# Allow shell expansion
-setopt prompt_subst
-# Git fun
-# Enable the vcs_info function
-autoload -Uz vcs_info
-# Set the strings for [un]staged files
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr '%F{yellow}●%f'
-zstyle ':vcs_info:*' unstagedstr '%F{green}●%f'
-
-# pre/post functions
-_preexec_timer(){
-    # Start the timer before a command is executed
-    timer=${timer:-$SECONDS}
-}
-
-_precmd_timer(){
-    # Work out how long the previous command took and set timer_show if appropriate
-    if [ $timer ] ; then
-        delta=$((${SECONDS} - ${timer}))
-        if [ ${delta} -gt ${CMDTIME_MIN:-3} ] ; then
-            timer_show="$((delta % 60))s"
-            if (( delta >= 60 )); then
-                timer_show="$((delta / 60 % 60))m $timer_show"
-                if (( delta >= 3600 )); then
-                    timer_show="$((delta / 3600 % 24))h $timer_show"
-                    if (( d >= 86400 )); then
-                        timer_show="$((delta / 86400))d $timer_show"
-                    fi
-                fi
-            fi
-        else
-            timer_show=''
-        fi
-        unset timer
-    fi
-}
-
-_precmd_vcs(){
-    # Set the prompt to check for untracked files as well
-    if [[ -z $(git ls-files --other --exclude-standard 2>/dev/null) ]] ; then
-        zstyle ':vcs_info:*' formats "%F{yellow} %b%f%c%u"
-        zstyle ':vcs_info:*' actionformats "%F{yellow} %b%f%c%u|%F{red}%a%f"
-    else
-        zstyle ':vcs_info:*' formats "%F{yellow} %b%f%c%u%F{cyan}●%f"
-        zstyle ':vcs_info:*' actionformats "%F{yellow} %b%f%c%u%F{cyan}●%f|%F{red}%a%f"
-    fi
-    vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && vcs_info_msg_0_=" ${vcs_info_msg_0_}"
-}
-
-_precmd_right(){
-    # Set the content that shows to the right of vcs_info_msg_0_
-    right=""
-    # Show the gear if there are any running jobs
-    if [ -n "${jobstates}" ] ; then
-        right=" ⚙"
-    fi
-    # Add timer_show info if it's set
-    if [ -n "${timer_show}" ] ; then
-        if [ -n "${right}" ] ; then
-            right="${right} ${timer_show}"
-        else
-            right=" ${timer_show}"
-        fi
-    fi
-}
-
-# Add the functions above to the relevant arrays
-precmd_functions+=(_precmd_timer _precmd_vcs _precmd_right)
-preexec_functions+=(_preexec_timer)
-
-# Simple function for setting the virtualenv prompt
-_venv_prompt() {
-    if [ -n "${VIRTUAL_ENV}" ] ; then
-        echo "${VIRTUAL_ENV##*/} "
-    fi
-    echo ''
-}
-
-
-# Set a two-line prompt with the path/vcs/jobs/timing info on the top line followed by a simple prompt
-PROMPT=$'%F{blue}%~%f${vcs_info_msg_0_}${right}\n$(_venv_prompt)%(?.%F{46}❯%f.%F{red}❯%f) '
-
 # Random
 #Use 'bash' style word style to delete-backwards observation of / delimiters
 autoload -U select-word-style
@@ -277,3 +196,6 @@ fi
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+# p10k stuff
+source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
