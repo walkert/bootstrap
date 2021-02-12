@@ -51,6 +51,8 @@ fi
 alias gd='git d'
 alias gpf='git push --force'
 alias gs='git status'
+alias less='less -R'
+alias rg='rg --color always'
 
 # virtualenv stuff
 function mkvirtualenv() {
