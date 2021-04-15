@@ -232,6 +232,9 @@ nnoremap <silent> <Leader>gr :Rg <CR>
 
 " coc
 "
+" esc+esc removes all searches and closes coc floating windows which are stuck
+" open
+nnoremap <silent> <ESC><ESC> :nohlsearch \| match none \| 2match none \| call coc#float#close_all()<CR>
 " if hidden is not set, TextEdit might fail.
 set hidden
 
@@ -273,7 +276,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 function! CheckNext()
    let nextchar = strcharpart(getline('.')[col('.') - 1:], 0, 1)
    if nextchar == ")"
-       call feedkeys("\<Right>\<CR>")
+       call feedkeys("\<Right>")
        return ''
    else
        return ''
