@@ -95,8 +95,14 @@ setopt nonomatch
 setopt interactivecomments
 
 # Completions
+#
+# Initialize completions and only run the check to rebuild
+# zcompdump if it's older than 24hrs
 autoload -U compinit
-compinit
+for dump in ~/.zcompdump(N.mh+24); do
+    compinit
+done
+compinit -C
 
 # Use bash completions
 autoload bashcompinit
