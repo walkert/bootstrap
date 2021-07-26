@@ -51,7 +51,9 @@ alias rg='rg --hidden --color always'
 
 # virtualenv stuff
 function mkvirtualenv() {
-    pyenv virtualenv $1 && pyenv activate $1
+    if pyenv virtualenv $@ ; then
+        pyenv activate ${@: -1}
+    fi
 }
 alias deactivate='source deactivate'
 alias lsvirtualenv='pyenv virtualenvs'
