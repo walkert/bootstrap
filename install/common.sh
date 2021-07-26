@@ -131,7 +131,7 @@ brew_install(){
             eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)
         fi
     fi
-    if check "brew list"|grep -q $1 ; then
+    if run "brew list $1"; then
         return
     fi
     echo "  Installing $1.."
