@@ -50,3 +50,5 @@
 	sslVerify = false
 [push]
     default = current
+[pull]
+	rebase = false
