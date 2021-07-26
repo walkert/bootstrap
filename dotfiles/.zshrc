@@ -200,8 +200,12 @@ if [ -z $TMUX ] ; then
     tmux a -t home >/dev/null 2>&1 || tmux new -s home
 fi
 # pyenv
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+function pyenv(){
+    unset -f pyenv
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    pyenv $@
+}
 
 # p10k stuff
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
