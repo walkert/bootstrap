@@ -7,12 +7,8 @@ if [ -n "${TMUX}" ] ; then
     fi
 fi
 
-# Source definitions in /etc followed by ~/.localrc
-for file in /etc/zshrc ~/.localrc ; do
-    if [ -f $file ] ; then
-        . $file
-    fi
-done
+# Source definitions in by ~/.localrc
+[[ -f ~/.localrc ]] && source ~/.localrc
 
 # Global variables
 export MYENV=${MYENV:-~/.bootstrap}
