@@ -42,6 +42,67 @@
                         ]
                     },
                     {
+                        "description": "Switch option/alt/command for external keyboard",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            {
+                                                "product_id": 61199,
+                                                "vendor_id": 1204
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.citrix\\.receiver\\.icaviewer\\.mac$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "left_command"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_option"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            {
+                                                "product_id": 61199,
+                                                "vendor_id": 1204
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.citrix\\.receiver\\.icaviewer\\.mac$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "left_option"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_command"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "PC-Style Lock Screen",
                         "manipulators": [
                             {
@@ -677,22 +738,6 @@
                             "to": {
                                 "key_code": "fn"
                             }
-                        },
-                        {
-                            "from": {
-                                "key_code": "left_alt"
-                            },
-                            "to": {
-                                "key_code": "left_command"
-                            }
-                        },
-                        {
-                            "from": {
-                                "key_code": "left_gui"
-                            },
-                            "to": {
-                                "key_code": "left_option"
-                            }
                         }
                     ]
                 },
@@ -708,36 +753,6 @@
                     "ignore": false,
                     "manipulate_caps_lock_led": true,
                     "simple_modifications": []
-                },
-                {
-                    "disable_built_in_keyboard_if_exists": false,
-                    "fn_function_keys": [],
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": false,
-                        "product_id": 36,
-                        "vendor_id": 1241
-                    },
-                    "ignore": false,
-                    "manipulate_caps_lock_led": false,
-                    "simple_modifications": [
-                        {
-                            "from": {
-                                "key_code": "left_alt"
-                            },
-                            "to": {
-                                "key_code": "left_gui"
-                            }
-                        },
-                        {
-                            "from": {
-                                "key_code": "left_gui"
-                            },
-                            "to": {
-                                "key_code": "left_option"
-                            }
-                        }
-                    ]
                 }
             ],
             "fn_function_keys": [
