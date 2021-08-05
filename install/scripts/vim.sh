@@ -8,7 +8,7 @@
 
 bundle_dir=$(dirname $vundle_dir)
 plug_install=false
-vim="/home/linuxbrew/.linuxbrew/bin/vim"
+vim="$(brew_path)/vim"
 
 ensure_dir $bundle_dir
 

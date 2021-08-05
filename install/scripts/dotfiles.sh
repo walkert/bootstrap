@@ -31,6 +31,11 @@ export MYENV=$myenv
 export LOCAL_BIN=$bin_dir
 EOF
 
+if is_m1 ; then
+    cat >> ${localrc} <<-EOF
+	export PATH=$PATH
+	EOF
+fi
 if ! is_linux ; then
     exit
 fi

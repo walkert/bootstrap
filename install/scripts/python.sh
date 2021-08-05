@@ -18,7 +18,7 @@ if [ ! -d ~/.pyenv ] ; then
     fi
 fi
 
-export PATH="~/.pyenv/bin:/usr/local/bin:$PATH"
+export PATH="~/.pyenv/shims:$PATH"
 eval "$(pyenv init -)"
 
 if ! pyenv versions | grep -q ${python_version} ; then
@@ -37,6 +37,8 @@ fi
 
 export PIPX_BIN_DIR=${bin_dir}
 for pkg in "${python_packages[@]}" ; do
-    echo "  Installing ${pkg} via pipx"
-    run "pipx install ${pkg}"
+    if [ ! -d ${HOME}/.local/pipx/venvs/${pkg} ] ; then
+        echo "  Installing ${pkg} via pipx"
+        run "pipx install ${pkg}"
+    fi
 done

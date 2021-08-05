@@ -41,8 +41,11 @@ if is_mac ; then
             exit 1
         fi
     fi
-    if [ ! -x /usr/local/bin/brew ] ; then
+    if [ ! -x "$(brew_path)/brew" ] ; then
         install_homebrew="true"
+    fi
+    if is_m1 ; then
+        export PATH=$(brew_path):$PATH
     fi
 else
     if [ ! -d ~/.linuxbrew ] && [ ! -d /home/linuxbrew/.linuxbrew ] ; then

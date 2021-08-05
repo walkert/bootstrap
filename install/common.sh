@@ -18,6 +18,25 @@ is_mac(){
     return 1
 }
 
+is_m1(){
+    if [ $(uname -m) = "arm64" ] ; then
+        return 0
+    fi
+    return 1
+}
+
+brew_path(){
+    if is_mac ; then
+        if is_m1 ; then
+            echo "/opt/homebrew/bin"
+        else
+            echo "/usr/local/bin"
+        fi
+    else
+        echo "/home/linuxbrew/.linuxbrew/bin"
+    fi
+}
+
 is_redhat(){
     if [ -e /etc/redhat-release ] ; then
         return 0
@@ -131,7 +150,7 @@ brew_install(){
             eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)
         fi
     fi
-    if run "brew list $1"; then
+    if run "brew list $1" fail_ok; then
         return
     fi
     echo "  Installing $1.."

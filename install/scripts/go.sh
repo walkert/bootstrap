@@ -13,10 +13,16 @@ install_go(){
     run "rm -rf $gofile"
 }
 
+if is_m1 ; then
+    arch="arm64"
+else
+    arch="amd64"
+fi
+
 godir="${binaries_dir}/go"
 go="${godir}/bin/go"
 go_version=$(check 'curl -s https://golang.org/VERSION?m=text')
-go_tar="${go_version}.$(os_type)-amd64.tar.gz"
+go_tar="${go_version}.$(os_type)-${arch}.tar.gz"
 go_dl="${go_url}/${go_tar}"
 
 if [ -e $go ] ; then
