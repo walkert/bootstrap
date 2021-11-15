@@ -1,10 +1,12 @@
 [core]
-        editor = vim
+    editor = vim
 [merge]
-        tool = vimdiff
+    tool = vimdiff
 [user]
-        name = Tony Walker
-        email = walkert.uk@gmail.com
+    name = Tony Walker
+    email = walkert.uk@gmail.com
+[include]
+    path = ~/.gitconfig.local
 [alias]
     addnew = !git status --porcelain | grep ^? | awk '{print $NF}' | xargs git add
     addmod = !git status --porcelain | grep '^ M' | awk '{print $NF}' | xargs git add
