@@ -183,7 +183,7 @@ if [ -d ~/.zsh ] ; then
     # Ctrl-o executes the current suggestion
     bindkey '^O' autosuggest-execute
     # Or oo
-    bindkey -M viins "oo" autosuggest-execute
+    bindkey -M viins "==" autosuggest-execute
     # Change the default highlight colour
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'
 fi
