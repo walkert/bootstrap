@@ -210,3 +210,9 @@ function pyenv(){
 # p10k stuff
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# fzf
+# personal fzf settings first
+source ~/.fzfrc
+# settings installed by the fzf installer
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
