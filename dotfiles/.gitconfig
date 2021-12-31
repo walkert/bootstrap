@@ -8,6 +8,7 @@
 [include]
     path = ~/.gitconfig.local
 [alias]
+    amend = commit -av --amend --no-edit
     addnew = !git status --porcelain | grep ^? | awk '{print $NF}' | xargs git add
     addmod = !git status --porcelain | grep '^ M' | awk '{print $NF}' | xargs git add
     br = branch
