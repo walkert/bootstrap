@@ -121,6 +121,7 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
+                                            "^com\\.apple\\.Safari$",
                                             "^com\\.microsoft\\.rdc$",
                                             "^com\\.microsoft\\.rdc\\.mac$",
                                             "^com\\.microsoft\\.rdc\\.macos$",
