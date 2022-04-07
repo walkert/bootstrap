@@ -11,12 +11,6 @@ done
 
 # Install brew-based packages
 #
-if is_linux ; then
-    # Install perl from source to fix an issue with it being
-    # installed as a vim dependency 
-    echo "  Installing Perl from source..."
-    brew_install perl -s
-fi
 for pkg in "${brew_packages[@]}" ; do
     brew_install $pkg
 done

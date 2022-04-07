@@ -36,7 +36,8 @@ alias ipython='ipython --autocall=1'
 alias j='jobs'
 alias noh='ssh -o StrictHostKeyChecking=no -l root -A -o UserKnownHostsFile=/dev/null'
 alias ncp='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-alias vi='vim'
+alias vi='nvim'
+alias vim='nvim'
 if [ $(uname -s) = "Darwin" ] ; then
     is_mac=1
     alias ls='ls -G'
