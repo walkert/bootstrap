@@ -21,7 +21,7 @@ fi
 
 godir="${binaries_dir}/go"
 go="${godir}/bin/go"
-go_version=$(check 'curl -s https://golang.org/VERSION?m=text')
+go_version=$(check 'curl -L -s https://golang.org/VERSION?m=text')
 go_tar="${go_version}.$(os_type)-${arch}.tar.gz"
 go_dl="${go_url}/${go_tar}"
 
