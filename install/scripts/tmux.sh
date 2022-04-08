@@ -25,10 +25,10 @@ install_plugins(){
     run "~/.tmux/plugins/tpm/bin/install_plugins"
 }
 
+install_tmux
 if [ ! -L $tmux_scripts_dest ] ; then
     ensure_link $tmux_scripts_source $tmux_scripts_dest
 fi
 if [ ! -d ~/.tmux/plugins ] ; then
     install_plugins
 fi
-install_tmux
