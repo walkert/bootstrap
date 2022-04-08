@@ -18,7 +18,7 @@ if [ ! -d ~/.pyenv ] ; then
     fi
 fi
 
-export PATH="~/.pyenv/shims:$PATH"
+export PATH="~/.pyenv/bin:~/.pyenv/shims:$PATH"
 eval "$(pyenv init -)"
 
 if ! pyenv versions | grep -q ${python_version} ; then
