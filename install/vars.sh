@@ -1,5 +1,5 @@
-base_packages_all=(curl wget git unzip gcc fontconfig make)
-base_packages_ubuntu=(build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl)
+base_packages_all=(curl fontconfig git make wget unzip)
+base_packages_ubuntu=(build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev)
 base_packages_redhat=(ruby zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils libxcrypt-compat)
 minimal_scripts=(vim.sh vim_coc.sh)
 python_version=3.9.6
