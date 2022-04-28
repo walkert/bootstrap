@@ -1,4 +1,12 @@
--- Ensure the color displays immediately after leaving insert mode
-vim.cmd[[au InsertLeave * redraw!]]
 -- Red on lines with greater than 79 chars in Python
-vim.cmd[[au BufWinEnter *.py let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)]]
+local python_group = vim.api.nvim_create_augroup('Python', { clear = true })
+vim.api.nvim_create_autocmd(
+    'BufWinEnter',
+    {
+        callback = function()
+            vim.w.m2 = vim.fn.matchadd('ErrorMsg', '\\%>79v.*', -1)
+        end,
+        group = python_group,
+        pattern = '*.py'
+    }
+)

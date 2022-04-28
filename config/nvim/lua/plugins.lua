@@ -6,12 +6,15 @@ local package_root = fn.stdpath("config") .. "/pack"
 local compile_path = fn.stdpath("config") .. "/plugin/packer_compiled.lua"
 
 -- Ensure PackerSync runs when this file is modified
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+vim.api.nvim_create_autocmd(
+    'BufWritePost',
+    {
+        command = 'source <afile> | PackerSync',
+        group = packer_group,
+        pattern = 'plugins.lua'
+    }
+)
 
 -- returns the require for use in `config` parameter of packer's use
 -- expects the name of the config file
