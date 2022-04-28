@@ -42,8 +42,7 @@ return require('packer').startup({function()
         run = ":TSUpdate",
     }
     use {"p00f/nvim-ts-rainbow"} --configured in treesitter.lua
-    use {"romgrk/nvim-treesitter-context"} --configured in treesitter.lua
-
+    use {"lewis6991/nvim-treesitter-context"} --configured in treesitter.lua
     use {
         "ray-x/lsp_signature.nvim",
         config = function()
