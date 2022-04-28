@@ -13,10 +13,10 @@ cmp.setup({
             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
         end,
     },
-    mapping = {
-        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    mapping = cmp.mapping.preset.insert({
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
         ['<C-e>'] = cmp.mapping({
             i = cmp.mapping.abort(),
@@ -24,7 +24,7 @@ cmp.setup({
         }),
         -- This function will move the cursor to the next line when on ")", accept the first/current completion
         -- if one is available or just send <CR>
-        ['<CR>'] = function(fallback)
+        ['<CR>'] = cmp.mapping(function(fallback)
             local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
             --if next_char == "\"" or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
             if next_char == ")" then
@@ -34,9 +34,9 @@ cmp.setup({
             else
                 fallback()
             end
-        end,
+        end, { "i", "s" }),
         -- Enable tab/shift-tab to cycle through completions (and snippets)
-        ['<Tab>'] = function(fallback)
+        ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -46,8 +46,8 @@ cmp.setup({
             else
                 fallback()
             end
-        end,
-        ['<S-Tab>'] = function(fallback)
+        end, { "i", "s" }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
@@ -55,8 +55,8 @@ cmp.setup({
             else
                 fallback()
             end
-        end,
-    },
+        end, { "i", "s" }),
+    }),
     sources = cmp.config.sources({
         {
             name = 'nvim_lsp',
@@ -91,11 +91,13 @@ cmp.setup({
 
 -- Use buffer source for `/`
 cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {{name = 'buffer'}}
 })
 
 -- Use cmdline & path source for ':'
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}})
 })
 
