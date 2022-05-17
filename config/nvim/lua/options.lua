@@ -1,15 +1,9 @@
 local set = vim.opt
 
-vim.cmd "filetype plugin indent on"
-
-set.autoindent = true
-set.autoread = true
-set.backspace = {"indent", "eol", "start"}
 set.completeopt = "menu,menuone,noselect"
 set.cursorline = true
 set.expandtab = true
 set.formatoptions = set.formatoptions + 'ro'
-set.hlsearch = true
 set.ignorecase = true
 set.listchars = "eol:$,tab:>-"
 set.modelines = 0
