@@ -25,3 +25,9 @@ set.softtabstop = 4
 set.splitbelow = true
 set.splitright = true
 set.tabstop = 4
+
+-- Colours
+
+set.background = "dark"
+set.pumblend = 7
+set.termguicolors = true

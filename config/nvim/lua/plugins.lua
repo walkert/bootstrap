@@ -96,8 +96,6 @@ return require('packer').startup({function()
         config = get_config("gitgutter")
     }
     use 'rhysd/git-messenger.vim'
-    ---- Coloring
-    use {'overcache/NeoSolarized', config = get_config("colors")}
     -- Status
     use {
         'vim-airline/vim-airline',
@@ -134,10 +132,12 @@ return require('packer').startup({function()
         "hashivim/vim-terraform",
         ft = {"terraform"},
     }
+    -- Colours
     use {
        "norcalli/nvim-base16.lua",
        config = get_config("base16"),
    }
+   -- Random
    use({ "tweekmonster/startuptime.vim", cmd = "StartupTime" })
    use {
        "folke/todo-comments.nvim",
