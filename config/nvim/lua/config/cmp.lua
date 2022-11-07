@@ -26,11 +26,10 @@ cmp.setup({
         -- if one is available or just send <CR>
         ['<CR>'] = cmp.mapping(function(fallback)
             local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
-            --if next_char == "\"" or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
-            if next_char == ")" then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), 'n', true)
-            elseif cmp.visible() then
+            if cmp.visible() then
                 cmp.confirm({ select  = true })
+            elseif next_char == ")" then
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), 'n', true)
             else
                 fallback()
             end
