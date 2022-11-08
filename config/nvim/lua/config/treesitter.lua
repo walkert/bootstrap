@@ -4,8 +4,8 @@ require'nvim-treesitter.configs'.setup {
     disable = {},
   },
   indent = {
-    enable = true,
-    disable = {"python", "go"},
+    enable = false,
+    disable = {},
   },
   ensure_installed = {
       "go",
