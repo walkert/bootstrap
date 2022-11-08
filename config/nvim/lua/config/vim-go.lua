@@ -19,7 +19,7 @@ vim.cmd [[
     " :GoDef
     autocmd FileType go nmap <Leader>d <Plug>(go-def-vertical)
     " :GoCoverageToggle
-    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+    autocmd FileType go nmap <Leader>ct <Plug>(go-coverage-toggle)
     " :GoMetaLinter
     autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
     " :GoDoc in a vertical split
