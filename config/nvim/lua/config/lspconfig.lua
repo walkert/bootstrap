@@ -11,7 +11,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local servers = { 'gopls', 'pyright', 'terraformls' } -- rust_analyzer is configured by rust-tools
 
