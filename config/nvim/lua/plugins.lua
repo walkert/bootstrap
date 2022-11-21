@@ -101,7 +101,6 @@ return require('packer').startup({function()
         'vim-airline/vim-airline',
         requires = {
             'vim-airline/vim-airline-themes',
-            opt = true,
         },
         config = get_config("airline"),
     }
