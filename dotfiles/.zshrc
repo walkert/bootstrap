@@ -45,6 +45,7 @@ else
     alias ls='ls --color=auto'
 fi
 alias gd='git d'
+alias gg='git gone'
 alias gpf='git push --force'
 alias gs='git status'
 alias less='less -R'
