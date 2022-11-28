@@ -17,6 +17,7 @@ export COMPLETIONS="${MYENV}/zsh/completions.d"
 export FUNCTIONS="${MYENV}/zsh/functions.d"
 export TERM=tmux-256color
 export PIPX_BIN_DIR=${LOCAL_BIN}
+export EDITOR=nvim
 
 # GO
 export GOROOT=~/Binaries/go
