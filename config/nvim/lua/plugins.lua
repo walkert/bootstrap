@@ -88,32 +88,27 @@ return require('packer').startup({function()
         },
         config = get_config("gitsigns")
     }
-    -- Additional commands and airline integration for showing the branch
-    use 'tpope/vim-fugitive'
-    -- Used for airline integration only (signs disabled)
     use {
-        'airblade/vim-gitgutter',
-        config = get_config("gitgutter")
+        'nvim-lualine/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'},
+        config = get_config('lualine'),
     }
-    use 'rhysd/git-messenger.vim'
-    -- Status
     use {
-        'vim-airline/vim-airline',
-        requires = {
-            'vim-airline/vim-airline-themes',
-        },
-        config = get_config("airline"),
+        'akinsho/bufferline.nvim',
+        tag = 'v3.*',
+        requires = 'nvim-tree/nvim-web-devicons',
+        config = get_config('bufferline'),
     }
     -- FZF
     use {
         'ibhagwan/fzf-lua',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        requires = {'kyazdani42/nvim-web-devicons'},
         config = get_config("fzf"),
     }
     -- nvim-tree
     use {
         'kyazdani42/nvim-tree.lua',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        requires = {'kyazdani42/nvim-web-devicons'},
         config = get_config("nvim-tree")
     }
     -- pounce
