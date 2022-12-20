@@ -140,6 +140,11 @@ return require('packer').startup({function()
            require("todo-comments").setup {}
        end
    }
+   use {
+       "kylechui/nvim-surround",
+       tag = "*",
+       config = get_config("nvim-surround"),
+   }
 end,
 config = {
     package_root = package_root,
