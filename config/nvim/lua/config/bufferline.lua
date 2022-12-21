@@ -1,3 +1,4 @@
+local nmap = require('config/utils').nmap
 require('bufferline').setup {
     options = {
         mode = "tabs",
@@ -23,18 +24,18 @@ require('bufferline').setup {
     }
 }
 
-vim.keymap.set('n', '<leader>1', '<cmd>lua require("bufferline").go_to_buffer(1, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>2', '<cmd>lua require("bufferline").go_to_buffer(2, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>3', '<cmd>lua require("bufferline").go_to_buffer(3, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>4', '<cmd>lua require("bufferline").go_to_buffer(4, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>5', '<cmd>lua require("bufferline").go_to_buffer(5, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>6', '<cmd>lua require("bufferline").go_to_buffer(6, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>7', '<cmd>lua require("bufferline").go_to_buffer(7, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>8', '<cmd>lua require("bufferline").go_to_buffer(8, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>9', '<cmd>lua require("bufferline").go_to_buffer(9, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>0', '<cmd>lua require("bufferline").go_to_buffer(10, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>$', '<cmd>lua require("bufferline").go_to_buffer(-1, true)<cr>', {silent = true})
-vim.keymap.set('n', '<leader>^', '<cmd>lua require("bufferline").go_to_buffer(1, true)<cr>', {silent = true})
+nmap('<leader>1', '<cmd>lua require("bufferline").go_to_buffer(1, true)<cr>', "Jump to tab")
+nmap('<leader>2', '<cmd>lua require("bufferline").go_to_buffer(2, true)<cr>', "Jump to tab")
+nmap('<leader>3', '<cmd>lua require("bufferline").go_to_buffer(3, true)<cr>', "Jump to tab")
+nmap('<leader>4', '<cmd>lua require("bufferline").go_to_buffer(4, true)<cr>', "Jump to tab")
+nmap('<leader>5', '<cmd>lua require("bufferline").go_to_buffer(5, true)<cr>', "Jump to tab")
+nmap('<leader>6', '<cmd>lua require("bufferline").go_to_buffer(6, true)<cr>', "Jump to tab")
+nmap('<leader>7', '<cmd>lua require("bufferline").go_to_buffer(7, true)<cr>', "Jump to tab")
+nmap('<leader>8', '<cmd>lua require("bufferline").go_to_buffer(8, true)<cr>', "Jump to tab")
+nmap('<leader>9', '<cmd>lua require("bufferline").go_to_buffer(9, true)<cr>', "Jump to tab")
+nmap('<leader>0', '<cmd>lua require("bufferline").go_to_buffer(10, true)<cr>', "Jump to tab")
+nmap('<leader>$', '<cmd>lua require("bufferline").go_to_buffer(-1, true)<cr>', "Jump to tab")
+nmap('<leader>^', '<cmd>lua require("bufferline").go_to_buffer(1, true)<cr>', "Jump to tab")
 
 vim.cmd([[
 

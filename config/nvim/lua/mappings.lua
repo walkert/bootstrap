@@ -1,17 +1,5 @@
--- Create a function to set keymaps with sane defaults
-local map = function(mode, lhs, rhs)
-  -- get the extra options
-  local opts = {noremap = true, silent = true}
-  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
-end
-
-local nmap = function(lhs, rhs)
-    map("n", lhs, rhs)
-end
-
-local imap = function(lhs, rhs)
-    map("i", lhs, rhs)
-end
+local nmap = require('config/utils').nmap
+local imap = require('config/utils').imap
 
 vim.g.mapleader = ","
 
