@@ -41,6 +41,10 @@ return require('packer').startup({function()
         config = get_config("treesitter"),
         run = ":TSUpdate",
     }
+    use { -- Additional text objects via treesitter
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        after = 'nvim-treesitter',
+    }
     use {"p00f/nvim-ts-rainbow"} --configured in treesitter.lua
     use {"lewis6991/nvim-treesitter-context"} --configured in treesitter.lua
     use {
