@@ -80,8 +80,8 @@ return require('packer').startup({function()
     }
     -- Commentary
     use {
-        'preservim/nerdcommenter',
-        config = get_config("nerdcommenter"),
+        'numToStr/Comment.nvim',
+        config = get_config("Comment"),
     }
     -- Git
     -- Column signs
