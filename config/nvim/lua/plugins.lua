@@ -115,11 +115,6 @@ return require('packer').startup({function()
         requires = {'kyazdani42/nvim-web-devicons'},
         config = get_config("nvim-tree")
     }
-    -- pounce
-    use {
-        'rlane/pounce.nvim',
-        config = get_config("pounce")
-    }
     -- Languages
     use {
         'fatih/vim-go',
