@@ -149,6 +149,14 @@ return require('packer').startup({function()
        tag = "*",
        config = get_config("nvim-surround"),
    }
+   -- Testing
+   use({
+       "andythigpen/nvim-coverage",
+       requires = "nvim-lua/plenary.nvim",
+       config = function()
+           require("coverage").setup {}
+       end,
+   })
 end,
 config = {
     package_root = package_root,
