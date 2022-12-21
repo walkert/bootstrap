@@ -1,7 +1,5 @@
-local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = fn.stdpath("config") .. "/pack/packer/start/packer.nvim"
 local package_root = fn.stdpath("config") .. "/pack"
 local compile_path = fn.stdpath("config") .. "/plugin/packer_compiled.lua"
 
@@ -18,12 +16,13 @@ vim.api.nvim_create_autocmd(
 
 -- returns the require for use in `config` parameter of packer's use
 -- expects the name of the config file
-function get_config(name)
+local function get_config(name)
     return string.format("require(\"config/%s\")", name)
 end
 
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup({function()
+    local use = require("packer").use
     -- manage packer
     use {
         "wbthomason/packer.nvim",
