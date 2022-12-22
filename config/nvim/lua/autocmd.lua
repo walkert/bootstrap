@@ -22,3 +22,6 @@ vim.api.nvim_create_autocmd(
         pattern = '*',
     }
 )
+-- Refresh files when entering
+local refresh_group = vim.api.nvim_create_augroup('Refresh', { clear = true })
+vim.api.nvim_create_autocmd({'BufWinEnter', 'VimResume'}, { group = refresh_group, command = 'checktime' })
