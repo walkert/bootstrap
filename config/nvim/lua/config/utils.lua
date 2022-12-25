@@ -1,4 +1,3 @@
-local cmp = require('cmp')
 local kind_icons = {
   Text = "",
   Method = "",

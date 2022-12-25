@@ -56,6 +56,7 @@ return require('packer').startup({function()
     use {
         "simrat39/rust-tools.nvim",
         config = get_config("rust-tools"),
+        ft = {"rust"},
     }
     -- Completion
     use {
@@ -71,16 +72,19 @@ return require('packer').startup({function()
             {'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp'},
         },
         config = get_config("cmp"),
+        event = "InsertEnter",
     }
     use {
         'windwp/nvim-autopairs',
         requires = {"hrsh7th/nvim-cmp"},
         config = get_config("autopairs"),
+        after = "nvim-cmp",
     }
     -- Commentary
     use {
         'numToStr/Comment.nvim',
         config = get_config("Comment"),
+        event = "BufReadPost",
     }
     -- Git
     -- Column signs
@@ -89,7 +93,8 @@ return require('packer').startup({function()
         requires = {
             'nvim-lua/plenary.nvim'
         },
-        config = get_config("gitsigns")
+        config = get_config("gitsigns"),
+        event = "BufReadPost",
     }
     use {
         'nvim-lualine/lualine.nvim',
@@ -101,6 +106,7 @@ return require('packer').startup({function()
         tag = 'v3.*',
         requires = 'nvim-tree/nvim-web-devicons',
         config = get_config('bufferline'),
+        event = "TabEnter",
     }
     -- FZF
     use {
@@ -112,7 +118,8 @@ return require('packer').startup({function()
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {'kyazdani42/nvim-web-devicons'},
-        config = get_config("nvim-tree")
+        config = get_config("nvim-tree"),
+        keys = "<C-t>",
     }
     -- Languages
     use {
@@ -142,6 +149,7 @@ return require('packer').startup({function()
        "kylechui/nvim-surround",
        tag = "*",
        config = get_config("nvim-surround"),
+       after = "nvim-cmp",
    }
    -- Testing
    use({
@@ -150,6 +158,7 @@ return require('packer').startup({function()
        config = function()
            require("coverage").setup {}
        end,
+       cmd = "Coverage",
    })
 end,
 config = {

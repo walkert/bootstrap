@@ -3,11 +3,18 @@ if pcall(require, 'imatient') then
     require 'impatient'
 end
 
+-- Skip some remote provider loading
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
   'gzip',
   'man',
   'matchit',
+  'matchparen',
   'shada_plugin',
   'tarPlugin',
   'tar',
