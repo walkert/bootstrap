@@ -80,6 +80,15 @@ return require('packer').startup({function()
         config = get_config("autopairs"),
         after = "nvim-cmp",
     }
+    use {
+        'abecodes/tabout.nvim',
+        config = function()
+            require('tabout').setup {}
+            vim.api.nvim_set_keymap('i', '<C-e>', "<Plug>(TaboutMulti)", {silent = true, desc = "Exit from a matched block"})
+        end,
+            wants = {'nvim-treesitter'},
+            after = {'nvim-cmp'}
+        }
     -- Commentary
     use {
         'numToStr/Comment.nvim',

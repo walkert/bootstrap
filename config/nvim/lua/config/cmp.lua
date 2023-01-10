@@ -1,9 +1,5 @@
   -- Setup nvim-cmp.
 local utils = require('config/utils')
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
@@ -26,14 +22,10 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
-        -- This function will move the cursor to the next line when on ")", accept the first/current completion
-        -- if one is available or just send <CR>
+        -- This function will accept the first/current completion if one is available or just send <CR>
         ['<CR>'] = cmp.mapping(function(fallback)
-            local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
             if cmp.visible() then
                 cmp.confirm({ select  = true })
-            elseif next_char == ")" then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), 'n', true)
             else
                 fallback()
             end
@@ -44,8 +36,6 @@ cmp.setup({
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
-            elseif has_words_before() then
-                cmp.complete()
             else
                 fallback()
             end
