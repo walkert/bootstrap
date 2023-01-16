@@ -52,3 +52,7 @@ nmap("<leader>n", ":nohlsearch<CR>")
 -- Buffers
 nmap("<C-n>", ":bnext<CR>")
 nmap("<C-p>", ":bprev<CR>")
+
+-- Keep search results in the middle of the buffer
+nmap("n", "nzzzv")
+nmap("N", "Nzzzv")

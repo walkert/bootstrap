@@ -160,6 +160,12 @@ return require('packer').startup({function()
        config = get_config("nvim-surround"),
        after = "nvim-cmp",
    }
+   use {
+       "asiryk/auto-hlsearch.nvim",
+       config = function()
+           require("auto-hlsearch").setup()
+       end
+   }
    -- Testing
    use({
        "andythigpen/nvim-coverage",
