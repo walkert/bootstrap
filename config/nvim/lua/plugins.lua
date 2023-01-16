@@ -44,7 +44,7 @@ return require('packer').startup({function()
         'nvim-treesitter/nvim-treesitter-textobjects',
         after = 'nvim-treesitter',
     }
-    use {"p00f/nvim-ts-rainbow"} --configured in treesitter.lua
+    use {"mrjones2014/nvim-ts-rainbow"} --configured in treesitter.lua
     use {"lewis6991/nvim-treesitter-context"} --configured in treesitter.lua
     use {
         "ray-x/lsp_signature.nvim",
