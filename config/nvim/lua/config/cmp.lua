@@ -57,7 +57,7 @@ cmp.setup({
         },
         {
             name = 'luasnip',
-            keyword_length = 3,
+            keyword_length = 2,
         },
         {
             name = 'buffer',
