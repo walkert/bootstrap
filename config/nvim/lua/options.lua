@@ -25,5 +25,4 @@ set.undofile = true
 
 -- Colours
 
-set.pumblend = 7
 set.termguicolors = true
