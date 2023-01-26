@@ -136,10 +136,6 @@ return require('packer').startup({function()
         config = get_config("vim-go"),
         ft = {"go"},
     }
-    use {
-        "hashivim/vim-terraform",
-        ft = {"terraform"},
-    }
     -- Colours
     use {
        "norcalli/nvim-base16.lua",
