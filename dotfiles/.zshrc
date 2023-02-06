@@ -48,7 +48,9 @@ fi
 alias gd='git d'
 alias gg='git gone'
 alias gpf='git push --force'
+alias grh='git reset --hard HEAD'
 alias gs='git status'
+alias gsi='git submodule update --init --recursive'
 alias less='less -R'
 alias rg='rg --hidden --color always'
 
@@ -191,13 +193,6 @@ if [ -d ~/.zsh ] ; then
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'
 fi
 
-# Overrides
-# Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
-# in ~/.localrc such as changes to PATH/zstyle etc
-if [ -f ~/.overrides.shell ] ; then
-    . ~/.overrides.shell
-fi
-
 # Start in tmux by default
 if [ -z $TMUX ] ; then
     tmux a -t home >/dev/null 2>&1 || tmux new -s home
@@ -219,3 +214,10 @@ source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.fzfrc
 # settings installed by the fzf installer
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Overrides
+# Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
+# in ~/.localrc such as changes to PATH/zstyle etc
+if [ -f ~/.overrides.shell ] ; then
+    . ~/.overrides.shell
+fi
