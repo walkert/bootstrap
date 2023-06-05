@@ -76,6 +76,10 @@
                                             {
                                                 "product_id": 36,
                                                 "vendor_id": 1241
+                                            },
+                                            {
+                                                "product_id": 45927,
+                                                "vendor_id": 1133
                                             }
                                         ],
                                         "type": "device_if"
@@ -115,6 +119,10 @@
                                             {
                                                 "product_id": 36,
                                                 "vendor_id": 1241
+                                            },
+                                            {
+                                                "product_id": 45927,
+                                                "vendor_id": 1133
                                             }
                                         ],
                                         "type": "device_if"
@@ -819,7 +827,7 @@
                                         "key_code": "m",
                                         "modifiers": [
                                             "left_shift",
-                                            "left_control"
+                                            "left_command"
                                         ]
                                     }
                                 ],
