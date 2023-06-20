@@ -89,6 +89,25 @@ return require('packer').startup({function()
             wants = {'nvim-treesitter'},
             after = {'nvim-cmp'}
         }
+    use({
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+        config = function()
+            require('lspsaga').setup({
+                symbol_in_winbar = {
+                    enable = false,
+                },
+                code_action = {
+                    keys = {
+                        -- string | table type
+                        quit = {"q", "<ESC>"},
+                        exec = "<CR>",
+                    },
+                },
+            }
+        )
+        end,
+    })
     -- Commentary
     use {
         'numToStr/Comment.nvim',
