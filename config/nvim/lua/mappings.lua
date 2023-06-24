@@ -14,6 +14,7 @@ nmap("<C-w>", "<C-w>w")
 
 -- Ins escape
 imap("jj", "<ESC>")
+imap("jk", "<ESC>")
 
 -- Hit qq to write/suspend
 imap("qq", "<ESC>:w! | stop<CR>")
@@ -56,3 +57,6 @@ nmap("<C-p>", ":bprev<CR>")
 -- Keep search results in the middle of the buffer
 nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
+
+-- Paste copied text and then immediately highlight it
+nmap("vp", "p`[V`]")
