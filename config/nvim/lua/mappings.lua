@@ -1,5 +1,6 @@
 local nmap = require('config/utils').nmap
 local imap = require('config/utils').imap
+local toggle_qf = require('config/utils').toggle_qf
 
 vim.g.mapleader = ","
 
@@ -60,3 +61,6 @@ nmap("N", "Nzzzv")
 
 -- Paste copied text and then immediately highlight it
 nmap("vp", "p`[V`]")
+
+-- Toggle the quickfix window
+nmap("<leader>q", "<cmd>lua require('config/utils').toggle_qf()<CR>")
