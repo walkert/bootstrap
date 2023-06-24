@@ -6,7 +6,7 @@ local on_attach = require('config/utils').on_attach
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local servers = { 'gopls', 'pyright', 'sumneko_lua', 'terraformls' } -- rust_analyzer is configured by rust-tools
+local servers = { 'gopls', 'pyright', 'lua_ls', 'terraformls' } -- rust_analyzer is configured by rust-tools
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -42,7 +42,7 @@ require "lspconfig".efm.setup {
     root_dir = require("lspconfig").util.root_pattern{".git/", "."},
 }
 -- Lua setup
-require "lspconfig".sumneko_lua.setup {
+require "lspconfig".lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
