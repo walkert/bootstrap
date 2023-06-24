@@ -155,6 +155,10 @@ return require('packer').startup({function()
         config = get_config("vim-go"),
         ft = {"go"},
     }
+    use {
+        'Vimjas/vim-python-pep8-indent',
+        ft = {"python"},
+    }
     -- Colours
     use {
        "norcalli/nvim-base16.lua",
