@@ -185,6 +185,14 @@ return require('packer').startup({function()
            require("auto-hlsearch").setup()
        end
    }
+   use {
+       "chentoast/marks.nvim",
+       config = function()
+           require("marks").setup {
+               builtin_marks = { ".", "<", ">", "^" },
+           }
+       end
+   }
    -- Testing
    use({
        "andythigpen/nvim-coverage",
