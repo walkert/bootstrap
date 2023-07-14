@@ -45,7 +45,7 @@ return require('packer').startup({function()
         after = 'nvim-treesitter',
     }
     use {"mrjones2014/nvim-ts-rainbow"} --configured in treesitter.lua
-    use {"lewis6991/nvim-treesitter-context"} --configured in treesitter.lua
+    use {"nvim-treesitter/nvim-treesitter-context"} --configured in treesitter.lua
     use {
         "ray-x/lsp_signature.nvim",
         config = function()
@@ -57,6 +57,13 @@ return require('packer').startup({function()
         "simrat39/rust-tools.nvim",
         config = get_config("rust-tools"),
         ft = {"rust"},
+    }
+    use {
+        "j-hui/fidget.nvim",
+        tag = "legacy",
+        config = function()
+            require("fidget").setup {}
+        end,
     }
     -- Completion
     use {
