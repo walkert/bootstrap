@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Some global vars
+NIX_PROF_DIR="${HOME}/.local/state/nix/profiles"
+NIX_CORE="${NIX_PROF_DIR}/core"
+NIX_USER_PROFILE="${NIX_PROF_DIR}/${USER}"
+
+update_path(){
+    echo "export PATH=${NIX_CORE}/bin:$PATH"
+}
+
 os_type(){
     echo $(uname -s|tr [:upper:] [:lower:])
 }
