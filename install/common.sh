@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Some global vars
+NIX_PROF_DIR="${HOME}/.local/state/nix/profiles"
+NIX_CORE="${NIX_PROF_DIR}/core"
+NIX_USER_PROFILE="${NIX_PROF_DIR}/${USER}"
+
+set_nix_path(){
+    echo "export PATH=${NIX_CORE}/bin:$PATH"
+}
+
 os_type(){
     echo $(uname -s|tr [:upper:] [:lower:])
 }
@@ -23,18 +32,6 @@ is_m1(){
         return 0
     fi
     return 1
-}
-
-brew_path(){
-    if is_mac ; then
-        if is_m1 ; then
-            echo "/opt/homebrew/bin"
-        else
-            echo "/usr/local/bin"
-        fi
-    else
-        echo "/home/linuxbrew/.linuxbrew/bin"
-    fi
 }
 
 is_redhat(){
@@ -137,22 +134,8 @@ ensure_link(){
     local source=$1
     local dest=$2
     if [ ! -L $dest ] ; then
-        ln -s $source $dest
-    fi
-}
-
-brew_install(){
-    if is_linux ; then
-        if [ -d ~/.linuxbrew ] ; then
-            eval $(~/.linuxbrew/bin/brew shellenv 2>/dev/null)
-        fi
-        if [ -d /home/linuxbrew/.linuxbrew ] ; then
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null)
+        if ! ln -s $source $dest ; then
+            echo "Error during symlink creation"
         fi
     fi
-    if run "brew list $1" fail_ok; then
-        return
-    fi
-    echo "  Installing $1.."
-    run "brew install $1 $2"
 }

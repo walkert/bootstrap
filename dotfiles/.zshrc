@@ -24,7 +24,7 @@ export GOROOT=~/Binaries/go
 export GOPATH=~/Go
 
 # Update PATH to include bin locations
-export PATH=${HOME}/.pyenv/shims:${HOME}/.cargo/bin:${LOCAL_BIN}:${GOROOT}/bin:${GOPATH}/bin:${PY_DIR}:$PATH
+export PATH=${HOME}/.local/state/nix/profiles/core/bin:${HOME}/.cargo/bin:${LOCAL_BIN}:${GOROOT}/bin:${GOPATH}/bin:${PY_DIR}:$PATH
 
 # Update fpath to include custom completions and functions
 fpath+=($FUNCTIONS $COMPLETIONS)
@@ -55,16 +55,9 @@ alias less='less -R'
 alias rg='rg --hidden --color always'
 
 # virtualenv stuff
-function mkvirtualenv() {
-    if pyenv virtualenv $@ ; then
-        pyenv activate ${@: -1}
-    fi
-}
-alias deactivate='source deactivate'
-alias lsvirtualenv='pyenv virtualenvs'
-alias rmvirtualenv='pyenv virtualenv-delete -f'
-alias workon='pyenv activate'
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+export VIRTUALENVWRAPPER_PYTHON=~/.local/state/nix/profiles/core/bin/python3.10
+source virtualenvwrapper.sh
+export WORKON_HOME=~/.venvs
 
 # History
 export HISTFILE=~/.zhistfile
@@ -197,13 +190,6 @@ fi
 if [ -z $TMUX ] ; then
     tmux a -t home >/dev/null 2>&1 || tmux new -s home
 fi
-# pyenv
-function pyenv(){
-    unset -f pyenv
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-    pyenv $@
-}
 
 # p10k stuff
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
@@ -213,7 +199,8 @@ source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 # personal fzf settings first
 source ~/.fzfrc
 # settings installed by the fzf installer
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source "${FZF_SHARE}/key-bindings.zsh"
+source "${FZF_SHARE}/completion.zsh"
 
 # Overrides
 # Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied

@@ -9,23 +9,15 @@
 tmux_scripts_dest="${HOME}/.tmux"
 tmux_scripts_source="$(dirname $1)/tmux"
 
-install_tmux(){
-    echo "Installing tmux"
-    for pkg in "${tmux_brew_packages[@]}" ; do
-        brew_install $pkg
-    done
-}
-
 install_plugins(){
     echo "Installing tmux plugins"
     mkdir -p ~/.tmux/plugins
     for plugin in "${tmux_plugins[@]}" ; do
-        run "git clone $plugin ~/.tmux/plugins/$(basename $plugin)"
+        run "git clone $plugin ${HOME}/.tmux/plugins/$(basename $plugin)"
     done
-    run "~/.tmux/plugins/tpm/bin/install_plugins"
+    run "${HOME}/.tmux/plugins/tpm/bin/install_plugins"
 }
 
-install_tmux
 if [ ! -L $tmux_scripts_dest ] ; then
     ensure_link $tmux_scripts_source $tmux_scripts_dest
 fi

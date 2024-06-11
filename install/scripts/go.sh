@@ -6,6 +6,8 @@
 . ${1}/vars.sh
 . ${1}/common.sh
 
+eval $(set_nix_path)
+
 install_go(){
     local gofile="go.tgz"
     run "wget -O $gofile $go_dl"
@@ -21,7 +23,7 @@ fi
 
 godir="${binaries_dir}/go"
 go="${godir}/bin/go"
-go_version=$(check 'curl -L -s https://golang.org/VERSION?m=text')
+go_version=$(check 'curl -L -s https://golang.org/VERSION?m=text'|head -n1)
 go_tar="${go_version}.$(os_type)-${arch}.tar.gz"
 go_dl="${go_url}/${go_tar}"
 

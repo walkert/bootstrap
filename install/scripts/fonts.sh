@@ -9,6 +9,7 @@
 if ! is_linux ; then
     exit
 fi
+eval "$(set_nix_path)"
 fonts=${HOME}/.fonts
 ensure_dir $fonts
 for i in $(seq 0 ${#fonts_expect[@]}) ; do
