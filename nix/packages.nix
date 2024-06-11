@@ -1,0 +1,21 @@
+with import <nixpkgs> {}; [
+    curl
+    efm-langserver
+    fontconfig
+    fzf
+    gcc
+    git
+    lua-language-server
+    neovim
+    pyright
+    python310Full
+    python310Packages.virtualenv
+    python310Packages.virtualenvwrapper
+    python310Packages.pipx
+    python310Packages.ipython
+    ripgrep
+    terraform-ls
+    tmux
+    unzip
+    wget
+]

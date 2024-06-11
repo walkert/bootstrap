@@ -6,6 +6,7 @@
 . ${1}/vars.sh
 . ${1}/common.sh
 
+eval $(set_nix_path)
 mkdir -p ~/.zsh
 cd ~/.zsh
 for extra in ${zsh_extras[*]} ; do

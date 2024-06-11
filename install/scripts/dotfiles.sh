@@ -6,6 +6,8 @@
 . ${1}/vars.sh
 . ${1}/common.sh
 
+eval $(set_nix_path)
+
 for dot in $(find ${1}/../dotfiles -type f) ; do
     fname=$(basename $dot)
     dest="${HOME}/$fname"
@@ -40,14 +42,9 @@ if ! is_linux ; then
     exit
 fi
 
-# Determine where brew is installed
-if [ -d ~/.linuxbrew ] ; then
-    brew=~/.linuxbrew/bin/brew
-else
-    brew=/home/linuxbrew/.linuxbrew/bin/brew
-fi
 cat >> ${localrc} <<EOF
 
-# Setup Brew
-$($brew shellenv 2>/dev/null)
+# Set FZF path
+FZF_SHARE=$(fzf-share)
+
 EOF
