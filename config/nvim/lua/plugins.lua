@@ -60,7 +60,6 @@ return require('packer').startup({function()
     }
     use {
         "j-hui/fidget.nvim",
-        tag = "legacy",
         config = function()
             require("fidget").setup {}
         end,
@@ -138,7 +137,6 @@ return require('packer').startup({function()
     }
     use {
         'akinsho/bufferline.nvim',
-        tag = 'v3.*',
         requires = 'nvim-tree/nvim-web-devicons',
         config = get_config('bufferline'),
         event = "TabEnter",
@@ -199,6 +197,18 @@ return require('packer').startup({function()
                builtin_marks = { ".", "<", ">", "^" },
            }
        end
+   }
+   -- Search result virtual text
+   use {
+       "kevinhwang91/nvim-hlslens",
+       config = get_config("hlslens")
+   }
+   -- show indent layers
+   use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("ibl").setup()
+        end
    }
    -- Testing
    use({
