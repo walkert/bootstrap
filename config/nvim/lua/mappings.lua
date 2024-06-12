@@ -45,9 +45,18 @@ nmap("<leader>ll", ":set nolist<CR>")
 -- Select pasted lines
 nmap("<leader>v", "V`]")
 
--- Toggle signcolumn
-nmap("<leader>nn", ":setlocal nonumber norelativenumber signcolumn=no<CR>")
-nmap("<leader>tn", ":setlocal number relativenumber signcolumn=number<CR>")
+-- Toggle signcolumn and indent
+nmap(
+  "<leader>nn",
+  function()
+      vim.wo.number = (vim.wo.number == false and true or false)
+      vim.wo.relativenumber = (vim.wo.relativenumber == false and true or false)
+      vim.wo.signcolumn = (vim.wo.signcolumn == "no" and "number" or "no")
+      require("ibl").setup_buffer(0, {
+        enabled = not require("ibl.config").get_config(0).enabled,
+      })
+  end
+)
 
 -- Clear highlighted searches
 nmap("<leader>n", ":nohlsearch<CR>")
