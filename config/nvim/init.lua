@@ -1,11 +1,8 @@
-require('impatient')
--- Disable builtins
-require('disable_builtins')
--- Plugin management via Packer
-require("plugins")
--- Vim mappings, see lua/config/which.lua for more mappings
-require("mappings")
--- All non plugin related (vim) options
-require("options")
--- Vim autocommands/autogroups
-require("autocmd")
+-- Configure Lazy
+require("config.lazy")
+-- Generic mappings
+require("config.mappings")
+-- Generic options
+require("config.options")
+-- autocommands/autogroups
+require("config.autocmd")
