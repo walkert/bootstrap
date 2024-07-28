@@ -34,5 +34,6 @@
   "statuscol.nvim": { "branch": "main", "commit": "d6f7f5437c5404d958b88bb73e0721b1c0e09223" },
   "tabout.nvim": { "branch": "master", "commit": "3d7fbc7f5e91ef0f96b4d787c78ad9f8820de3ec" },
   "todo-comments.nvim": { "branch": "main", "commit": "51e10f838e84b4756c16311d0b1ef0972c6482d2" },
+  "tokyonight.nvim": { "branch": "main", "commit": "7d91481956f7d54c7f520d9f9765efdd3fe7155e" },
   "vim-python-pep8-indent": { "branch": "master", "commit": "60ba5e11a61618c0344e2db190210145083c91f8" }
 }

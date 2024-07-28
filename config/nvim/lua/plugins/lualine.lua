@@ -5,7 +5,7 @@ return {
         require('lualine').setup {
             options = {
                 icons_enabled = true,
-                theme = 'powerline',
+                theme = 'tokyonight-storm',
             },
             sections = {
                 lualine_a = {'mode'},
