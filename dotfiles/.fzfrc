@@ -1,3 +1,3 @@
 # My stuff
 export FZF_DEFAULT_COMMAND="rg --files --hidden"
-export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --border --preview='bat --color=always {}' --preview-window 'down,60%,border-bottom,+{2}+3/3,~3,hidden' --bind '?:toggle-preview'"
+export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --border --preview='bat --color=always {}' --preview-window 'right,60%,border-bottom,+{2}+3/3,~3' --bind '?:toggle-preview,up:preview-page-up,down:preview-page-down'"
