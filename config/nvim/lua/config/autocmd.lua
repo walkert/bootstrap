@@ -32,25 +32,6 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
--- Relative number in normal mode, disabled in insert
-vim.api.nvim_create_autocmd(
-    { 'VimEnter', 'InsertLeave' },
-    {
-        callback = function()
-            vim.wo.relativenumber = true
-        end,
-        pattern = "*.*",
-    }
-)
-vim.api.nvim_create_autocmd(
-    'InsertEnter',
-    {
-        callback = function()
-            vim.wo.relativenumber = false
-        end,
-        pattern = "*",
-    }
-)
 -- Remove trailling whitespace before save
 vim.api.nvim_create_autocmd(
     'BufWritePre',
