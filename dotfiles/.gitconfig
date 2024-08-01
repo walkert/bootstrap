@@ -47,8 +47,6 @@
     added = yellow
     changed = green
     untracked = cyan
-[http]
-	sslVerify = false
 [push]
     default = current
 [pull]
