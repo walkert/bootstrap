@@ -26,7 +26,7 @@ fi
 # During installation, make sure to start nix-daemon
 # root can run using sudo and we'll assume we have sudo access
 # as well...
-if ! pgrep -q nix-daemon; then
+if ! pgrep nix-daemon &>/dev/null; then
     echo "Starting nix-daemon.."
     nohup sudo $(which nix-daemon) &
 fi

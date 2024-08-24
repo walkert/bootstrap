@@ -6,6 +6,8 @@
 . ${1}/vars.sh
 . ${1}/common.sh
 
+eval $(set_nix_path)
+
 tmux_scripts_dest="${HOME}/.tmux"
 tmux_scripts_source="$(dirname $1)/tmux"
 
