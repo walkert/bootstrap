@@ -33,6 +33,9 @@ nmap("qww", "<ESC>:wq!<CR>")
 -- Hit qd to delete the current buffer
 nmap("qd", "<ESC>:bd<CR>")
 
+-- Hit q1 to quit without writing
+nmap("q1", "<ESC>:qall!<CR>")
+
 -- Avoid ex mode
 nmap("Q", "<NOP>")
 
