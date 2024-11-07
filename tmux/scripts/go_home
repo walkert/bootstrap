@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Check if a 'home' session exists. If it doesn't create it detached.
+if ! tmux has -t home 2>/dev/null; then
+    tmux new -d -s home
+fi
+# Get the current session name
+current_session=$(tmux list-sessions -F "#{session_name}" -f "#{session_attached}")
+# If we're already home, exit early
+if [ "${current_session}" = "home" ]; then
+    exit
+fi
+# Switch to home
+tmux switch-client -t home
+# Kill the current session
+tmux kill-session -t "${current_session}"

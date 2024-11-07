@@ -20,3 +20,9 @@ if ! curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- --no
     echo "Unable to install Rust"
     exit 1
 fi
+
+# Special case - install sesh
+if [ ! -e "${CARGO_DIR}/sesh" ]; then
+    echo "  Installing sesh from Github..."
+    cargo install --git https://github.com/walkert/sesh
+fi
