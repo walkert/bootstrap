@@ -6,6 +6,7 @@ with import <nixpkgs> {}; [
     fzf
     gcc
     git
+    jq
     lua-language-server
     neovim
     nodePackages.bash-language-server
@@ -18,6 +19,7 @@ with import <nixpkgs> {}; [
     python310Packages.virtualenvwrapper
     ripgrep
     terraform-ls
+    tig
     tmux
     tree-sitter
     unzip
