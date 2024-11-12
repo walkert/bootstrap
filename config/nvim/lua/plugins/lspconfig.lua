@@ -146,6 +146,7 @@ return {
                 },
             },
             rust_analyzer = true,
+            terraformls = true,
         }
 
         -- Configure each of the servers listed above
