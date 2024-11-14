@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd(
         callback = function()
             vim.w.m2 = vim.fn.matchadd('ErrorMsg', '\\%>79v.*', -1)
         end,
+        group = vim.api.nvim_create_augroup("ErrorMsg", { clear = true }),
         pattern = '*.py'
     }
 )
@@ -16,30 +17,39 @@ vim.api.nvim_create_autocmd(
         callback = function()
             vim.highlight.on_yank()
         end,
-        pattern = '*',
+        group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
+        pattern = '*'
     }
 )
 -- Refresh files when entering
-vim.api.nvim_create_autocmd({ 'BufWinEnter', 'VimResume' }, { command = 'checktime' })
+vim.api.nvim_create_autocmd(
+    { 'BufWinEnter', 'VimResume' },
+    {
+        command = 'checktime',
+        group = vim.api.nvim_create_augroup("Refresh", { clear = true })
+    }
+)
 -- Auto-close the quickfix window once an entry has been selected
 vim.api.nvim_create_autocmd(
     'FileType',
     {
-        pattern = { 'qf' },
         callback = function()
             nmap("<CR>", "<CR>:cclose<CR>:lclose<CR>", "Select an entry and then close the qf window")
             nmap("q", ":cclose<CR>:lclose<CR>", "Close the qf window")
         end,
+        group = vim.api.nvim_create_augroup("QFClose", { clear = true }),
+        pattern = { 'qf' }
     }
 )
--- Remove trailling whitespace before save
+-- Remove trailing whitespace before save
 vim.api.nvim_create_autocmd(
     'BufWritePre',
     {
         callback = function()
             vim.cmd [[%s/\s\+$//e]]
         end,
-        pattern = "*",
+        group = vim.api.nvim_create_augroup("TrailingSpace", { clear = true }),
+        pattern = "*"
     }
 )
 -- Set comment strings for terraform and hcl files
