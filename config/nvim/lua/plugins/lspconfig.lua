@@ -1,11 +1,11 @@
 local vmap = require("config.utils").map
 local nmap = require("config.utils").nmap
 local on_attach = function(client, bufnr)
--- A table of languages we want to enable auto-formatting for
-local langs_to_format = {
-    go = true,
-    rust = true,
-}
+    -- A table of languages we want to skip auto-formatting for
+    local skip_auto_formatting = {
+        lua = true,
+        python = true,
+    }
     -- Enable inlay hints by default
     vim.lsp.inlay_hint.enable()
 
@@ -33,16 +33,16 @@ local langs_to_format = {
     nmap('<space>t', "<cmd>Lspsaga term_toggle<CR>", "[T]erminal", bufopts)
     nmap('<space>i', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "Toggle inlay hints", bufopts)
 
-    -- Autocmd to format on write. For now, exclude Pythonkk
+    -- Autocmd to format on write (unless skipped)
     vim.api.nvim_create_autocmd(
         "BufWritePre",
         {
             pattern = "*",
             callback = function()
-                if langs_to_format[vim.bo.filetype] ~= nil then
-                    vim.lsp.buf.format()
+                if skip_auto_formatting[vim.bo.filetype] ~= nil then
                     return
                 end
+                vim.lsp.buf.format()
             end,
         }
     )
