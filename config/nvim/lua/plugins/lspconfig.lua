@@ -86,26 +86,6 @@ return {
 
         local servers = {
             bashls = true,
-            efm = {
-                init_options = {documentFormatting = true, hover = true},
-                settings = {
-                    languages = {
-                        python = {
-                            {
-                                lintCommand = "flake8 --max-line-length 79 --format '%(path)s:%(row)d:%(col)d: %(code)s %(code)s %(text)s' --stdin-display-name ${INPUT} -",
-                                lintStdin = true,
-                                lintIgnoreExitCode = true,
-                                lintFormats = { "%f:%l:%c: %t%n%n%n %m" },
-                                lintSource = "flake8",
-                                formatCommand = "black -l 79 -",
-                                formatStdin = true,
-                            }
-                        },
-                    },
-                },
-                filetypes = { 'python' },
-                root_dir = nvim_lsp.util.root_pattern{".git/", "."},
-            },
             gopls = {
                 settings = {
                     gopls = {
@@ -121,30 +101,44 @@ return {
                     }
                 }
             },
-            pyright = true,
             lua_ls = {
                 settings = {
                     Lua = {
-                    runtime = {
-                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                        version = 'LuaJIT',
-                    },
-                    diagnostics = {
-                        -- Get the language server to recognize the `vim` global
-                        globals = {'vim'},
-                    },
-                    workspace = {
-                        -- Make the server aware of Neovim runtime files
-                        library = vim.api.nvim_get_runtime_file("", true),
-                        checkThirdParty = false,
-                    },
-                    -- Do not send telemetry data containing a randomized but unique identifier
-                    telemetry = {
-                        enable = false,
-                    },
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                            version = 'LuaJIT',
+                        },
+                        diagnostics = {
+                            -- Get the language server to recognize the `vim` global
+                            globals = { 'vim' },
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            library = vim.api.nvim_get_runtime_file("", true),
+                            checkThirdParty = false,
+                        },
+                        -- Do not send telemetry data containing a randomized but unique identifier
+                        telemetry = {
+                            enable = false,
+                        },
                     },
                 },
             },
+            pyright = {
+                settings = {
+                    pyright = {
+                        -- Using Ruff's import organizer
+                        disableOrganizeImports = true,
+                    },
+                    python = {
+                        analysis = {
+                            -- Ignore all files for analysis to exclusively use Ruff for linting
+                            ignore = { '*' },
+                        },
+                    },
+                },
+            },
+            ruff = true,
             rust_analyzer = true,
             terraformls = true,
         }

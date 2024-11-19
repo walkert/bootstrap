@@ -1,7 +1,6 @@
 with import <nixpkgs> {}; [
     bat
     curl
-    efm-langserver
     fontconfig
     fzf
     gcc
@@ -18,6 +17,7 @@ with import <nixpkgs> {}; [
     python310Packages.virtualenv
     python310Packages.virtualenvwrapper
     ripgrep
+    ruff
     terraform-ls
     tig
     tmux
