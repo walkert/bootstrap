@@ -17,7 +17,7 @@
     dt = difftool -y
     dc = diff --cached
     dump = cat-file -p
-    gone = !git checkout master && git fetch -p && git for-each-ref --shell --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname)%(end)' refs/heads | strings | xargs -I {} git update-ref -d {} && git pull
+    gone = "!f(){ br=${1}; git checkout ${br:=master} && git fetch -p && git for-each-ref --shell --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname)%(end)' refs/heads | strings | xargs -I {} git update-ref -d {} && git pull; };f"
     stp = !git status --porcelain
     hist = log --pretty=format:'%C(blue) %h %Cgreen %ad %Cblue | %C(auto) %s%d [%Cblue%an%Creset]' --graph --date=short
     info = remote show origin
