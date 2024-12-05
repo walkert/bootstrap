@@ -202,6 +202,13 @@ source ~/.fzfrc
 source "${FZF_SHARE}/key-bindings.zsh"
 source "${FZF_SHARE}/completion.zsh"
 
+# Nix needs this under zsh on Mac it appears
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    unset __ETC_PROFILE_NIX_SOURCED
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+
 # Overrides
 # Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
 # in ~/.localrc such as changes to PATH/zstyle etc
