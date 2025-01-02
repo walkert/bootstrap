@@ -209,6 +209,9 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 # End Nix
 
+# Initialize atuin
+eval "$(atuin init zsh --disable-up-arrow)"
+
 # Overrides
 # Source ~/.overrides.shell if it exits. This file should contain anything that can't be applied
 # in ~/.localrc such as changes to PATH/zstyle etc

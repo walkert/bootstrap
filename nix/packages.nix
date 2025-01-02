@@ -1,4 +1,5 @@
 with import <nixpkgs> {}; [
+    atuin
     bat
     curl
     fontconfig
