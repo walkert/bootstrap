@@ -34,6 +34,7 @@ vim.api.nvim_create_autocmd(
     'FileType',
     {
         callback = function()
+            nmap("o", "<CR>", "Select an entry from the list")
             nmap("<CR>", "<CR>:cclose<CR>:lclose<CR>", "Select an entry and then close the qf window")
             nmap("q", ":cclose<CR>:lclose<CR>", "Close the qf window")
         end,

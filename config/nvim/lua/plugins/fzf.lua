@@ -17,6 +17,14 @@ return {
                     cmd = "git ls-files -c -o --exclude-standard"
                 }
             },
+            grep = {
+                actions = {
+                    ['ctrl-q'] = {
+                        fn = actions.file_edit_or_qf,
+                        prefix = 'select-all+'
+                    },
+                },
+            },
         }
     end,
     keys = {
