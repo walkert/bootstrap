@@ -40,7 +40,7 @@ target-version = "py310"
 [tool.ruff.lint]
 # Enable all rules and then ignore ones we don't care about
 select = ["ALL"]
-ignore = ["ANN", "BLE", "CPY", "C90", "D", "DOC", "ERA", "FIX", "S", "T", "TD"]
+ignore = ["ANN", "BLE", "COM", "CPY", "C90", "D", "DOC", "ERA", "FBT", "FIX", "LOG", "PLR09", "PT", "S", "SLF", "T", "TD"]
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
 fixable = ["ALL"]
