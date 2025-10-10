@@ -544,6 +544,35 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Switch to previous Chrome tab",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.google\\.Chrome$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_option"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "a",
+                                        "hold_down_milliseconds": 200,
+                                        "modifiers": ["left_command", "shift"]
+                                    },
+                                    {
+                                        "key_code": "return_or_enter"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
