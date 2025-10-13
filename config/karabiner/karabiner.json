@@ -42,17 +42,6 @@
                         ]
                     },
                     {
-                        "manipulators": [
-                            {
-                                "description": "Use backslash to hyper-key",
-                                "from": { "key_code": "backslash" },
-                                "to": [{ "key_code": "f19" }],
-                                "to_if_alone": [{ "key_code": "backslash" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Switch option/alt/command for external keyboard",
                         "manipulators": [
                             {
@@ -560,6 +549,111 @@
                                     },
                                     {
                                         "key_code": "return_or_enter"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Tab as Hyper Key (held) or Tab (alone)",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "tab"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option",
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "tab"
+                                    }
+                                ]
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "layer",
+                                        "type": "variable_unless",
+                                        "value": ""
+                                    }
+                                ],
+                                "description": "Reset layer with Escape",
+                                "from": { "key_code": "escape" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "layer",
+                                            "value": ""
+                                        }
+                                    },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "karabiner",
+                                            "text": ""
+                                        }
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "escape"}],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "A - Applications",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "a",
+                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_control", "left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "layer",
+                                            "value": "applications"
+                                        }
+                                    },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "karabiner",
+                                            "text": "Applications\n\nA - Alacritty"
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "layer",
+                                        "type": "variable_if",
+                                        "value": "applications"
+                                    }
+                                ],
+                                "description": "Alacritty",
+                                "from": { "key_code": "a" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "layer",
+                                            "value": "ready"
+                                        }
+                                    },
+                                    { "shell_command": "open -a Alacritty.app" },
+                                    {
+                                        "set_notification_message": { "id": "karabiner",
+                                            "text": ""
+                                        }
                                     }
                                 ],
                                 "type": "basic"
