@@ -26,9 +26,6 @@ export TERM=screen-256color
 export GOROOT=~/Binaries/go
 export GOPATH=~/Go
 
-# Update PATH to include bin locations
-export PATH=${LOCAL_BIN}:${GOROOT}/bin:$PATH
-
 # Configure aliases
 alias ipython='ipython --autocall=1'
 alias j='jobs'
