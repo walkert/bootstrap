@@ -77,8 +77,6 @@ return {
         },
     },
     config = function()
-        local nvim_lsp = require('lspconfig')
-
         -- Use a loop to conveniently call 'setup' on multiple servers and
         -- map buffer local keybindings when the language server attaches
         local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -162,7 +160,8 @@ return {
                 },
                 config
             )
-            nvim_lsp[name].setup(config)
+            vim.lsp.config(name, config)
+            vim.lsp.enable(name)
         end
     end
 }

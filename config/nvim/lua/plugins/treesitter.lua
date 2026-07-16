@@ -14,7 +14,6 @@ return {
                 },
                 indent = {
                     enable = false,
-                    disable = {},
                 },
                 ensure_installed = {
                     "go",

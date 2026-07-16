@@ -61,7 +61,7 @@ nmap(
       vim.wo.number = (vim.wo.number == false and true or false)
       vim.wo.relativenumber = (vim.wo.relativenumber == false and true or false)
       vim.wo.signcolumn = (vim.wo.signcolumn == "no" and "number" or "no")
-      vim.wo.statuscolumn = (vim.wo.statuscolumn == "" and "%!v:lua.StatusCol()" or "")
+      vim.wo.statuscolumn = (vim.wo.statuscolumn == "" and "%{%v:lua.require('statuscol').get_statuscol_string()%}" or "")
       require("ibl").setup_buffer(0, {
         enabled = not require("ibl.config").get_config(0).enabled,
       })

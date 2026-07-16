@@ -3,7 +3,9 @@ local map = function(mode, lhs, rhs, desc, opts)
   local local_opts = {noremap = true, silent = true}
   desc = desc or ""
   opts = opts or {}
-  vim.tbl_deep_extend('force', local_opts, opts)
+  for k, v in pairs(opts) do
+      local_opts[k] = v
+  end
   vim.keymap.set(mode, lhs, rhs, local_opts)
 end
 

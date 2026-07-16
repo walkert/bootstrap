@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd(
     'FileType',
     {
         callback = function()
-            nmap("o", "<CR>", "Select an entry from the list")
+            nmap("o", "<CR>", "Select an entry from the list", { buffer = true })
             nmap("<CR>", "<CR>:cclose<CR>:lclose<CR>", "Select an entry and then close the qf window")
             nmap("q", ":cclose<CR>:lclose<CR>", "Close the qf window")
         end,
@@ -53,6 +53,7 @@ vim.api.nvim_create_autocmd(
         pattern = "*"
     }
 )
+
 -- Set comment strings for terraform and hcl files
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("SetTFCommentString", { clear = true }),
