@@ -538,18 +538,14 @@
                                         "type": "frontmost_application_if"
                                     }
                                 ],
-                                "from": {
-                                    "key_code": "right_option"
-                                },
+                                "from": { "key_code": "right_option" },
                                 "to": [
                                     {
-                                        "key_code": "a",
                                         "hold_down_milliseconds": 200,
+                                        "key_code": "a",
                                         "modifiers": ["left_command", "shift"]
                                     },
-                                    {
-                                        "key_code": "return_or_enter"
-                                    }
+                                    { "key_code": "return_or_enter" }
                                 ],
                                 "type": "basic"
                             }
@@ -559,25 +555,15 @@
                         "description": "Tab as Hyper Key (held) or Tab (alone)",
                         "manipulators": [
                             {
-                                "type": "basic",
-                                "from": {
-                                    "key_code": "tab"
-                                },
+                                "from": { "key_code": "tab" },
                                 "to": [
                                     {
                                         "key_code": "left_shift",
-                                        "modifiers": [
-                                            "left_control",
-                                            "left_option",
-                                            "left_command"
-                                        ]
+                                        "modifiers": ["left_option", "left_command"]
                                     }
                                 ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "tab"
-                                    }
-                                ]
+                                "to_if_alone": [{ "key_code": "tab" }],
+                                "type": "basic"
                             },
                             {
                                 "conditions": [
@@ -603,7 +589,7 @@
                                         }
                                     }
                                 ],
-                                "to_if_alone": [{ "key_code": "escape"}],
+                                "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
                         ]
@@ -614,7 +600,7 @@
                             {
                                 "from": {
                                     "key_code": "a",
-                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_control", "left_option"] }
+                                    "modifiers": { "mandatory": ["left_shift", "left_command", "left_option"] }
                                 },
                                 "to": [
                                     {
@@ -626,7 +612,7 @@
                                     {
                                         "set_notification_message": {
                                             "id": "karabiner",
-                                            "text": "Applications\n\nA - Alacritty"
+                                            "text": "Applications\n\nA - Alacritty\nC - Chrome\nN - Notes\nR - Reminders\nS - Slack"
                                         }
                                     }
                                 ],
@@ -651,7 +637,116 @@
                                     },
                                     { "shell_command": "open -a Alacritty.app" },
                                     {
-                                        "set_notification_message": { "id": "karabiner",
+                                        "set_notification_message": {
+                                            "id": "karabiner",
+                                            "text": ""
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "layer",
+                                        "type": "variable_if",
+                                        "value": "applications"
+                                    }
+                                ],
+                                "description": "Chrome",
+                                "from": { "key_code": "c" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "layer",
+                                            "value": "ready"
+                                        }
+                                    },
+                                    { "shell_command": "open -a 'Google Chrome.app'" },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "karabiner",
+                                            "text": ""
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "layer",
+                                        "type": "variable_if",
+                                        "value": "applications"
+                                    }
+                                ],
+                                "description": "Notes",
+                                "from": { "key_code": "n" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "layer",
+                                            "value": "ready"
+                                        }
+                                    },
+                                    { "shell_command": "open -a Notes.app" },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "karabiner",
+                                            "text": ""
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "layer",
+                                        "type": "variable_if",
+                                        "value": "applications"
+                                    }
+                                ],
+                                "description": "Reminders",
+                                "from": { "key_code": "r" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "layer",
+                                            "value": "ready"
+                                        }
+                                    },
+                                    { "shell_command": "open -a Reminders.app" },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "karabiner",
+                                            "text": ""
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "layer",
+                                        "type": "variable_if",
+                                        "value": "applications"
+                                    }
+                                ],
+                                "description": "Slack",
+                                "from": { "key_code": "s" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "layer",
+                                            "value": "ready"
+                                        }
+                                    },
+                                    { "shell_command": "open -a Slack.app" },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "karabiner",
                                             "text": ""
                                         }
                                     }
