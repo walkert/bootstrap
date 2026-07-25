@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Get the current session name
+current_session=$(tmux display-message -p '#S')
+# Switch to the last session
+tmux switch-client -l
+# Kill the current session
+tmux kill-session -t "${current_session}"
