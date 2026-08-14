@@ -6,10 +6,12 @@ return {
             current_line_blame_opts = {
                 delay = 500,
             },
-            signs = {
-                add = {hl = 'GitSignsAdd' , numhl='DiffAdd' , linehl='DiffAdd'},
-                change = {hl = 'GitSignsChange' , numhl='DiffChange' , linehl='DiffChange'},
-            },
+            -- NOTE: the old per-sign `hl`/`numhl`/`linehl` keys were dropped by
+            -- gitsigns; `signs.*` now only takes `text` and `show_count`, and
+            -- the highlights are the top-level `numhl` / `linehl` booleans
+            -- (which drive GitSignsAddNr / GitSignsAddLn etc.). The previous
+            -- block was silently ignored, so nothing is enabled here -- set
+            -- `numhl = true` and/or `linehl = true` to turn it on.
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
                 local opts = { buffer = bufnr }

@@ -6,11 +6,12 @@ local on_attach = function(client, bufnr)
         lua = true,
         python = true,
     }
-    -- Enable inlay hints by default
-    vim.lsp.inlay_hint.enable()
+    -- Enable inlay hints by default, for this buffer only. A bare enable()
+    -- toggles them globally, which is not what on_attach wants.
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_set_option_value("omnifunc", "v:lua.vimlsp.omnifunc", {buf=bufnr})
+    vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", {buf=bufnr})
 
     -- Mappings.
     local bufopts = { buffer=bufnr }
@@ -31,15 +32,24 @@ local on_attach = function(client, bufnr)
     nmap('<space>f', function() vim.lsp.buf.format { async = true } end, "[F]ormat", bufopts)
     nmap('<space>o', "<cmd>Lspsaga outline<CR>", "[O]utline", bufopts)
     nmap('<space>t', "<cmd>Lspsaga term_toggle<CR>", "[T]erminal", bufopts)
-    nmap('<space>i', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "Toggle inlay hints", bufopts)
+    nmap('<space>i', function()
+        local filter = { bufnr = 0 }
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
+    end, "Toggle inlay hints", bufopts)
 
-    -- Autocmd to format on write (unless skipped)
+    -- Autocmd to format on write (unless skipped). Scoped to this buffer and
+    -- cleared per-buffer: with `pattern = "*"` and no group, every LSP attach
+    -- stacked another global handler, so a file would be formatted once per
+    -- attached client per session.
     vim.api.nvim_create_autocmd(
         "BufWritePre",
         {
-            pattern = "*",
+            buffer = bufnr,
+            group = vim.api.nvim_create_augroup(
+                "LspFormatOnWrite_" .. bufnr, { clear = true }
+            ),
             callback = function()
-                if skip_auto_formatting[vim.bo.filetype] ~= nil then
+                if skip_auto_formatting[vim.bo.filetype] then
                     return
                 end
                 vim.lsp.buf.format()
