@@ -1,8 +1,16 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        -- Pinned to the archived `master` branch. The `main` branch is a full,
+        -- incompatible rewrite: no `nvim-treesitter.configs`, highlighting moves
+        -- to `vim.treesitter.start()`, `ensure_installed` becomes an async
+        -- `install()`, and `incremental_selection` is removed outright. Migrate
+        -- deliberately, not as a side effect of `:Lazy update`.
+        branch = "master",
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
+            -- Also pinned: textobjects has its own `main` rewrite and must move
+            -- in lockstep with nvim-treesitter, not ahead of it.
+            { "nvim-treesitter/nvim-treesitter-textobjects", branch = "master" },
             "nvim-treesitter/nvim-treesitter-context",
         },
         build = ":TSUpdate",
