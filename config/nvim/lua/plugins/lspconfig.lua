@@ -60,15 +60,22 @@ end
 
 return {
     "neovim/nvim-lspconfig",
+    -- The whole LSP stack was the single largest eager cost at startup (~36ms
+    -- for lspconfig alone, before its three dependencies). Server startup is
+    -- asynchronous anyway, so nothing is gained by blocking the first paint on
+    -- it -- diagnostics arrive whenever the server is ready either way.
+    event = "VeryLazy",
     dependencies = {
-        -- Display function signatures
-        { "ray-x/lsp_signature.nvim", opts = {} },
+        -- Display function signatures. Only meaningful once a client is
+        -- attached, so let the attach pull it in.
+        { "ray-x/lsp_signature.nvim", event = "LspAttach", opts = {} },
         -- Show LSP status on open
-        { "j-hui/fidget.nvim", opts = {} },
+        { "j-hui/fidget.nvim", event = "LspAttach", opts = {} },
         -- Enhanced LSP tools
         {
             "glepnir/lspsaga.nvim",
             branch = "main",
+            event = "LspAttach",
             opts = {
                 symbol_in_winbar = {
                     enable = false,

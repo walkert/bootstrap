@@ -1,5 +1,10 @@
 return {
     "lewis6991/gitsigns.nvim",
+    -- Deferred: gitsigns attaches per-buffer on its own and re-scans buffers
+    -- that are already open, so loading after the first paint loses nothing.
+    -- It also shells out to `git --version` on load (~29ms measured), which is
+    -- pure latency in a non-repo directory like ~/bin.
+    event = "VeryLazy",
     config = function()
         local nmap = require('config/utils').nmap
         require('gitsigns').setup {

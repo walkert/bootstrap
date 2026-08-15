@@ -2,6 +2,8 @@ return {
     "akinsho/bufferline.nvim",
     dependencies = {"nvim-tree/nvim-web-devicons"},
     version = "*",
+    -- Pure chrome: nothing here needs to run before the first paint.
+    event = "VeryLazy",
     config = function()
         local nmap = require('config/utils').nmap
         require('bufferline').setup {

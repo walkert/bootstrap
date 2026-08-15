@@ -11,7 +11,10 @@ return {
             -- Also pinned: textobjects has its own `main` rewrite and must move
             -- in lockstep with nvim-treesitter, not ahead of it.
             { "nvim-treesitter/nvim-treesitter-textobjects", branch = "master" },
-            "nvim-treesitter/nvim-treesitter-context",
+            -- Context is a floating header, not part of the buffer render, so
+            -- it can wait for the first paint. nvim-treesitter itself stays
+            -- eager: highlighting *is* the first paint.
+            { "nvim-treesitter/nvim-treesitter-context", event = "VeryLazy" },
         },
         build = ":TSUpdate",
         config = function()
