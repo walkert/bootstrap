@@ -56,6 +56,54 @@ return {
                 return from_nodes(buf, as_node(start_node), as_node(end_node))
             end
 
+            -- Same 0.10 node-list breakage again, but in the plugin's *query
+            -- directives*. Each of these does `local node = match[capture_id]`
+            -- and hands the result to get_node_text(), which calls
+            -- `node:range()` -- so a list throws "attempt to call method
+            -- 'range' (a nil value)" on every parse of an affected language.
+            --
+            -- This is not one language's problem: `#downcase!` alone is used
+            -- by the hcl/terraform, html and vue injections (terraform gets it
+            -- via `; inherits: hcl`, so opening any .tf file with a heredoc
+            -- crashes the highlighter). Rather than shim per-language the way
+            -- the markdown case below has to, re-register the directives with
+            -- the match normalised -- one wrapper, every caller fixed.
+            --
+            -- Neovim keeps its directive table file-local and offers no getter,
+            -- and query_predicates.lua returns nothing -- it registers its
+            -- handlers as anonymous functions at require time. So the only
+            -- place to reach them is in flight: wrap add_directive, let the
+            -- module register as usual, and normalise the match on the way
+            -- into each affected handler.
+            -- Remove this once the `main` migration lands.
+            local tsq = vim.treesitter.query
+            local broken = {
+                ["downcase!"] = true,
+                ["set-lang-from-info-string!"] = true,
+                ["set-lang-from-mimetype!"] = true,
+                ["gsub!"] = true,
+            }
+            local add_directive = tsq.add_directive
+            tsq.add_directive = function(name, handler, opts)
+                if broken[name] then
+                    local inner = handler
+                    handler = function(match, ...)
+                        local normalised = {}
+                        for id, value in pairs(match) do
+                            normalised[id] = as_node(value)
+                        end
+                        return inner(normalised, ...)
+                    end
+                end
+                return add_directive(name, handler, opts)
+            end
+
+            -- Force the registrations to happen now, under the wrapper, then
+            -- put the original function back so nothing else is affected.
+            package.loaded["nvim-treesitter.query_predicates"] = nil
+            require "nvim-treesitter.query_predicates"
+            tsq.add_directive = add_directive
+
             -- The archived `master` branch ships a markdown injections query
             -- using `#set-lang-from-info-string!`. That directive indexes
             -- `match[capture_id]` as a bare TSNode, but since nvim 0.10 match
