@@ -1,7 +1,6 @@
 -- Create a function to set keymaps with sane defaults
 local map = function(mode, lhs, rhs, desc, opts)
-  local local_opts = {noremap = true, silent = true}
-  desc = desc or ""
+  local local_opts = {noremap = true, silent = true, desc = desc or ""}
   opts = opts or {}
   for k, v in pairs(opts) do
       local_opts[k] = v

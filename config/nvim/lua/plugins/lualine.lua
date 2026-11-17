@@ -1,6 +1,8 @@
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = {"nvim-tree/nvim-web-devicons"},
+    -- Pure chrome: nothing here needs to run before the first paint.
+    event = "VeryLazy",
     config = function()
         require('lualine').setup {
             options = {
